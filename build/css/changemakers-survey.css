@@ -1,0 +1,94 @@
+/**
+ * ChangeMakers Survey 2025 Template Styles
+ *
+ * Custom styles for the ChangeMakers 2025 survey/feedback page
+ * Inherits hero styles from changemakers-2025.css
+ *
+ * @package g2o
+ */
+
+/* ========================================
+   SURVEY FORM SECTION
+   ======================================== */
+
+.changemakers-survey-form {
+	background-color: #F7F7F7;
+	padding: 60px 20px;
+	min-height: 600px;
+}
+
+.changemakers-survey-form__container {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.changemakers-survey-form__embed {
+	background-color: #ffffff;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Make iframe responsive and remove internal scrolling */
+.changemakers-survey-form__embed iframe {
+	width: 100% !important;
+	height: 1122px;
+	border: none;
+	display: block;
+	overflow: hidden;
+}
+
+/* Placeholder state when no form is configured */
+.changemakers-survey-form__placeholder {
+	background-color: #ffffff;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	padding: 60px 40px;
+	text-align: center;
+}
+
+.changemakers-survey-form__placeholder p {
+	font-family: 'Work Sans', sans-serif;
+	font-size: 18px;
+	color: #666;
+	margin: 0;
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS
+   ======================================== */
+
+/* Tablet - 768px and up */
+@media (min-width: 768px) {
+	.changemakers-survey-form {
+		padding: 80px 40px;
+	}
+
+	.changemakers-survey-form__embed {
+		padding: 30px;
+	}
+
+	.changemakers-survey-form__embed iframe {
+		height: 1200px;
+	}
+}
+
+/* Desktop - 1024px and up */
+@media (min-width: 1024px) {
+	.changemakers-survey-form {
+		padding: 100px 60px;
+	}
+
+	.changemakers-survey-form__embed iframe {
+		height: 1350px;
+	}
+}
+
+/* Large Desktop - 1440px and up */
+@media (min-width: 1440px) {
+	.changemakers-survey-form {
+		padding: 120px 80px;
+	}
+}

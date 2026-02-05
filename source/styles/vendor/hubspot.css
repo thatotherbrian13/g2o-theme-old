@@ -1,0 +1,7 @@
+.hbspt-form {
+
+	label {
+		@apply font-sans font-normal text-base text-river !important;
+	}
+
+}

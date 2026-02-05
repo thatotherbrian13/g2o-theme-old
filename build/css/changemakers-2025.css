@@ -1,0 +1,867 @@
+/**
+ * ChangeMakers 2025 Conference Template Styles
+ *
+ * Custom styles for the ChangeMakers 2025 conference page
+ * Integrates with G2O brand colors and typography
+ */
+
+/* ========================================
+   TYPOGRAPHY - Lust Script Display & Work Sans
+   ======================================== */
+
+.changemakers-page {
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 300;
+}
+
+.changemakers-headline,
+.changemakers-speaker-name {
+	font-family: 'lust-script-display', 'Lust Script Display', cursive;
+	font-weight: 400;
+	font-style: normal;
+}
+
+/* ========================================
+   HERO SECTION - Video Background
+   ======================================== */
+
+.changemakers-hero {
+	position: relative;
+	width: 100%;
+	min-height: 500px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	background-color: #234253;
+}
+
+.changemakers-hero__video {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	object-fit: cover;
+	/* Hardware acceleration for mobile */
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+}
+
+.changemakers-hero__overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: transparent;
+	z-index: 2;
+}
+
+.changemakers-hero__content {
+	position: relative;
+	z-index: 3;
+	color: white;
+	text-align: center;
+	padding: 120px 20px 60px 20px;
+}
+
+.changemakers-hero__headline {
+	font-size: 72px;
+	line-height: 1.1;
+	margin: 0;
+	color: white;
+}
+
+.changemakers-hero__headline .number-three {
+	font-size: 120px;
+	display: inline-block;
+	color: #72d1f6;
+	margin-right: 20px;
+	font-family: 'lust-script-display', 'Lust Script Display', cursive;
+}
+
+.changemakers-hero__logo {
+	margin: 0 auto;
+	padding: 0 20px;
+	text-align: center;
+}
+
+.changemakers-hero .changemakers-hero__logo svg {
+	width: var(--logo-width, 800px);
+	height: auto;
+	max-width: 90vw;
+	filter: drop-shadow(0 4px 12px rgba(0, 0, 0, var(--shadow-opacity, 0.3)));
+}
+
+/* Hero SVG - all white except accent colors */
+.changemakers-hero__logo svg .cls-1 {
+	fill: #ffffff;
+}
+
+.changemakers-hero__logo svg .cls-2 {
+	fill: #ffffff;
+}
+
+.changemakers-hero__logo svg .cls-3 {
+	fill: #ef4355;
+}
+
+.changemakers-hero__logo svg .cls-4 {
+	fill: #5acbf1;
+}
+
+.changemakers-hero__logo svg .cls-5 {
+	fill: #f05158;
+}
+
+/* Speakers Section Header SVG - navy and coral */
+.changemakers-speakers__header-logo svg .cls-1 {
+	fill: #234253;
+}
+
+.changemakers-speakers__header-logo svg .cls-2 {
+	fill: #ef5158;
+}
+
+/* ========================================
+   CONTENT WRAPPER
+   ======================================== */
+
+.changemakers-content-wrapper {
+	display: block;
+	background-color: #ffffff;
+}
+
+/* ========================================
+   THANK YOU SECTION
+   ======================================== */
+
+.changemakers-thankyou {
+	background-color: #234253;
+	color: white;
+	padding: 60px 40px;
+	text-align: center;
+}
+
+.changemakers-thankyou__headline {
+	font-size: 64px;
+	line-height: 1.2;
+	margin: 0 0 30px 0;
+	color: #ff5f5d;
+	font-family: 'lust-script-display', 'Lust Script Display', cursive;
+}
+
+.changemakers-thankyou__content {
+	font-size: 16px;
+	line-height: 1.6;
+	color: white;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 300;
+	max-width: 650px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.changemakers-thankyou__content p {
+	margin-bottom: 20px;
+}
+
+.changemakers-thankyou__content p:last-child {
+	margin-bottom: 0;
+}
+
+/* ========================================
+   SPEAKERS SECTION
+   ======================================== */
+
+.changemakers-speakers {
+	background-color: #F7F7F7;
+	padding: 60px 40px;
+}
+
+.changemakers-speakers__header-logo {
+	max-width: 400px;
+	margin: 0 auto 30px;
+	text-align: center;
+}
+
+.changemakers-speakers__header-logo svg {
+	width: 100%;
+	height: auto;
+	max-height: 150px;
+}
+
+.changemakers-speakers__label {
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 600;
+	font-size: 14px;
+	letter-spacing: 0.1em;
+	color: #234253;
+	text-transform: uppercase;
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+.changemakers-speakers__grid {
+	display: grid !important;
+	grid-template-columns: 1fr !important;
+	gap: 30px !important;
+	max-width: 1400px !important;
+	margin: 0 auto !important;
+}
+
+/* 3 columns on tablet and up */
+@media (min-width: 768px) {
+	.changemakers-speakers__grid {
+		grid-template-columns: repeat(3, 1fr) !important;
+		gap: 30px !important;
+	}
+}
+
+/* Stack photo/logo earlier to prevent tiny logos */
+@media (min-width: 768px) and (max-width: 1099px) {
+	.changemakers-speaker-card__header {
+		flex-direction: column;
+		align-items: center;
+		gap: 15px;
+	}
+
+	.changemakers-speaker-card__photo-wrapper {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+
+	.changemakers-speaker-card__logo {
+		width: 100%;
+		max-width: 100px;
+	}
+
+	/* Allow large logos to be bigger in tablet view */
+	.changemakers-speaker-card__logo--large {
+		max-width: 150px;
+	}
+
+	/* Smaller buttons to prevent text wrapping */
+	.changemakers-download-btn {
+		font-size: 13px;
+		padding: 10px 16px;
+	}
+}
+
+.changemakers-speaker-card {
+	background-color: white;
+	padding: 40px;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+}
+
+.changemakers-speaker-card__header {
+	display: flex;
+	gap: 20px;
+	align-items: flex-start;
+	margin-bottom: 20px;
+}
+
+.changemakers-speaker-card__photo-wrapper {
+	flex-shrink: 0;
+}
+
+.changemakers-speaker-card__photo {
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+	background-color: #e0e0e0;
+	display: block;
+	border-radius: 4px;
+}
+
+.changemakers-speaker-card__photo--placeholder {
+	width: 150px;
+	height: 150px;
+	background-color: #e0e0e0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #999;
+	font-size: 14px;
+	font-family: 'Work Sans', sans-serif;
+	border-radius: 4px;
+}
+
+.changemakers-speaker-card__name {
+	font-size: 32px;
+	line-height: 1.2;
+	margin: 0 0 10px 0;
+	font-family: 'lust-script-display', 'Lust Script Display', cursive;
+}
+
+.changemakers-speaker-card__name .first-name {
+	color: #72d1f6;
+}
+
+.changemakers-speaker-card__name .last-name {
+	color: #234253;
+}
+
+.changemakers-speaker-card__title {
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 600;
+	font-size: 12px;
+	line-height: 1.3;
+	letter-spacing: 0.08em;
+	color: #234253;
+	text-transform: uppercase;
+	margin-bottom: 20px;
+	text-wrap: balance;
+	/* Fallback for older browsers */
+	-webkit-hyphens: auto;
+	hyphens: auto;
+}
+
+.changemakers-speaker-card__logo {
+	max-width: 120px;
+	height: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 80px;
+}
+
+.changemakers-speaker-card__logo img,
+.changemakers-speaker-card__logo svg {
+	width: 100%;
+	height: auto;
+	max-height: 80px;
+	object-fit: contain;
+}
+
+/* Large logo size for wide/short logos */
+.changemakers-speaker-card__logo--large {
+	max-width: 180px;
+}
+
+.changemakers-speaker-card__logo--large img,
+.changemakers-speaker-card__logo--large svg {
+	max-height: 120px;
+}
+
+.changemakers-speaker-card__bio {
+	font-size: 14px;
+	line-height: 1.6;
+	color: #234253;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 300;
+	margin-bottom: 20px;
+}
+
+.changemakers-speaker-card__bio p {
+	margin-bottom: 15px;
+}
+
+.changemakers-speaker-card__bio p:last-child {
+	margin-bottom: 0;
+}
+
+.changemakers-speaker-card__buttons {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-top: auto;
+}
+
+.changemakers-download-btn {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 10px;
+	padding: 12px 20px;
+	background-color: #234253;
+	color: #ffffff;
+	border: none;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 1.2;
+	text-decoration: none;
+	border-radius: 8px;
+	transition: all 0.3s ease;
+	width: 100%;
+}
+
+.changemakers-download-btn:hover {
+	background-color: #72d1f6;
+	color: #234253;
+	transform: translateY(-2px);
+}
+
+/* Disabled state for coming soon buttons */
+.changemakers-download-btn--disabled {
+	background-color: #8a9ca7;
+	color: #d4dce0;
+	cursor: not-allowed;
+	opacity: 0.6;
+}
+
+.changemakers-download-btn--disabled:hover {
+	background-color: #8a9ca7;
+	color: #d4dce0;
+	transform: none;
+}
+
+.changemakers-download-btn svg {
+	width: 18px;
+	height: 18px;
+	fill: currentColor;
+	flex-shrink: 0;
+}
+
+
+/* ========================================
+   SURVEY SECTION
+   ======================================== */
+
+.changemakers-survey {
+	background-color: #234253;
+	color: white;
+	padding: 60px 40px;
+	text-align: center;
+}
+
+.changemakers-survey__headline {
+	font-size: 64px;
+	line-height: 1.2;
+	margin: 0 0 30px 0;
+	color: white;
+	font-family: 'lust-script-display', 'Lust Script Display', cursive;
+}
+
+.changemakers-survey__content {
+	font-size: 16px;
+	line-height: 1.6;
+	color: white;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 300;
+	max-width: 600px;
+	margin: 0 auto 40px;
+	text-align: center;
+}
+
+.changemakers-survey__content p {
+	margin-bottom: 20px;
+}
+
+.changemakers-survey__content p:last-child {
+	margin-bottom: 0;
+}
+
+.changemakers-survey__button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	padding: 12px 40px;
+	background-color: #72d1f6;
+	color: #234253;
+	border: none;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 600;
+	font-size: 14px;
+	text-decoration: none;
+	border-radius: 8px;
+	transition: all 0.3s ease;
+}
+
+.changemakers-survey__button:hover {
+	background-color: white;
+	color: #234253;
+	transform: translateY(-2px);
+}
+
+.changemakers-survey__button svg {
+	width: 18px;
+	height: 18px;
+	fill: currentColor;
+}
+
+/* ========================================
+   VIDEO STRIP SEPARATOR
+   ======================================== */
+
+.changemakers-video-strip {
+	position: relative;
+	width: 100%;
+	height: 150px;
+	overflow: hidden;
+	background-color: #234253;
+}
+
+.changemakers-video-strip__video {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS
+   ======================================== */
+
+/* Tablet - 768px and up */
+@media (min-width: 768px) {
+	.changemakers-hero {
+		min-height: 600px;
+	}
+
+	.changemakers-hero__headline {
+		font-size: 96px;
+	}
+
+	.changemakers-hero__headline .number-three {
+		font-size: 160px;
+	}
+
+	.changemakers-thankyou {
+		padding: 60px 60px;
+	}
+
+	.changemakers-speakers {
+		padding: 80px 60px;
+	}
+}
+
+/* Desktop - 1024px and up */
+@media (min-width: 1024px) {
+	.changemakers-hero {
+		min-height: 650px;
+	}
+
+	.changemakers-hero__headline {
+		font-size: 120px;
+	}
+
+	.changemakers-hero__headline .number-three {
+		font-size: 200px;
+	}
+}
+
+/* Desktop - 1100px+ restore side-by-side layout */
+@media (min-width: 1100px) {
+	.changemakers-speaker-card__header {
+		flex-direction: row;
+		align-items: flex-start;
+		gap: 20px;
+	}
+
+	.changemakers-speaker-card__photo-wrapper {
+		width: auto;
+		display: block;
+	}
+
+	.changemakers-speaker-card__logo {
+		max-width: 120px;
+	}
+
+	/* Allow large logos on desktop */
+	.changemakers-speaker-card__logo--large {
+		max-width: 180px;
+	}
+
+	/* Restore full button size on desktop */
+	.changemakers-download-btn {
+		font-size: 14px;
+		padding: 12px 20px;
+	}
+}
+
+/* Large Desktop - 1440px and up */
+@media (min-width: 1440px) {
+	.changemakers-thankyou {
+		padding: 70px 80px;
+	}
+
+	.changemakers-speakers {
+		padding: 100px 80px;
+	}
+
+	.changemakers-survey {
+		padding: 80px 40px;
+	}
+}
+
+/* Mobile - fine-tune small screens */
+@media (max-width: 767px) {
+	.changemakers-hero__headline {
+		font-size: 48px;
+	}
+
+	.changemakers-hero__headline .number-three {
+		font-size: 80px;
+		display: block;
+		margin-right: 0;
+		margin-bottom: 10px;
+	}
+
+	.changemakers-hero__logo {
+		padding: 0 10px;
+	}
+
+	.changemakers-thankyou__headline {
+		font-size: 48px;
+	}
+
+	.changemakers-survey__headline {
+		font-size: 48px;
+	}
+
+	.changemakers-speaker-card__name {
+		font-size: 28px;
+	}
+
+	/* Mobile video optimizations */
+	.changemakers-hero__video,
+	.changemakers-video-strip__video {
+		/* Ensure video displays on mobile */
+		display: block;
+		width: 100% !important;
+		height: 100% !important;
+		/* iOS-specific fixes */
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+		will-change: transform;
+	}
+
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.changemakers-page .no-margin {
+	margin: 0;
+}
+
+.changemakers-page .no-padding {
+	padding: 0;
+}
+
+/* Ensure main content area has no conflicting styles */
+.changemakers-page #main {
+	padding: 0;
+	margin: 0;
+}
+
+/* ========================================
+   MODAL DISCLAIMER
+   ======================================== */
+
+/* Modal Overlay - Full Screen */
+.cm-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(35, 66, 83, 0.95);
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Show modal when visible */
+.cm-modal-overlay[aria-hidden="false"] {
+	opacity: 1;
+	visibility: visible;
+}
+
+/* Modal Container */
+.cm-modal {
+	background-color: #ffffff;
+	border-radius: 12px;
+	max-width: 600px;
+	width: 100%;
+	max-height: 90vh;
+	overflow-y: auto;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+	transform: scale(0.9);
+	transition: transform 0.3s ease;
+}
+
+.cm-modal-overlay[aria-hidden="false"] .cm-modal {
+	transform: scale(1);
+}
+
+/* Modal Header */
+.cm-modal__header {
+	padding: 40px 30px 30px;
+	border-bottom: 2px solid #f0f0f0;
+	text-align: center;
+}
+
+.cm-modal__title {
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 600;
+	font-size: 28px;
+	line-height: 1.2;
+	color: #ff5f5d;
+	margin: 0 0 10px 0;
+}
+
+.cm-modal__subtitle {
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 1.3;
+	color: #234253;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	margin: 0;
+}
+
+/* Modal Body */
+.cm-modal__body {
+	padding: 30px;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 1.6;
+	color: #234253;
+}
+
+.cm-modal__body p {
+	margin-bottom: 16px;
+}
+
+.cm-modal__body p:last-child {
+	margin-bottom: 0;
+}
+
+/* Modal Footer */
+.cm-modal__footer {
+	padding: 20px 30px 30px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: stretch;
+}
+
+/* Checkbox Wrapper */
+.cm-modal__checkbox-wrapper {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	cursor: pointer;
+	padding: 12px;
+	border-radius: 8px;
+	transition: background-color 0.2s ease;
+}
+
+.cm-modal__checkbox-wrapper:hover {
+	background-color: #f7f7f7;
+}
+
+/* Custom Checkbox Styling */
+.cm-modal__checkbox {
+	flex-shrink: 0;
+	width: 22px;
+	height: 22px;
+	margin: 2px 0 0 0;
+	cursor: pointer;
+	accent-color: #72d1f6;
+}
+
+.cm-modal__checkbox-label {
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 1.5;
+	color: #234253;
+	cursor: pointer;
+	user-select: none;
+}
+
+/* Modal Button */
+.cm-modal__button {
+	width: 100%;
+	padding: 16px 32px;
+	background-color: #234253;
+	color: #ffffff;
+	border: none;
+	border-radius: 8px;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 600;
+	font-size: 16px;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.cm-modal__button:hover:not(:disabled) {
+	background-color: #72d1f6;
+	color: #234253;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(114, 209, 246, 0.3);
+}
+
+.cm-modal__button:disabled {
+	background-color: #8a9ca7;
+	color: #d4dce0;
+	cursor: not-allowed;
+	opacity: 0.6;
+}
+
+.cm-modal__button:focus-visible {
+	outline: 3px solid #72d1f6;
+	outline-offset: 2px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 767px) {
+	.cm-modal-overlay {
+		padding: 15px;
+	}
+
+	.cm-modal {
+		max-height: 95vh;
+	}
+
+	.cm-modal__header {
+		padding: 30px 20px 20px;
+	}
+
+	.cm-modal__title {
+		font-size: 22px;
+	}
+
+	.cm-modal__subtitle {
+		font-size: 12px;
+	}
+
+	.cm-modal__body {
+		padding: 20px;
+		font-size: 15px;
+	}
+
+	.cm-modal__footer {
+		padding: 15px 20px 20px;
+	}
+
+	.cm-modal__button {
+		padding: 14px 28px;
+		font-size: 15px;
+	}
+}

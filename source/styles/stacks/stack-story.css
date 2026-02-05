@@ -1,0 +1,32 @@
+/*
+.stack-story {
+}
+*/
+
+.story-image {
+	position: relative;
+}
+.story-image img {
+	clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+.story-image::before {
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m0 0 600 600v-600z' fill='%23ff5f5d'/%3E%3C/svg%3E");
+	background-position: center center;
+	background-repeat: no-repeat no-repeat;
+	background-size: cover;
+	bottom: -15%;
+	content: '';
+	height: 50%;
+	left: 70%;
+	position: absolute;
+	transform: translateX(-70%);
+	width: 50%;
+	z-index: 10;
+}
+.story-images {
+	@apply flex flex-wrap justify-between relative;
+
+	img {
+		width: 33.33%;
+	}
+}

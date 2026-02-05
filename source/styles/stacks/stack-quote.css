@@ -1,0 +1,36 @@
+/*! purgecss start ignore */
+
+.stack-quote {
+
+	.quote__body {
+		position: relative;
+	}
+	.quote__body::before {
+		content: '\201C';
+		left: -1rem;
+		position: absolute;
+		top: 0;
+	}
+	.quote__body::after {
+		content: '\201D';
+		margin-left: 0.1em;
+		position: relative;
+	}
+
+}
+
+
+.stack-quote.stack-quote-boxed {
+	.quote__boxed {
+		box-shadow: -28px 24px 15.5px 0px rgba(0, 0, 0, 0.25);
+	}
+	.quote__bg {
+		height: 50%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+	}
+}
+
+/*! purgecss end ignore */

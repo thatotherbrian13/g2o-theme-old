@@ -1,0 +1,7 @@
+/*! purgecss start ignore */
+
+.stack {
+	@apply overflow-hidden relative;
+}
+
+/*! purgecss end ignore */

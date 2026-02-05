@@ -1,0 +1,32 @@
+/*! purgecss start ignore */
+
+.stack-slideshow {
+
+	.swiper-button-next,
+	.swiper-button-prev {
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		height: 74px;
+		top: 50% !important;
+		width: 37px;
+	}
+
+	.swiper-button-next {
+		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 37 74' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23fff'%3E%3Cpath d='m.5.6 36 36'/%3E%3Cpath d='m36.5 37.4-36 36'/%3E%3C/g%3E%3C/svg%3E");
+		right: 0px;
+	}
+	.swiper-button-prev {
+		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 37 74' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23fff'%3E%3Cpath d='m.5.6 36 36'/%3E%3Cpath d='m36.5 37.4-36 36'/%3E%3C/g%3E%3C/svg%3E");
+		left: 0px;
+		transform: rotate(180deg);
+	}
+
+	.swiper-button-prev::after,
+	.swiper-button-next::after {
+		content: "";
+	}
+
+}
+
+/*! purgecss end ignore */

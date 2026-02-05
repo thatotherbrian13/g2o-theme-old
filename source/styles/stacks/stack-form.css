@@ -1,0 +1,54 @@
+.stack-form {
+	body {
+
+	}
+}
+.stack-form--spread {
+}
+.stack-form--download {
+	.form-container {
+		background-color: #72D1F61A;
+	}
+}
+.stack-form--shadow {
+	.form-main {
+		box-shadow: 10px 10px 30px rgba(59, 108, 128, 0.1);
+	}
+}
+
+
+.form-container {
+	@apply relative;
+/* 	margin-top: 120px; */
+
+}
+.form-image {
+padding: 0;
+margin: 0;
+}
+
+
+.form-main {
+	@apply bg-white text-river p-12 relative z-100; /* shadow-xl */
+}
+
+
+
+
+
+
+
+
+/*
+.form-container::before {
+	background-image: radial-gradient(circle at 100% 0%, #ff9796, rgba(255, 151, 150, 0) 35%), radial-gradient(circle at 19% 50%, #ff9796, #ff4f55 62%);
+	content: '';
+	height: 0;
+	padding-bottom: 83.33%;
+	position: absolute;
+	right: -80px;
+	top: -80px;
+	width: 83.33%;
+	z-index: 10;
+}
+*/

@@ -1,0 +1,54 @@
+/*! purgecss start ignore */
+
+.stack-comparison {
+    /* Table container */
+    .comparison-table {
+        @apply overflow-hidden;
+    }
+
+    /* Icon styling */
+    .comparison-icon {
+        line-height: 1;
+        margin-top: 0.125em;
+    }
+
+    /* Ensure text wraps properly on mobile */
+    .comparison-cell span:not(.comparison-icon) {
+        word-break: break-word;
+    }
+
+    /* Header row styling */
+    .comparison-row--header {
+        @apply bg-black-pearl/30;
+    }
+
+    /* Alternating row backgrounds for better readability */
+    .comparison-row:nth-child(even):not(.comparison-row--header) {
+        @apply bg-white/5;
+    }
+
+    /* Hover state for data rows */
+    .comparison-row:not(.comparison-row--header):hover {
+        @apply bg-white/10;
+        transition: background-color 0.2s ease;
+    }
+}
+
+/* Responsive adjustments for very small screens */
+@media (max-width: 380px) {
+    .stack-comparison {
+        .comparison-cell {
+            @apply p-3;
+        }
+
+        .comparison-cell span:not(.comparison-icon) {
+            @apply text-xs;
+        }
+
+        .comparison-icon {
+            @apply text-base;
+        }
+    }
+}
+
+/*! purgecss end ignore */

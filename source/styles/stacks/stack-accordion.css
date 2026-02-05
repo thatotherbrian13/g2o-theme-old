@@ -1,0 +1,75 @@
+/*! purgecss start ignore */
+
+/*
+.stack-accordion {
+	.accordion-spread {
+	}
+	.accordion-spread-header {
+		@apply bg-black-stone;
+		color: #7C8C9B;
+		cursor: pointer;
+		padding-right: 50px;
+	}
+	.accordion-spread-header:hover,
+	.accordion-spread-header.active {
+		@apply bg-black-pearl;
+		@apply text-white;
+		background-image: url("data:image/svg+xml,%3Csvg fill='none' height='25' viewBox='0 0 13 25' width='13' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m.020752 0v8.77938 6.48292 8.7793l12.020848-12.0208z' fill='%23ff5f5d'/%3E%3C/svg%3E");
+		background-repeat: no-repeat no-repeat;
+		background-position: center right 40px;
+		background-size: 13px 25px;
+	}
+	.accordion-spread-body {
+		overflow: hidden;
+		height: 0;
+		transition: height 0.3s ease-in-out;
+	}
+	.accordion-spread-body.active {
+		height: auto;
+	}
+}
+
+
+.stack-accordion-simple {
+	.accordion {
+		.accordion-item {
+			.accordion-header {
+				cursor: pointer;
+				padding-right: 60px;
+				position: relative;
+			}
+			.accordion-body {
+				height: 0;
+				overflow: hidden;
+				position: relative;
+				transition: height 0.3s ease-in-out;
+			}
+			.accordion-header::after {
+				background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23fff' stroke-linejoin='bevel'%3E%3Cpath d='m12 .9v22.2'/%3E%3Cpath d='m23.1 12h-22.2'/%3E%3C/g%3E%3C/svg%3E");
+				background-position: center center;
+				background-repeat: no-repeat;
+				background-size: 24px 24px;
+				border-left: 1px solid #fff;
+				bottom: 0;
+				content: '';
+				height: 100%;
+				position: absolute;
+				right: 0;
+				top: 0;
+				width: 60px;
+			}
+		}
+		.accordion-item.active {
+			.accordion-header::after {
+				background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23fff' stroke-linejoin='bevel'%3E%3Cpath d='m19.9 4.1-15.7 15.7'/%3E%3Cpath d='m19.9 19.9-15.8-15.8'/%3E%3C/g%3E%3C/svg%3E");
+			}
+			.accordion-body {
+				height: auto;
+			}
+		}
+	}
+
+}
+*/
+
+/*! purgecss end ignore */

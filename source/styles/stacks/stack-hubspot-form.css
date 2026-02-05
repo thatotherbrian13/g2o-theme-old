@@ -1,0 +1,193 @@
+.stack-hubspot-form {
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        height: 60%;
+        z-index: 0;
+        left: 2rem;
+        right: 2rem;
+        background-color: #FFF7EF;
+    }
+
+    .hs-form-container {
+        position: relative;
+    }
+
+    .hs-custom-style {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .two-col-from-container  {
+        position: relative;
+        z-index: 100;
+        --tw-bg-opacity: 1;
+        background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+        padding: 3.5rem 3.5rem 6rem;
+        --tw-text-opacity: 1;
+        color: rgb(35 67 83 / var(--tw-text-opacity));
+        box-shadow: 10px 10px 30px rgba(59, 108, 128, .1);
+    }
+
+    .hs-input {
+        border: 0;
+        border-bottom: 1px solid #666169;
+        background-color: transparent !important;
+        box-shadow: none;
+        max-width: 400px;
+        border-radius: 0px;
+        min-height: 40px !important;
+    }
+
+    .hs-submit {
+        text-align: left;
+        justify-content: flex-start;
+        display: inline-flex;
+
+        .hs-button {
+            @apply font-bold text-river cursor-pointer;
+			width: 100%;
+			z-index: 1;
+			position: relative;
+			padding-right: 45px;
+        }
+
+        .actions {
+            position: relative;
+            padding-right: 45px;
+
+            &::before {
+                cursor: pointer;
+                display: block;
+                height: 30px;
+                overflow: hidden;
+                position: relative;
+                width: 30px;
+                margin-left: 15px;
+                min-width: 30px;
+                content: '';
+                background: rgb(35 67 83 / var(--tw-bg-opacity));
+                top: -4px;
+                position: absolute;
+                right: 0;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                right: 10px;
+                color: #fff;
+                top: 5px;
+                width: 10px;
+                height: 10px;
+                background-repeat: no-repeat;
+                background-image: url("data:image/svg+xml,%3Csvg fill='none' height='10' viewBox='0 0 10 10' width='10' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3CclipPath id='a'%3E%3Cpath d='m0 0h9.70996v8.52971h-9.70996z' transform='matrix(-1 0 0 -1 10 9.22266)'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23a)' stroke='%23fff'%3E%3Cpath d='m5.28908 1.32651 3.99998 3.62581-3.99998 3.6258' stroke-linecap='square' stroke-miterlimit='10'/%3E%3Cpath d='m.289062 4.95312h8.999998' stroke-linejoin='bevel'/%3E%3C/g%3E%3C/svg%3E");
+            }
+
+            &:hover {
+                &::after {
+                    animation: CSMoveRightRepeat 0.6s linear infinite;
+                }
+            }
+        }
+    }
+
+    .hs-form-field {
+        margin-bottom: 2.5rem;
+    }
+
+    .disclaimer {
+        position: relative;
+        z-index: 100;
+        --tw-bg-opacity: 1;
+        background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+        padding: 0  1rem 1rem;
+        --tw-text-opacity: 1;
+        color: rgb(35 67 83 / var(--tw-text-opacity));
+        margin-top: -80px;
+
+        @apply w-4/5 mx-auto ;
+    }
+
+    .link-term {
+        text-decoration: underline;
+    }
+
+    .hs-error-msgs {
+        position: absolute;
+        top: 125px;
+
+        @apply text-xs text-red;
+    }
+
+    .hs_error_rollup {
+        position: absolute;
+        top: calc(100% - 160px);
+        width: 100%;
+
+        @apply text-xs text-red;
+
+        .hs-error-msgs {
+            top: 0px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .hs-form-field {
+            max-width: 45%;
+            flex: 0 0 45%;
+        }
+
+        .hs-submit {
+            width: 45%;
+            padding-top: 1.5rem;
+        }
+
+        .disclaimer {
+            @apply mx-auto;
+
+            padding: 0  3.5rem 1rem;
+            margin-top: -72px;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .hs-error-msgs {
+            top: 85px;
+        }
+
+        .hs_error_rollup {
+            top: calc(100% - 172px);
+
+            .hs-error-msgs {
+                top: 0;
+            }
+        }
+
+        &::after {
+            left: 1.2rem;
+            right: 1.2rem;
+        }
+
+        .two-col-from-container  {
+            padding: 1rem 1rem 7rem;
+        }
+
+        .hs-form-field {
+            min-width: 100%;
+        }
+        
+    }
+
+    @keyframes CSMoveRightRepeat {
+        0% {
+            transform: translateY(0px) translateX(-30px);
+        }
+        100% {
+            transform: translateY(0px) translateX(30px);
+        }
+    }
+}

@@ -1,0 +1,27 @@
+.dart {
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+.dart::after {
+	background-position: right center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	content: '';
+	height: 10px;
+	margin-top: 1rem;
+	overflow: hidden;
+	position: relative;
+	transition: width 200ms ease;
+	width: 10px;
+}
+.dart:hover::after {
+	width: 16px;
+}
+.dart-sky::after {
+	background-image: url("data:image/svg+xml,%3Csvg fill='none' height='10' viewBox='0 0 16 10' width='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%2372d1f6'%3E%3Cpath d='m11.29 1 4 4-4 4' stroke-linecap='square' stroke-miterlimit='10'/%3E%3Cpath d='m.00000036 5h14.99999964' stroke-linejoin='bevel'/%3E%3C/g%3E%3C/svg%3E");
+}
+.dart-gunmetal::after {
+	background-image: url("data:image/svg+xml,%3Csvg fill='none' height='10' viewBox='0 0 16 10' width='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23192C36'%3E%3Cpath d='m11.29 1 4 4-4 4' stroke-linecap='square' stroke-miterlimit='10'/%3E%3Cpath d='m.00000036 5h14.99999964' stroke-linejoin='bevel'/%3E%3C/g%3E%3C/svg%3E");
+}

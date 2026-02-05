@@ -1,0 +1,270 @@
+body .gform_wrapper .gfield_list_group_item.gfield_list_cell input,
+body .gform_wrapper .gform_body .gform_fields .gfield .address_city input,
+body .gform_wrapper .gform_body .gform_fields .gfield .address_line_1 input,
+body .gform_wrapper .gform_body .gform_fields .gfield .address_line_2 input,
+body .gform_wrapper .gform_body .gform_fields .gfield .address_state input,
+body .gform_wrapper .gform_body .gform_fields .gfield .address_zip input,
+body .gform_wrapper .gform_body .gform_fields .gfield .ginput_container_email input,
+body .gform_wrapper .gform_body .gform_fields .gfield .ginput_container_text input[type=text],
+body .gform_wrapper .gform_body .gform_fields .gfield .ginput_container_website input,
+body .gform_wrapper .gform_body .gform_fields .gfield .name_first input,
+body .gform_wrapper .gform_body .gform_fields .gfield .name_last input,
+body .gform_wrapper .gform_body .gform_fields .gfield input[type=tel],
+body .gform_wrapper .gform_body .gform_fields .gfield textarea
+{
+	background-color: transparent !important;
+	border: 0;
+	border-bottom: 1px solid #666169;
+	border-radius: 0;
+	box-shadow: none;
+	min-height: 40px !important;
+	padding: 0;
+}
+
+:focus {
+    border-color: #666169 !important;
+    outline: none !important;
+}
+
+.gform-theme--framework .gform_validation_errors {
+	background-color: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	flex-direction: column;
+	padding-block: 0 !important;
+	padding-inline: 0 !important;
+}
+
+body .gform_wrapper .gform_footer input[type=submit] {
+	background-color: #234253 !important;
+}
+
+.gform_wrapper .gfield_list_icons.gform-grid-col button {background-color: #234253 !important; }
+
+body .gform_wrapper .gform_body .gform_fields .gfield .gfield--type-fileupload,
+body .gform_wrapper .gform_body .gform_fields .gfield .ginput_container .gfield-image-choice-wrapper-outer,
+body .gform_wrapper .gform_body .gform_fields .gfield .ginput_container_number input,
+body .gform_wrapper .gform_body .gform_fields .gfield .address_country select,
+body .gform_wrapper .gform_body .gform_fields .gfield .datepicker,
+body .gform_wrapper .gform_body .gform_fields .gfield .gfield_time_ampm select,
+body .gform_wrapper .gform_body .gform_fields .gfield .gfield_time_hour input,
+body .gform_wrapper .gform_body .gform_fields .gfield .gfield_time_minute input,
+body .gform_wrapper .gform_body .gform_fields .gfield .ginput_container_multiselect chosen-container
+body .gform_wrapper .gform_body .gform_fields .gfield .ginput_container_multiselect select,
+body .gform_wrapper .gform_body .gform_fields .gfield select
+{
+	border: 1px solid #666169;
+	border-radius: 0;
+	box-shadow: none;
+	--tw-text-opacity: 1;
+	color: rgb(35 67 83/var(--tw-text-opacity));
+}
+/*
+body .gform_wrapper .gform_body .gform_fields .gfield select,
+body .gform_wrapper .gform_body .gform_fields .gfield .ginput_container_multiselect select,
+body .gform_wrapper .gform_body .gform_fields .gfield .ginput_container_multiselect chosen-container,
+body .gform_wrapper .gform_body .gform_fields .gfield .gfield_time_hour input,
+body .gform_wrapper .gform_body .gform_fields .gfield .gfield_time_minute input,
+body .gform_wrapper .gform_body .gform_fields .gfield .gfield_time_ampm select,
+body .gform_wrapper .gform_body .gform_fields .gfield .datepicker,
+{
+}
+*/
+
+body .gform_wrapper .gform_required_legend,
+body .gform_wrapper .gform_body .gform_fields .gfield.gfield--type-address .gfield_label,
+body .gform_wrapper .gform_body .gform_fields .gfield.gfield--type-captcha .gfield_label {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+
+
+/*
+body .gform_wrapper .gform_body .gform_fields .gfield label > .gfield_required {
+}
+*/
+
+
+body .gform_wrapper .gform_body .gform_fields .gfield .gfield_label {
+	--tw-text-opacity: 1;
+	color: rgb(35 67 83/var(--tw-text-opacity));
+	height: auto !important;
+	margin-bottom: 0;
+}
+
+body .gform_wrapper .gform_body .gform_fields .gfield.gfield--type-select .gfield_label,
+body .gform_wrapper .gform_body .gform_fields .gfield.gfield--type-number .gfield_label,
+body .gform_wrapper .gform_body .gform_fields .gfield.gfield--type-name .gfield_label,
+body .gform_wrapper .gform_body .gform_fields .gfield.gfield--type-date .gfield_label,
+body .gform_wrapper .gform_body .gform_fields .gfield.gfield--type-time .gfield_label,
+body .gform_wrapper .gform_body .gform_fields .gfield.gfield--type-image_choice .gfield_label,
+body .gform_wrapper .gform_body .gform_fields .gfield.gfield--type-multi_choice .gfield_label,
+body .gform_wrapper .gform_body .gform_fields .gfield.gfield--type-consent .gfield_label,
+body .gform_wrapper .gform_body .gform_fields .gfield.gfield--type-radio .gfield_label,
+body .gform_wrapper .gform_body .gform_fields .gfield.gfield--type-checkbox .gfield_label
+{
+
+	margin-bottom: 12px;
+}
+
+.stack-gravity-form {
+	font-size: 1rem;
+	font-family: Work Sans,sans-serif;
+	.gform-theme--framework .gform-field-label>.gfield_required:where(:not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)) {
+		--tw-text-opacity: 1;
+		color: rgb(35 67 83/var(--tw-text-opacity));
+	}
+	.gform-theme--framework .gfield_list_group_item::before:where(:not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)),.gform-theme--framework .gform-field-label:where(:not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)) {
+	    font-weight: 400;
+        font-size: 1rem;
+	    line-height: 1.5rem;
+	}
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        height: 60%;
+        z-index: 0;
+        left: 2rem;
+        right: 2rem;
+        background-color: #FFF7EF;
+    }
+
+    .gravity-form-container {
+        position: relative;
+    }
+
+    .hs-custom-style {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .two-col-from-container  {
+        position: relative;
+        z-index: 100;
+        --tw-bg-opacity: 1;
+        background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+        padding: 3.5rem 3.5rem 6rem;
+        --tw-text-opacity: 1;
+        color: rgb(35 67 83 / var(--tw-text-opacity));
+        box-shadow: 10px 10px 30px rgba(59, 108, 128, .1);
+    }
+
+    .hs-input {
+        border: 0;
+        border-bottom: 1px solid #666169;
+        background-color: transparent !important;
+        box-shadow: none;
+        max-width: 400px;
+        border-radius: 0px;
+        min-height: 40px !important;
+    }
+
+
+
+    .hs-form-field {
+        margin-bottom: 2.5rem;
+    }
+
+    .disclaimer {
+        position: relative;
+        z-index: 100;
+        --tw-bg-opacity: 1;
+        background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+        padding: 0  1rem 1rem;
+        --tw-text-opacity: 1;
+        color: rgb(35 67 83 / var(--tw-text-opacity));
+        margin-top: -80px;
+
+        @apply w-4/5 mx-auto ;
+    }
+
+    .link-term {
+        text-decoration: underline;
+    }
+
+    .hs-error-msgs {
+        position: absolute;
+        top: 125px;
+
+        @apply text-xs text-red;
+    }
+
+    .hs_error_rollup {
+        position: absolute;
+        top: calc(100% - 160px);
+        width: 100%;
+
+        @apply text-xs text-red;
+
+        .hs-error-msgs {
+            top: 0px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .hs-form-field {
+            max-width: 45%;
+            flex: 0 0 45%;
+        }
+
+        .hs-submit {
+            width: 45%;
+            padding-top: 1.5rem;
+        }
+
+        .disclaimer {
+            @apply mx-auto;
+
+            padding: 0  3.5rem 1rem;
+            margin-top: -72px;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .hs-error-msgs {
+            top: 85px;
+        }
+
+        .hs_error_rollup {
+            top: calc(100% - 172px);
+
+            .hs-error-msgs {
+                top: 0;
+            }
+        }
+
+        &::after {
+            left: 1.2rem;
+            right: 1.2rem;
+        }
+
+        .two-col-from-container  {
+            padding: 1rem 1rem 7rem;
+        }
+
+        .hs-form-field {
+            min-width: 100%;
+        }
+
+    }
+
+    @keyframes CSMoveRightRepeat {
+        0% {
+            transform: translateY(0px) translateX(-30px);
+        }
+        100% {
+            transform: translateY(0px) translateX(30px);
+        }
+    }
+}

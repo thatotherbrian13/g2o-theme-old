@@ -1,0 +1,44 @@
+.stack-carousel {
+	--swiper-theme-color: #72D1F6;
+	--swiper-navigation-size: 44px;
+	--swiper-navigation-top-offset: calc( 100% - var(--swiper-navigation-size ) / 2 );
+	--swiper-navigation-sides-offset: calc( 40% - var(--swiper-navigation-size ) );
+	--swiper-navigation-color: var(--swiper-theme-color);
+
+	.swiper-process .bg-image {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+	}
+
+	.swiper-slide {
+		opacity: 0.1;
+	}
+
+	.swiper-slide-active {
+		opacity: 1;
+	}
+
+	.link-box {
+		color: var(--sky)!important;
+		@apply flex justify-center;
+	}
+
+	.link-box .box {
+		@apply bg-sky;
+	}
+
+	.swiper-button-next, 
+	.swiper-button-prev {
+		top: 25% !important;
+	}
+
+	.swiper-button-next {
+		right: 8px;
+	}
+
+	.swiper-button-prev {
+		left: 8px;
+	}
+}

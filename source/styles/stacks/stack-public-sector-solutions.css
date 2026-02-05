@@ -1,0 +1,21 @@
+.stack-public-sector-solutions {
+	.intro-boxed {
+		background: #FFF;
+		box-shadow: 10px -6px 30px 0px rgba(59, 108, 128, 0.10);
+		position: relative;
+		z-index: 10;
+	}
+	.intro-container {
+		position: relative;
+	}
+	.intro-container::after {
+		background-color: #192C36;
+		content: '';
+		height: 50%;
+		left: 0;
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		z-index: 1;
+	}
+}

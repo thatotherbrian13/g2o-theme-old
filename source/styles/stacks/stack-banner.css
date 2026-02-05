@@ -1,0 +1,204 @@
+.stack-banner {
+	position: relative;
+	.text-pathway strong {
+		font-weight: 700;
+	}
+}
+
+.stack-banner-simple {
+	h1 strong {
+		@apply font-sans font-bold;
+	}
+}
+.stack-banner-wedge {
+	box-sizing: border-box;
+	overflow: hidden;
+	width: 100%;
+	z-index: 1;
+	h1 strong {
+		@apply font-sans font-bold;
+	}
+}
+.stack-banner-gradient {
+	h1 strong {
+		@apply font-sans font-bold;
+	}
+}
+.stack-banner-boxed {
+}
+.stack-banner-form {
+	h1 strong {
+		@apply font-sans font-bold;
+	}
+	.form-container::before {
+		background-image: radial-gradient(circle at 100% 0%, #ff9796, rgba(255, 151, 150, 0) 35%), radial-gradient(circle at 19% 50%, #ff9796, #ff4f55 62%);
+		content: '';
+		height: 0;
+		padding-bottom: 83.33%;
+		position: absolute;
+		right: -60px;
+		top: -60px;
+		width: 83.33%;
+		z-index: 10;
+	}
+}
+.stack-banner-download {
+}
+.stack-banner-solution {
+
+}
+
+.solution__quote > :first-child {
+	position: relative;
+}
+.solution__quote > :first-child::before {
+	content: '\201C';
+	left: -1rem;
+	position: absolute;
+	top: 0;
+}
+.solution__quote > :first-child::after {
+	content: '\201D';
+	margin-left: 0.1em;
+	position: relative;
+}
+
+
+
+
+
+
+.wedge {
+	clip-path: polygon( 0 0, 100% 0, 100% 100%, 0 calc(100% - 27vw) );
+	height: 96%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100vw;
+	z-index: 0;
+}
+.wedge-reverse {
+	clip-path: polygon( 0 0, 100% 0, 100% calc(100% - 27vw), 0 100% );
+	height: 96%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100vw;
+	z-index: 0;
+}
+.wedge-scroller {
+	height: 100%;
+}
+.wedge-sky {
+	@apply bg-sky;
+}
+.wedge-limestone {
+	@apply bg-limestone;
+}
+.wedge-river {
+	@apply bg-river;
+}
+
+
+
+
+
+
+
+
+
+.wedge-border {
+	padding: 24px;
+	position: relative;
+}
+.wedge-border::before,
+.wedge-border::after {
+	bottom: 0;
+	content: "";
+	pointer-events: none;
+	position: absolute;
+	z-index: 0;
+}
+.wedge-border::before {
+	border-right: 1px solid white;
+	border-top: 1px solid white;
+	height: 100%;
+	right: 0;
+	width: 40px;
+}
+
+.wedge-border::after {
+	border-bottom: 1px solid white;
+	border-left: 1px solid white;
+	height: 40px;
+	left: 0;
+	width: 100%;
+}
+
+
+
+
+
+#gradient-home {
+	clip-path: polygon( 0 0, 100% 0, 100% 100%, 0 100% );
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100vw;
+	z-index: 0;
+}
+#gradient-banner {
+	clip-path: polygon( 0 0, 100% 0, 100% 100%, 0 calc(100% - 27vw) );
+	height: 96%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100vw;
+	z-index: 0;
+}
+.gradient-sky {
+	--gradient-color-1: #72d1f6;
+	--gradient-color-2: #72d1f6;
+	--gradient-color-3: #72d1f6;
+	--gradient-color-4: #ade8ff;
+}
+.gradient-river {
+	--gradient-color-1: #234253;
+	--gradient-color-2: #234253;
+	--gradient-color-3: #234253;
+	--gradient-color-4: #192c36;
+}
+.gradient-limestone {
+	--gradient-color-1: #fff7ef;
+	--gradient-color-2: #fff7ef;
+	--gradient-color-3: #fff7ef;
+	--gradient-color-4: #f7f7f7;
+}
+
+
+
+
+
+
+
+
+.banner-boxed {
+	position: relative;
+	transform: translateY(-26px);
+	z-index: 10;
+}
+.banner-boxed::after {
+	border-style: solid;
+	border-width: 1px;
+	content: '';
+	height: 100%;
+	position: absolute;
+	right: -32px;
+	top: -26px;
+	width: 100%;
+	z-index: -10;
+}
+.boxed-container {
+	@apply py-6 px-8 lg:py-12 lg:px-16 bg-white;
+}

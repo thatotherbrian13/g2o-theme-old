@@ -1,0 +1,94 @@
+#footer {
+	overflow: hidden;
+}
+
+.footer-bg::after {
+	@apply bg-river z-0 left-0 right-0;
+	bottom: 0;
+	content: '';
+	position: absolute;
+	top: 0;
+}
+
+#footer {
+	.hbspt-form {
+		@apply font-sans font-normal text-base text-limestone;
+		form {
+			@apply flex w-full;
+		}
+		.submitted-message {
+			@apply leading-tight;
+			color: var(--sky) !important;
+		}
+		.hs-email > label {
+			@apply font-sans font-normal text-base sr-only;
+			color: var(--limestone) !important;
+		}
+		.input {
+			@apply w-full;
+		}
+		input[type="email"] {
+			@apply bg-transparent font-sans font-normal text-base text-limestone border-0 border-b border-b-sky outline-0 w-full px-0 ring-0;
+			height: 44px;
+		}
+		.actions {
+		}
+		.hs-email {
+			@apply w-[240px];
+		}
+		.hs-submit {
+			@apply w-auto;
+		}
+		.hs-button {
+			@apply flex font-sans font-bold text-base cursor-pointer hover:text-limestone transition-colors outline-0 ring-0;
+			color: var(--sky) !important;
+			height: 44px;
+		}
+		.no-list {
+		}
+		.no-list.hs-error-msgs {
+			@apply text-limestone py-5;
+			height: auto;
+		}
+		label.hs-error-msg {
+			@apply leading-tight;
+			color: var(--city) !important;
+		}
+	}
+}
+
+
+/*
+body.single-project #footer {
+	@apply bg-limestone border-t border-city;
+}
+
+body.page-template-page-solution #footer {
+	@apply bg-light;
+}
+*/
+
+
+
+/*
+#footer::after {
+	clip-path: polygon( 0 0, 100% calc(100% - 90vw), 100% 100%, 0 100% );
+
+	height: 100%;
+	width: 100vw;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	content: '';
+
+	@apply bg-light;
+
+}
+*/
+
+/* Fix for injected <strong> tag breaking flex layout */
+#footer .footer-social strong {
+	display: contents;
+}
+

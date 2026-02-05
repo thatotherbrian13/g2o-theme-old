@@ -1,0 +1,46 @@
+{
+  "dependencies": {
+    "@alpinejs/collapse": "^3.12.2",
+    "@alpinejs/intersect": "^3.12.2",
+    "@studio-freight/lenis": "^1.0.16",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
+    "@tailwindcss/typography": "^0.5.9",
+    "alpinejs": "^3.12.2",
+    "autoprefixer": "^10.4.14",
+    "gsap": "^3.12.1",
+    "postcss-calc": "^10.0.0",
+    "postcss-import": "^16.1.0",
+    "scrollreveal": "^4.0.9",
+    "swiper": "^11.1.3",
+    "tailwindcss": "^3.3.2"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^9.2.1",
+    "esbuild": "^0.27.2",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1"
+  },
+  "author": "",
+  "private": true,
+  "scripts": {
+    "build:css": "postcss source/styles/main.css -o build/css/main.css",
+    "build:js": "node esbuild.config.js",
+    "build:nav": "cp source/scripts/nav.js build/js/nav.js",
+    "build": "npm-run-all build:css build:js build:nav",
+    "watch:css": "chokidar 'source/styles/**/*.css' -c 'npm run build:css'",
+    "watch:js": "chokidar 'source/scripts/scripts.js' -c 'npm run build:js'",
+    "watch:nav": "chokidar 'source/scripts/nav.js' -c 'npm run build:nav'",
+    "watch": "concurrently 'npm run watch:css' 'npm run watch:js' 'npm run watch:nav'",
+    "dev": "npm run build && npm run watch",
+    "prod": "NODE_ENV=production npm run build"
+  },
+  "description": "G2O WordPress theme with custom navigation, 50+ stack components, and Tailwind CSS",
+  "repository": {},
+  "license": "UNLICENSED",
+  "name": "g2o-theme",
+  "version": "1.0.0"
+}

@@ -1,0 +1,11 @@
+#masthead-bg {
+/* 	background-color: #234253; */
+	opacity: 0;
+}
+
+.page-theme-light #masthead-bg {
+	background-color: #234253;
+}
+.page-theme-dark #masthead-bg {
+	background-color: #ffffff;
+}

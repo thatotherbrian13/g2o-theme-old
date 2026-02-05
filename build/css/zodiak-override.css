@@ -1,0 +1,48 @@
+/* Force Zodiak font to always use Light weight (300) */
+/* This ensures consistent Zodiak Light usage across all pages */
+
+.font-serif,
+.font-serif.font-normal,
+.font-serif.font-medium,
+.font-serif.font-semibold,
+.font-serif.font-bold,
+.font-serif.font-extrabold,
+.font-serif.font-black {
+  font-family: Zodiak, serif !important;
+  font-weight: 300 !important;
+}
+
+/* High specificity override to ensure all elements with font-serif use light weight */
+html body .font-serif {
+  font-weight: 300 !important;
+}
+
+/* Additional override for any nested elements - exclude strong/b to allow bold text */
+html body .font-serif *:not(strong):not(b) {
+  font-weight: inherit !important;
+}
+
+/* Explicit styling for strong/b inside serif containers - use Work Sans Bold */
+html body .font-serif strong,
+html body .font-serif b {
+  font-family: 'Work Sans', sans-serif !important;
+  font-weight: 700 !important;
+}
+
+/* Define the missing zodiak class */
+.zodiak,
+html body .zodiak,
+.headline .zodiak {
+  font-family: Zodiak, serif !important;
+  font-weight: 300 !important; /* Force Light weight */
+}
+
+/* Define the missing work-sans-bold class */
+.work-sans-bold,
+html body .work-sans-bold,
+.headline .work-sans-bold {
+  font-family: 'Work Sans', sans-serif !important;
+  font-weight: 700 !important;
+}
+
+/* Remove split-text overrides to restore original formatting */

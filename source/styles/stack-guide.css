@@ -1,0 +1,612 @@
+/**
+ * Stack Guide Styles
+ *
+ * Styles for the Stack Guide page template that displays
+ * all stack components with documentation.
+ */
+
+/* ==========================================================================
+   Body-Level Overrides for Stack Guide Page
+   ========================================================================== */
+
+body.stack-guide-page {
+    width: 100% !important;
+    max-width: none !important;
+    overflow-x: hidden;
+}
+
+body.stack-guide-page #main,
+body.stack-guide-page main,
+body.stack-guide-page .stack-guide {
+    width: 100% !important;
+    max-width: none !important;
+    overflow: visible !important;
+    position: relative !important;
+}
+
+/* Remove any theme constraints on the page */
+body.stack-guide-page .constrain,
+body.stack-guide-page .container {
+    max-width: none !important;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+.stack-guide {
+    display: flex !important;
+    min-height: 100vh;
+    width: 100% !important;
+}
+
+/* ==========================================================================
+   Table of Contents (Sticky Sidebar)
+   ========================================================================== */
+
+.stack-guide__toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background: #192C36; /* gunmetal */
+    color: #fff;
+    overflow-y: auto;
+    z-index: 100;
+    padding: 0;
+    border-right: 1px solid rgba(114, 209, 246, 0.2);
+}
+
+.stack-guide__toc-inner {
+    padding: 24px 20px 40px;
+}
+
+.stack-guide__toc-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: #72D1F6; /* azure */
+}
+
+.stack-guide__toc-count {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stack-guide__toc-category {
+    margin-bottom: 20px;
+}
+
+.stack-guide__toc-category-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #ff4f55; /* city */
+    margin: 0 0 8px;
+}
+
+.stack-guide__toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.stack-guide__toc-list li {
+    margin: 0;
+}
+
+.stack-guide__toc-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.stack-guide__toc-link:hover {
+    background: rgba(114, 209, 246, 0.15);
+    color: #72D1F6;
+}
+
+.stack-guide__toc-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    font-size: 10px;
+    font-weight: 700;
+    background: rgba(114, 209, 246, 0.2);
+    color: #72D1F6;
+    border-radius: 9px;
+}
+
+/* ==========================================================================
+   Main Content Area
+   ========================================================================== */
+
+.stack-guide__content {
+    flex: 1 1 auto !important;
+    margin-left: 280px;
+    background: #F7F7F7; /* seasalt */
+    width: calc(100% - 280px) !important;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Page Header
+   ========================================================================== */
+
+.stack-guide__page-header {
+    background: #234253; /* river */
+    color: #fff;
+    padding: 80px 0 60px;
+}
+
+.stack-guide__page-header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.stack-guide__page-title {
+    font-size: 48px;
+    font-weight: 300;
+    font-family: var(--font-serif, 'Zodiak', Georgia, serif);
+    margin: 0 0 16px;
+    color: #72D1F6;
+}
+
+.stack-guide__page-desc {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 720px;
+    margin: 0 0 24px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.stack-guide__page-meta {
+    display: flex;
+    gap: 24px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.stack-guide__page-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ==========================================================================
+   Stack Section
+   ========================================================================== */
+
+.stack-guide__section {
+    border-bottom: 1px solid #ddd;
+}
+
+/* ==========================================================================
+   Documentation Header
+   ========================================================================== */
+
+.stack-guide__header {
+    background: #fff;
+    padding: 40px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.stack-guide__header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.stack-guide__header-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.stack-guide__number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #234253;
+    color: #72D1F6;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 50%;
+}
+
+.stack-guide__title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #234253;
+    margin: 0;
+}
+
+.stack-guide__filename {
+    font-size: 13px;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', monospace;
+    background: #f0f0f0;
+    padding: 4px 10px;
+    border-radius: 4px;
+    color: #666;
+}
+
+.stack-guide__desc {
+    font-size: 16px;
+    color: #555;
+    margin: 0 0 20px;
+    max-width: 720px;
+}
+
+.stack-guide__note {
+    background: #FFF7EF; /* shore */
+    border-left: 3px solid #ff4f55;
+    padding: 12px 16px;
+    margin: 0 0 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.stack-guide__note strong {
+    color: #234253;
+}
+
+/* ==========================================================================
+   Documentation Grid
+   ========================================================================== */
+
+.stack-guide__docs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.stack-guide__doc-section {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.stack-guide__doc-section h4 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #234253;
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Fields List */
+.stack-guide__fields {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.stack-guide__fields li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+.stack-guide__fields li:last-child {
+    border-bottom: none;
+}
+
+.stack-guide__fields code {
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', monospace;
+    font-size: 12px;
+    color: #234253;
+}
+
+.stack-guide__field-type {
+    font-size: 11px;
+    color: #888;
+    background: #e8e8e8;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+/* Variants List */
+.stack-guide__variants {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.stack-guide__variants li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.stack-guide__variants code {
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', monospace;
+    font-size: 12px;
+    background: #e0f4fc;
+    color: #234253;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.stack-guide__variant-badge {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    background: #3CBDE5; /* aero */
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+/* Options List */
+.stack-guide__options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.stack-guide__options li {
+    position: relative;
+    padding: 4px 0 4px 16px;
+    font-size: 13px;
+    color: #555;
+}
+
+.stack-guide__options li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 6px;
+    height: 6px;
+    background: #72D1F6;
+    border-radius: 50%;
+}
+
+/* ==========================================================================
+   Preview Area
+   ========================================================================== */
+
+.stack-guide__preview {
+    position: relative;
+    background: #fff;
+}
+
+.stack-guide__preview-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f0f0f0;
+    padding: 8px 24px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #888;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.stack-guide__preview-variant {
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: #666;
+}
+
+.stack-guide__preview-variant::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #3CBDE5;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+/* Stack Preview Container - ensure stacks render full width */
+.stack-guide__preview > section,
+.stack-guide__preview > div > section,
+.stack-guide__preview > aside,
+.stack-guide__preview > div > aside {
+    width: 100%;
+}
+
+/* Stack-specific overrides for guide display */
+.stack-guide__stack {
+    /* Reset any margins that might be applied to the stack */
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.stack-guide__footer {
+    background: #234253;
+    color: #fff;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.stack-guide__footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.stack-guide__footer p {
+    margin: 0 0 12px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.stack-guide__back-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #72D1F6;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.stack-guide__back-top:hover {
+    color: #fff;
+}
+
+.stack-guide__back-top::before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 6px solid currentColor;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .stack-guide__toc {
+        width: 240px;
+    }
+
+    .stack-guide__content {
+        margin-left: 240px;
+        width: calc(100% - 240px);
+    }
+
+    .stack-guide__page-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .stack-guide {
+        display: block;
+    }
+
+    .stack-guide__toc {
+        position: relative;
+        width: 100%;
+        height: auto;
+        max-height: none;
+        border-right: none;
+        border-bottom: 1px solid rgba(114, 209, 246, 0.2);
+    }
+
+    .stack-guide__toc-inner {
+        padding: 20px;
+    }
+
+    .stack-guide__toc-category {
+        display: inline-block;
+        margin-right: 20px;
+        margin-bottom: 0;
+    }
+
+    .stack-guide__toc-category-title {
+        margin-bottom: 6px;
+    }
+
+    .stack-guide__toc-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 8px;
+    }
+
+    .stack-guide__toc-link {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+
+    .stack-guide__content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .stack-guide__page-header {
+        padding: 40px 0 30px;
+    }
+
+    .stack-guide__page-header-inner,
+    .stack-guide__header-inner,
+    .stack-guide__footer-inner {
+        padding: 0 20px;
+    }
+
+    .stack-guide__page-title {
+        font-size: 28px;
+    }
+
+    .stack-guide__page-desc {
+        font-size: 15px;
+    }
+
+    .stack-guide__header {
+        padding: 24px 0;
+    }
+
+    .stack-guide__title {
+        font-size: 22px;
+    }
+
+    .stack-guide__docs {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+    .stack-guide__toc {
+        display: none;
+    }
+
+    .stack-guide__content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .stack-guide__section {
+        page-break-inside: avoid;
+    }
+
+    .stack-guide__preview {
+        border: 1px solid #ccc;
+    }
+}

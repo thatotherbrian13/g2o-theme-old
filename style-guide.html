@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G2O Typography & Brand Style Guide</title>
+
+    <!-- Google Fonts: Work Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Zodiak Font */
+        @font-face {
+            font-family: 'Zodiak';
+            src: url('fonts/Zodiak.woff2') format('woff2'),
+                 url('fonts/Zodiak.woff') format('woff');
+            font-weight: 100 900;
+            font-style: normal;
+        }
+
+        /* CSS Variables - Brand Colors */
+        :root {
+            --river: #234253;
+            --river-light: #3B6C80;
+            --gunmetal: #192C36;
+            --sky: #72D1F6;
+            --city: #ff4f55;
+            --limestone: #FFF7EF;
+            --light: #F7F7F7;
+            --pathway-light: #DFE1E1;
+            --pathway: #606969;
+            --white: #ffffff;
+            --black: #000000;
+        }
+
+        /* Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--river);
+            background-color: var(--white);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid var(--pathway-light);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sky);
+            margin-bottom: 2rem;
+        }
+
+        /* Style Sample */
+        .style-sample {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: var(--light);
+            border-radius: 8px;
+        }
+
+        .style-sample:last-child {
+            margin-bottom: 0;
+        }
+
+        .style-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--pathway-light);
+        }
+
+        .style-meta-item {
+            font-size: 0.75rem;
+            color: var(--pathway);
+        }
+
+        .style-meta-item strong {
+            color: var(--river);
+        }
+
+        .style-name {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--river);
+            margin-bottom: 0.5rem;
+        }
+
+        .style-class {
+            font-family: 'Andale Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--city);
+            background-color: rgba(255, 79, 85, 0.1);
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+            margin-left: 0.5rem;
+        }
+
+        /* ============================================
+           TAB SYSTEM STYLES
+           ============================================ */
+        .tabs-container {
+            margin-bottom: 3rem;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid var(--pathway-light);
+            margin-bottom: 2rem;
+        }
+
+        .tab-button {
+            padding: 1rem 2rem;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--pathway);
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .tab-button:hover {
+            color: var(--river);
+        }
+
+        .tab-button.active {
+            color: var(--river);
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--city);
+        }
+
+        .tab-button.previous::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #dc3545;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .tab-button.repaired::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #28a745;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Improvement Callouts */
+        .improvement-callout {
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.05) 100%);
+            border-left: 4px solid #28a745;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .improvement-callout h4 {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #28a745;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .improvement-callout p {
+            font-size: 0.875rem;
+            color: var(--river);
+            margin: 0;
+        }
+
+        .improvement-callout ul {
+            font-size: 0.875rem;
+            color: var(--river);
+            margin: 0.5rem 0 0 1.25rem;
+        }
+
+        .improvement-callout li {
+            margin-bottom: 0.25rem;
+        }
+
+        .issue-callout {
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(220, 53, 69, 0.05) 100%);
+            border-left: 4px solid #dc3545;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .issue-callout h4 {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #dc3545;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .issue-callout p, .issue-callout ul {
+            font-size: 0.875rem;
+            color: var(--river);
+            margin: 0;
+        }
+
+        .issue-callout ul {
+            margin: 0.5rem 0 0 1.25rem;
+        }
+
+        .issue-callout li {
+            margin-bottom: 0.25rem;
+        }
+
+        /* Comparison Grid */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .comparison-box {
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .comparison-box.broken {
+            background-color: rgba(220, 53, 69, 0.05);
+            border: 1px solid rgba(220, 53, 69, 0.2);
+        }
+
+        .comparison-box.fixed {
+            background-color: rgba(40, 167, 69, 0.05);
+            border: 1px solid rgba(40, 167, 69, 0.2);
+        }
+
+        .comparison-label {
+            font-size: 0.625rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comparison-box.broken .comparison-label {
+            color: #dc3545;
+        }
+
+        .comparison-box.fixed .comparison-label {
+            color: #28a745;
+        }
+
+        /* Typography Styles - REPAIRED (Current) */
+        .h1 {
+            font-family: 'Zodiak', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            color: var(--river);
+        }
+
+        @media (min-width: 1024px) {
+            .h1 {
+                font-size: 7.5rem;
+            }
+        }
+
+        .h1-alt {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: var(--river);
+        }
+
+        @media (min-width: 1024px) {
+            .h1-alt {
+                font-size: 7.5rem;
+            }
+        }
+
+        .h2 {
+            font-family: 'Zodiak', serif;
+            font-size: 2.25rem;
+            font-weight: 300;
+            line-height: 1.15;
+            letter-spacing: -0.04em;
+            color: var(--river);
+        }
+
+        @media (min-width: 1024px) {
+            .h2 {
+                font-size: 4.5rem;
+            }
+        }
+
+        .h2-alt {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: var(--river);
+        }
+
+        .h3 {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1.875rem;
+            font-weight: 700;
+            line-height: 1.03;
+            letter-spacing: -0.02em;
+            color: var(--river);
+        }
+
+        @media (min-width: 1024px) {
+            .h3 {
+                font-size: 2.25rem;
+            }
+        }
+
+        .h4 {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.03;
+            letter-spacing: -0.02em;
+            color: var(--river);
+        }
+
+        @media (min-width: 1024px) {
+            .h4 {
+                font-size: 2rem;
+            }
+        }
+
+        .h5 {
+            font-family: 'Zodiak', serif;
+            font-size: 1.625rem;
+            font-weight: 300;
+            line-height: 1.3;
+            color: var(--river);
+        }
+
+        @media (min-width: 1024px) {
+            .h5 {
+                font-size: 1.875rem;
+            }
+        }
+
+        /* Typography Styles - PREVIOUS (Broken) */
+        .h1-broken {
+            font-family: 'Zodiak', serif;
+            font-size: 3rem;
+            font-weight: 400; /* Was 400, should be 300 */
+            line-height: 1.2; /* Was 1.2, should be 1.1 */
+            letter-spacing: -0.04em;
+            color: var(--river);
+        }
+
+        @media (min-width: 1024px) {
+            .h1-broken {
+                font-size: 7.5rem;
+            }
+        }
+
+        .h2-broken {
+            font-family: 'Zodiak', serif;
+            font-size: 2.25rem;
+            font-weight: 300;
+            line-height: 1.2; /* Was 1.2, should be 1.15 */
+            letter-spacing: -0.04em;
+            color: var(--river);
+        }
+
+        @media (min-width: 1024px) {
+            .h2-broken {
+                font-size: 4.5rem;
+            }
+        }
+
+        .h3-broken {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1.875rem;
+            font-weight: 600; /* Was 600, should be 700 */
+            line-height: 1.3; /* Was 1.3, should be 1.03 */
+            letter-spacing: -0.02em;
+            color: var(--river);
+        }
+
+        @media (min-width: 1024px) {
+            .h3-broken {
+                font-size: 2.25rem;
+            }
+        }
+
+        .h4-broken {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600; /* Was 600, should be 700 */
+            line-height: 1.3; /* Was 1.3, should be 1.03 */
+            letter-spacing: -0.02em;
+            color: var(--river);
+        }
+
+        @media (min-width: 1024px) {
+            .h4-broken {
+                font-size: 2rem;
+            }
+        }
+
+        /* Split-Text Pattern Demo */
+        .split-text-demo {
+            font-family: 'Zodiak', serif;
+            font-size: 1.875rem;
+            font-weight: 300;
+            line-height: 1.4;
+            color: var(--river);
+        }
+
+        .split-text-demo strong {
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 700;
+        }
+
+        .split-text-broken {
+            font-family: 'Zodiak', serif;
+            font-size: 1.875rem;
+            font-weight: 300;
+            line-height: 1.4;
+            color: var(--river);
+        }
+
+        /* Simulating the broken behavior where strong inherits light weight */
+        .split-text-broken strong {
+            font-family: 'Zodiak', serif;
+            font-weight: 300; /* Broken: inherits light weight instead of bold */
+        }
+
+        /* Semantic Headline Utility Classes */
+        .headline-hero {
+            font-family: 'Zodiak', serif;
+            font-size: 2.25rem;
+            font-weight: 300;
+            line-height: 1.2;
+            letter-spacing: -0.04em;
+            color: var(--river);
+        }
+
+        @media (min-width: 1024px) {
+            .headline-hero {
+                font-size: 4.5rem;
+            }
+        }
+
+        .headline-section {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1.875rem;
+            font-weight: 700;
+            line-height: 1.03;
+            letter-spacing: -0.02em;
+            color: var(--river);
+        }
+
+        @media (min-width: 1024px) {
+            .headline-section {
+                font-size: 2.25rem;
+            }
+        }
+
+        .headline-card {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: var(--river);
+        }
+
+        @media (min-width: 1024px) {
+            .headline-card {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Helper Classes */
+        .eyebrow {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--river);
+        }
+
+        .kicker {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 700;
+            line-height: 1.5;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--sky);
+        }
+
+        .deck {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 300;
+            line-height: 1.4;
+            color: var(--river);
+        }
+
+        @media (min-width: 1024px) {
+            .deck {
+                font-size: 1.375rem;
+            }
+        }
+
+        .lead {
+            font-family: 'Zodiak', serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            line-height: 1.4;
+            color: var(--river);
+        }
+
+        @media (min-width: 1024px) {
+            .lead {
+                font-size: 1.875rem;
+            }
+        }
+
+        .caption {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--pathway);
+        }
+
+        .body {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--river);
+        }
+
+        .footnote {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.4;
+            color: var(--pathway);
+        }
+
+        /* Color Palette */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .color-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .color-swatch {
+            height: 100px;
+        }
+
+        .color-info {
+            padding: 1rem;
+            background-color: var(--white);
+        }
+
+        .color-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .color-value {
+            font-family: 'Andale Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--pathway);
+        }
+
+        /* Header */
+        .page-header {
+            background-color: var(--river);
+            color: var(--limestone);
+            padding: 4rem 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .page-header h1 {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.125rem;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background-color: var(--city);
+            color: var(--white);
+            font-size: 0.625rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            margin-left: 0.75rem;
+            vertical-align: middle;
+        }
+
+        /* Navigation */
+        .style-nav {
+            position: sticky;
+            top: 0;
+            background-color: var(--white);
+            border-bottom: 1px solid var(--pathway-light);
+            padding: 1rem 2rem;
+            z-index: 100;
+        }
+
+        .style-nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .style-nav a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--pathway);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .style-nav a:hover {
+            color: var(--river);
+        }
+
+        /* Tables */
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+            margin-top: 2rem;
+        }
+
+        .spec-table th,
+        .spec-table td {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--pathway-light);
+        }
+
+        .spec-table th {
+            font-weight: 600;
+            background-color: var(--light);
+        }
+
+        .spec-table code {
+            font-family: 'Andale Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--city);
+            background-color: rgba(255, 79, 85, 0.1);
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+        }
+
+        .spec-table .changed {
+            background-color: rgba(40, 167, 69, 0.1);
+        }
+
+        .spec-table .strike {
+            text-decoration: line-through;
+            color: var(--pathway);
+            opacity: 0.6;
+        }
+
+        .spec-table .new-value {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        /* Code blocks */
+        .code-block {
+            background-color: var(--gunmetal);
+            color: var(--limestone);
+            font-family: 'Andale Mono', monospace;
+            font-size: 0.75rem;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .code-block .comment {
+            color: var(--pathway);
+        }
+
+        .code-block .selector {
+            color: var(--sky);
+        }
+
+        .code-block .property {
+            color: var(--sky);
+        }
+
+        .code-block .value {
+            color: var(--city);
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="container">
+            <h1>G2O Style Guide <span class="version-badge">Updated Jan 2026</span></h1>
+            <p>Typography, colors, and design tokens for the G2O brand</p>
+        </div>
+    </header>
+
+    <nav class="style-nav">
+        <ul>
+            <li><a href="#typography">Typography</a></li>
+            <li><a href="#helpers">Helper Classes</a></li>
+            <li><a href="#colors">Colors</a></li>
+            <li><a href="#specifications">Specifications</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <!-- Typography Section with Tabs -->
+        <section id="typography" class="section">
+            <h2 class="section-title">Typography</h2>
+
+            <!-- Tab System -->
+            <div class="tabs-container">
+                <div class="tab-buttons">
+                    <button class="tab-button repaired active" data-tab="repaired">Repaired Styles</button>
+                    <button class="tab-button previous" data-tab="previous">Previous Styles</button>
+                </div>
+
+                <!-- REPAIRED STYLES TAB -->
+                <div id="repaired" class="tab-content active">
+
+                    <div class="improvement-callout">
+                        <h4>Typography Improvements</h4>
+                        <ul>
+                            <li><strong>H1:</strong> Weight changed from 400 to 300 (Light), line-height tightened from 1.2 to 1.1</li>
+                            <li><strong>H2:</strong> Line-height adjusted from 1.2 to 1.15 for better visual balance</li>
+                            <li><strong>H3 & H4:</strong> Weight increased from 600 to 700 (Bold), line-height tightened from 1.3 to 1.03</li>
+                            <li><strong>Split-Text:</strong> Strong tags inside <code>.font-serif</code> now properly display as Work Sans Bold</li>
+                        </ul>
+                    </div>
+
+                    <div class="improvement-callout">
+                        <h4>Heading Hierarchy Improvements (SEO & Accessibility)</h4>
+                        <ul>
+                            <li><strong>Single H1 per page:</strong> Hero banners use <code>&lt;h1&gt;</code>; other major headings now use <code>&lt;h2&gt;</code> with visual styling classes</li>
+                            <li><strong>No skipped levels:</strong> Fixed h2→h4 jumps in accordions, scrollers, and three-columns to use proper h2→h3 hierarchy</li>
+                            <li><strong>Team member names:</strong> Changed from <code>&lt;h2&gt;</code> to <code>&lt;h3&gt;</code> (nested under section headings)</li>
+                            <li><strong>New utility classes:</strong> <code>.headline-hero</code>, <code>.headline-section</code>, <code>.headline-card</code> decouple visual size from semantic level</li>
+                        </ul>
+                    </div>
+
+                    <div class="improvement-callout">
+                        <h4>January 2026 Comprehensive Site Audit</h4>
+                        <p style="margin-bottom: 0.75rem;">Complete theme audit covering WCAG 2.1 AA accessibility, SEO, and code cleanup:</p>
+                        <ul>
+                            <li><strong>Accessibility - Focus Indicators:</strong> Added <code>:focus-visible</code> styles with 2px sky-colored outline for keyboard navigation</li>
+                            <li><strong>Accessibility - Skip Navigation:</strong> Added skip link to bypass navigation (<code>.sr-only</code> until focused)</li>
+                            <li><strong>Accessibility - External Links:</strong> Added <code>aria-label</code> warnings for links opening in new windows</li>
+                            <li><strong>Accessibility - Form Labels:</strong> Added <code>role="region"</code> and <code>aria-label</code> to form containers</li>
+                            <li><strong>Accessibility - Carousels:</strong> Enabled keyboard navigation in Swiper components</li>
+                            <li><strong>SEO - Meta Tags:</strong> Custom <code>g2o_meta_tags()</code> function for meta descriptions, Open Graph, and Twitter Cards</li>
+                            <li><strong>SEO - Schema:</strong> JSON-LD structured data for Organization and Article types</li>
+                            <li><strong>SEO - CLS Prevention:</strong> Added explicit <code>width</code>/<code>height</code> attributes to images</li>
+                            <li><strong>Performance:</strong> Deferred render-blocking CSS/JS resources in header</li>
+                            <li><strong>Code Cleanup:</strong> Removed ~200 lines of dead/commented code, 5 unused walker files, legacy navigation system</li>
+                            <li><strong>Navigation:</strong> Consolidated duplicate CSS files (nav.css vs navigation-main.css)</li>
+                        </ul>
+                    </div>
+
+                    <!-- H1 -->
+                    <div class="style-sample">
+                        <div class="style-name">Heading 1 <span class="style-class">h1, .h1</span></div>
+                        <div class="h1">Making an impact together</div>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Font:</strong> Zodiak (serif)</span>
+                            <span class="style-meta-item"><strong>Weight:</strong> 300 (Light)</span>
+                            <span class="style-meta-item"><strong>Size:</strong> 3rem (48px) / 7.5rem (120px)</span>
+                            <span class="style-meta-item"><strong>Line Height:</strong> 1.1</span>
+                            <span class="style-meta-item"><strong>Letter Spacing:</strong> -0.04em</span>
+                        </div>
+                    </div>
+
+                    <!-- H1 Alt -->
+                    <div class="style-sample">
+                        <div class="style-name">Heading 1 Alt <span class="style-class">.h1-alt</span></div>
+                        <div class="h1-alt">Making an impact together</div>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Font:</strong> Work Sans</span>
+                            <span class="style-meta-item"><strong>Weight:</strong> 800 (Extra Bold)</span>
+                            <span class="style-meta-item"><strong>Size:</strong> 3rem (48px) / 7.5rem (120px)</span>
+                            <span class="style-meta-item"><strong>Line Height:</strong> 1.1</span>
+                            <span class="style-meta-item"><strong>Letter Spacing:</strong> -0.02em</span>
+                        </div>
+                    </div>
+
+                    <!-- H2 -->
+                    <div class="style-sample">
+                        <div class="style-name">Heading 2 <span class="style-class">.h2</span></div>
+                        <div class="h2">Strategy and innovation</div>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Font:</strong> Zodiak (serif)</span>
+                            <span class="style-meta-item"><strong>Weight:</strong> 300 (Light)</span>
+                            <span class="style-meta-item"><strong>Size:</strong> 2.25rem (36px) / 4.5rem (72px)</span>
+                            <span class="style-meta-item"><strong>Line Height:</strong> 1.15</span>
+                            <span class="style-meta-item"><strong>Letter Spacing:</strong> -0.04em</span>
+                        </div>
+                    </div>
+
+                    <!-- H2 Alt -->
+                    <div class="style-sample">
+                        <div class="style-name">Heading 2 Alt <span class="style-class">.h2-alt</span></div>
+                        <div class="h2-alt">Strategy and innovation</div>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Font:</strong> Work Sans</span>
+                            <span class="style-meta-item"><strong>Weight:</strong> 400 (Regular)</span>
+                            <span class="style-meta-item"><strong>Size:</strong> 4.5rem (72px)</span>
+                            <span class="style-meta-item"><strong>Line Height:</strong> 1.15</span>
+                            <span class="style-meta-item"><strong>Letter Spacing:</strong> -0.02em</span>
+                        </div>
+                    </div>
+
+                    <!-- H3 -->
+                    <div class="style-sample">
+                        <div class="style-name">Heading 3 <span class="style-class">h3, .h3</span></div>
+                        <div class="h3">Our approach to digital transformation</div>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Font:</strong> Work Sans</span>
+                            <span class="style-meta-item"><strong>Weight:</strong> 700 (Bold)</span>
+                            <span class="style-meta-item"><strong>Size:</strong> 1.875rem (30px) / 2.25rem (36px)</span>
+                            <span class="style-meta-item"><strong>Line Height:</strong> 1.03</span>
+                            <span class="style-meta-item"><strong>Letter Spacing:</strong> -0.02em</span>
+                        </div>
+                    </div>
+
+                    <!-- H4 -->
+                    <div class="style-sample">
+                        <div class="style-name">Heading 4 <span class="style-class">h4, .h4</span></div>
+                        <div class="h4">Building digital solutions that scale</div>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Font:</strong> Work Sans</span>
+                            <span class="style-meta-item"><strong>Weight:</strong> 700 (Bold)</span>
+                            <span class="style-meta-item"><strong>Size:</strong> 1.5rem (24px) / 2rem (32px)</span>
+                            <span class="style-meta-item"><strong>Line Height:</strong> 1.03</span>
+                            <span class="style-meta-item"><strong>Letter Spacing:</strong> -0.02em</span>
+                        </div>
+                    </div>
+
+                    <!-- H5 -->
+                    <div class="style-sample">
+                        <div class="style-name">Heading 5 <span class="style-class">h5, .h5</span></div>
+                        <div class="h5">We partner with organizations to create meaningful change</div>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Font:</strong> Zodiak (serif)</span>
+                            <span class="style-meta-item"><strong>Weight:</strong> 300 (Light)</span>
+                            <span class="style-meta-item"><strong>Size:</strong> 1.625rem (26px) / 1.875rem (30px)</span>
+                            <span class="style-meta-item"><strong>Line Height:</strong> 1.3</span>
+                        </div>
+                    </div>
+
+                    <!-- Split-Text Pattern -->
+                    <div class="style-sample">
+                        <div class="style-name">Split-Text Pattern <span class="style-class">.font-serif strong</span></div>
+                        <div class="split-text-demo">of buyers are willing to <strong>pay more for a great customer experience.</strong></div>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Base:</strong> Zodiak Light (300)</span>
+                            <span class="style-meta-item"><strong>Strong:</strong> Work Sans Bold (700)</span>
+                            <span class="style-meta-item"><strong>Pattern:</strong> Serif text with sans-serif bold emphasis</span>
+                        </div>
+                    </div>
+
+                    <!-- Semantic Headline Utility Classes -->
+                    <h3 style="margin: 3rem 0 1.5rem; font-size: 1.125rem; font-weight: 600;">Semantic Headline Utility Classes</h3>
+                    <p style="margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--pathway);">These classes allow visual appearance to be independent of semantic heading level. Use them to maintain proper h1→h2→h3 hierarchy while preserving visual design.</p>
+
+                    <div class="style-sample">
+                        <div class="style-name">Headline Hero <span class="style-class">.headline-hero</span></div>
+                        <h2 class="headline-hero">Strategy and innovation</h2>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Use case:</strong> Makes h2/h3 look like h1</span>
+                            <span class="style-meta-item"><strong>Font:</strong> Zodiak (serif)</span>
+                            <span class="style-meta-item"><strong>Weight:</strong> 300 (Light)</span>
+                            <span class="style-meta-item"><strong>Size:</strong> 2.25rem (36px) / 4.5rem (72px)</span>
+                        </div>
+                    </div>
+
+                    <div class="style-sample">
+                        <div class="style-name">Headline Section <span class="style-class">.headline-section</span></div>
+                        <h3 class="headline-section">Our approach to digital transformation</h3>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Use case:</strong> Section-level headings (h2/h3)</span>
+                            <span class="style-meta-item"><strong>Font:</strong> Work Sans</span>
+                            <span class="style-meta-item"><strong>Weight:</strong> 700 (Bold)</span>
+                            <span class="style-meta-item"><strong>Size:</strong> 1.875rem (30px) / 2.25rem (36px)</span>
+                        </div>
+                    </div>
+
+                    <div class="style-sample">
+                        <div class="style-name">Headline Card <span class="style-class">.headline-card</span></div>
+                        <h4 class="headline-card">Building digital solutions</h4>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Use case:</strong> Cards, accordions, nested content (h3/h4)</span>
+                            <span class="style-meta-item"><strong>Font:</strong> Work Sans</span>
+                            <span class="style-meta-item"><strong>Weight:</strong> 700 (Bold)</span>
+                            <span class="style-meta-item"><strong>Size:</strong> 1.25rem (20px) / 1.5rem (24px)</span>
+                        </div>
+                    </div>
+
+                    <!-- Heading Hierarchy Guidelines -->
+                    <h3 style="margin: 3rem 0 1.5rem; font-size: 1.125rem; font-weight: 600;">Heading Hierarchy Guidelines</h3>
+
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Context</th>
+                                <th>Semantic Tag</th>
+                                <th>Visual Class (if needed)</th>
+                                <th>Example Templates</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Hero/Banner headline</td>
+                                <td><code>&lt;h1&gt;</code></td>
+                                <td>—</td>
+                                <td>stack_banner.php, stack_profile_banner.php</td>
+                            </tr>
+                            <tr>
+                                <td>Billboard featured heading</td>
+                                <td><code>&lt;h2&gt;</code></td>
+                                <td><code>.headline-hero</code></td>
+                                <td>stack_billboard.php</td>
+                            </tr>
+                            <tr>
+                                <td>Section headings (CTA, Team, etc.)</td>
+                                <td><code>&lt;h2&gt;</code></td>
+                                <td>—</td>
+                                <td>stack_cta.php, stack_team.php</td>
+                            </tr>
+                            <tr>
+                                <td>Accordion item headers</td>
+                                <td><code>&lt;h3&gt;</code></td>
+                                <td>—</td>
+                                <td>stack_accordion.php</td>
+                            </tr>
+                            <tr>
+                                <td>Scroller/carousel items</td>
+                                <td><code>&lt;h3&gt;</code></td>
+                                <td><code>.headline-section</code></td>
+                                <td>stack_scroller.php, stack_carousel.php</td>
+                            </tr>
+                            <tr>
+                                <td>Team member names</td>
+                                <td><code>&lt;h3&gt;</code></td>
+                                <td><code>.headline-card</code></td>
+                                <td>stack_team.php</td>
+                            </tr>
+                            <tr>
+                                <td>Column headings (three-columns)</td>
+                                <td><code>&lt;h3&gt;</code></td>
+                                <td>—</td>
+                                <td>stack_three_columns.php</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="code-block" style="margin-top: 2rem;">
+                        <span class="comment">/* Recommended page structure */</span><br><br>
+                        <span class="selector">&lt;h1&gt;</span>Page Title (hero banner)<span class="selector">&lt;/h1&gt;</span><br>
+                        &nbsp;&nbsp;<span class="selector">&lt;h2&gt;</span>Section Heading<span class="selector">&lt;/h2&gt;</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="selector">&lt;h3&gt;</span>Subsection/Card<span class="selector">&lt;/h3&gt;</span><br>
+                        &nbsp;&nbsp;<span class="selector">&lt;h2&gt;</span>Another Section<span class="selector">&lt;/h2&gt;</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="selector">&lt;h3&gt;</span>Accordion Item<span class="selector">&lt;/h3&gt;</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="selector">&lt;h3&gt;</span>Team Member Name<span class="selector">&lt;/h3&gt;</span>
+                    </div>
+
+                </div>
+
+                <!-- PREVIOUS STYLES TAB -->
+                <div id="previous" class="tab-content">
+
+                    <div class="issue-callout">
+                        <h4>Issues with Previous Styles</h4>
+                        <ul>
+                            <li><strong>H1:</strong> Used weight 400 instead of 300, causing inconsistent Zodiak appearance</li>
+                            <li><strong>H1, H2:</strong> Line-height too loose (1.2) for large display text</li>
+                            <li><strong>H3 & H4:</strong> Weight 600 (Semi Bold) lacked visual impact; line-height 1.3 too loose</li>
+                            <li><strong>Split-Text:</strong> <code>&lt;strong&gt;</code> tags inherited Zodiak Light weight, breaking the dual-font pattern</li>
+                        </ul>
+                    </div>
+
+                    <!-- H1 Broken -->
+                    <div class="style-sample">
+                        <div class="style-name">Heading 1 (Previous) <span class="style-class">h1, .h1</span></div>
+                        <div class="h1-broken">Making an impact together</div>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Font:</strong> Zodiak (serif)</span>
+                            <span class="style-meta-item"><strong>Weight:</strong> 400 (Regular) - Too heavy</span>
+                            <span class="style-meta-item"><strong>Size:</strong> 3rem (48px) / 7.5rem (120px)</span>
+                            <span class="style-meta-item"><strong>Line Height:</strong> 1.2 - Too loose</span>
+                            <span class="style-meta-item"><strong>Letter Spacing:</strong> -0.04em</span>
+                        </div>
+                    </div>
+
+                    <!-- H2 Broken -->
+                    <div class="style-sample">
+                        <div class="style-name">Heading 2 (Previous) <span class="style-class">.h2</span></div>
+                        <div class="h2-broken">Strategy and innovation</div>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Font:</strong> Zodiak (serif)</span>
+                            <span class="style-meta-item"><strong>Weight:</strong> 300 (Light)</span>
+                            <span class="style-meta-item"><strong>Size:</strong> 2.25rem (36px) / 4.5rem (72px)</span>
+                            <span class="style-meta-item"><strong>Line Height:</strong> 1.2 - Too loose</span>
+                            <span class="style-meta-item"><strong>Letter Spacing:</strong> -0.04em</span>
+                        </div>
+                    </div>
+
+                    <!-- H3 Broken -->
+                    <div class="style-sample">
+                        <div class="style-name">Heading 3 (Previous) <span class="style-class">h3, .h3</span></div>
+                        <div class="h3-broken">Our approach to digital transformation</div>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Font:</strong> Work Sans</span>
+                            <span class="style-meta-item"><strong>Weight:</strong> 600 (Semi Bold) - Lacked impact</span>
+                            <span class="style-meta-item"><strong>Size:</strong> 1.875rem (30px) / 2.25rem (36px)</span>
+                            <span class="style-meta-item"><strong>Line Height:</strong> 1.3 - Too loose</span>
+                            <span class="style-meta-item"><strong>Letter Spacing:</strong> -0.02em</span>
+                        </div>
+                    </div>
+
+                    <!-- H4 Broken -->
+                    <div class="style-sample">
+                        <div class="style-name">Heading 4 (Previous) <span class="style-class">h4, .h4</span></div>
+                        <div class="h4-broken">Building digital solutions that scale</div>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Font:</strong> Work Sans</span>
+                            <span class="style-meta-item"><strong>Weight:</strong> 600 (Semi Bold) - Lacked impact</span>
+                            <span class="style-meta-item"><strong>Size:</strong> 1.5rem (24px) / 2rem (32px)</span>
+                            <span class="style-meta-item"><strong>Line Height:</strong> 1.3 - Too loose</span>
+                            <span class="style-meta-item"><strong>Letter Spacing:</strong> -0.02em</span>
+                        </div>
+                    </div>
+
+                    <!-- Split-Text Broken -->
+                    <div class="style-sample">
+                        <div class="style-name">Split-Text Pattern (Broken) <span class="style-class">.font-serif strong</span></div>
+                        <div class="split-text-broken">of buyers are willing to <strong>pay more for a great customer experience.</strong></div>
+                        <div class="style-meta">
+                            <span class="style-meta-item"><strong>Issue:</strong> Strong text inherits Zodiak Light instead of Work Sans Bold</span>
+                            <span class="style-meta-item"><strong>Cause:</strong> CSS wildcard rule forced all nested elements to inherit font-weight</span>
+                        </div>
+                    </div>
+
+                    <!-- Side-by-side comparison -->
+                    <h3 style="margin: 3rem 0 1.5rem; font-size: 1.125rem; font-weight: 600;">Side-by-Side Comparison</h3>
+
+                    <div class="comparison-grid">
+                        <div class="comparison-box broken">
+                            <div class="comparison-label">Previous (Broken)</div>
+                            <div class="split-text-broken" style="font-size: 1.5rem;">86% of buyers are willing to <strong>pay more for a great customer experience.</strong></div>
+                        </div>
+                        <div class="comparison-box fixed">
+                            <div class="comparison-label">Repaired (Current)</div>
+                            <div class="split-text-demo" style="font-size: 1.5rem;">86% of buyers are willing to <strong>pay more for a great customer experience.</strong></div>
+                        </div>
+                    </div>
+
+                    <!-- Technical Details -->
+                    <h3 style="margin: 3rem 0 1.5rem; font-size: 1.125rem; font-weight: 600;">Root Cause & Fix</h3>
+
+                    <p style="margin-bottom: 1rem; font-size: 0.875rem; color: var(--pathway);">The issue was in <code>build/css/zodiak-override.css</code>:</p>
+
+                    <div class="code-block">
+                        <span class="comment">/* PREVIOUS (Broken) */</span><br>
+                        <span class="selector">html body .font-serif *</span> {<br>
+                        &nbsp;&nbsp;<span class="property">font-weight</span>: <span class="value">inherit !important</span>;<br>
+                        }<br><br>
+                        <span class="comment">/* REPAIRED */</span><br>
+                        <span class="selector">html body .font-serif *:not(strong):not(b)</span> {<br>
+                        &nbsp;&nbsp;<span class="property">font-weight</span>: <span class="value">inherit !important</span>;<br>
+                        }<br><br>
+                        <span class="selector">html body .font-serif strong,<br>html body .font-serif b</span> {<br>
+                        &nbsp;&nbsp;<span class="property">font-family</span>: <span class="value">'Work Sans', sans-serif !important</span>;<br>
+                        &nbsp;&nbsp;<span class="property">font-weight</span>: <span class="value">700 !important</span>;<br>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Helper Classes Section -->
+        <section id="helpers" class="section">
+            <h2 class="section-title">Helper Classes</h2>
+
+            <!-- Eyebrow -->
+            <div class="style-sample">
+                <div class="style-name">Eyebrow <span class="style-class">.eyebrow</span></div>
+                <div class="eyebrow">Case Study</div>
+                <div class="style-meta">
+                    <span class="style-meta-item"><strong>Font:</strong> Work Sans</span>
+                    <span class="style-meta-item"><strong>Weight:</strong> 700 (Bold)</span>
+                    <span class="style-meta-item"><strong>Size:</strong> 0.75rem (12px)</span>
+                    <span class="style-meta-item"><strong>Line Height:</strong> 1</span>
+                    <span class="style-meta-item"><strong>Letter Spacing:</strong> 0.1em</span>
+                    <span class="style-meta-item"><strong>Transform:</strong> uppercase</span>
+                </div>
+            </div>
+
+            <!-- Kicker -->
+            <div class="style-sample">
+                <div class="style-name">Kicker <span class="style-class">.kicker</span></div>
+                <div class="kicker">Featured Solution</div>
+                <div class="style-meta">
+                    <span class="style-meta-item"><strong>Font:</strong> Work Sans</span>
+                    <span class="style-meta-item"><strong>Weight:</strong> 700 (Bold)</span>
+                    <span class="style-meta-item"><strong>Size:</strong> 0.875rem (14px)</span>
+                    <span class="style-meta-item"><strong>Line Height:</strong> 1.5</span>
+                    <span class="style-meta-item"><strong>Letter Spacing:</strong> 0.1em</span>
+                    <span class="style-meta-item"><strong>Transform:</strong> uppercase</span>
+                </div>
+            </div>
+
+            <!-- Deck -->
+            <div class="style-sample">
+                <div class="style-name">Deck <span class="style-class">.deck</span></div>
+                <div class="deck">We help organizations navigate complex challenges and build digital solutions that drive meaningful outcomes for communities and stakeholders.</div>
+                <div class="style-meta">
+                    <span class="style-meta-item"><strong>Font:</strong> Work Sans</span>
+                    <span class="style-meta-item"><strong>Weight:</strong> 300 (Light)</span>
+                    <span class="style-meta-item"><strong>Size:</strong> 1.25rem (20px) / 1.375rem (22px)</span>
+                    <span class="style-meta-item"><strong>Line Height:</strong> 1.4 (snug)</span>
+                </div>
+            </div>
+
+            <!-- Lead -->
+            <div class="style-sample">
+                <div class="style-name">Lead <span class="style-class">.lead</span></div>
+                <div class="lead">Our team brings decades of experience in public sector transformation, combining strategic insight with technical expertise to deliver lasting impact.</div>
+                <div class="style-meta">
+                    <span class="style-meta-item"><strong>Font:</strong> Zodiak (serif)</span>
+                    <span class="style-meta-item"><strong>Weight:</strong> 300 (Light)</span>
+                    <span class="style-meta-item"><strong>Size:</strong> 1.5rem (24px) / 1.875rem (30px)</span>
+                    <span class="style-meta-item"><strong>Line Height:</strong> 1.4</span>
+                </div>
+            </div>
+
+            <!-- Body -->
+            <div class="style-sample">
+                <div class="style-name">Body <span class="style-class">.body</span></div>
+                <div class="body">G2O is a strategy and technology consulting firm that partners with government agencies and organizations to solve complex challenges. We specialize in digital transformation, data analytics, and customer experience design.</div>
+                <div class="style-meta">
+                    <span class="style-meta-item"><strong>Font:</strong> Work Sans</span>
+                    <span class="style-meta-item"><strong>Weight:</strong> 400 (Regular)</span>
+                    <span class="style-meta-item"><strong>Size:</strong> 1rem (16px)</span>
+                    <span class="style-meta-item"><strong>Line Height:</strong> 1.5</span>
+                </div>
+            </div>
+
+            <!-- Caption -->
+            <div class="style-sample">
+                <div class="style-name">Caption <span class="style-class">.caption</span></div>
+                <div class="caption">Photo: G2O team members collaborating on a client workshop, Washington D.C., 2024</div>
+                <div class="style-meta">
+                    <span class="style-meta-item"><strong>Font:</strong> Work Sans</span>
+                    <span class="style-meta-item"><strong>Weight:</strong> 400 (Regular)</span>
+                    <span class="style-meta-item"><strong>Size:</strong> 0.75rem (12px)</span>
+                    <span class="style-meta-item"><strong>Line Height:</strong> 1.5</span>
+                </div>
+            </div>
+
+            <!-- Footnote -->
+            <div class="style-sample">
+                <div class="style-name">Footnote <span class="style-class">.footnote</span></div>
+                <div class="footnote">Data sources include federal agency reports and third-party research. Results may vary based on implementation approach and organizational context.</div>
+                <div class="style-meta">
+                    <span class="style-meta-item"><strong>Font:</strong> Work Sans</span>
+                    <span class="style-meta-item"><strong>Weight:</strong> 300 (Light)</span>
+                    <span class="style-meta-item"><strong>Size:</strong> 1rem (16px)</span>
+                    <span class="style-meta-item"><strong>Line Height:</strong> 1.4 (snug)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Colors Section -->
+        <section id="colors" class="section">
+            <h2 class="section-title">Brand Colors</h2>
+
+            <div class="color-grid">
+                <!-- Primary Colors -->
+                <div class="color-card">
+                    <div class="color-swatch" style="background-color: var(--river);"></div>
+                    <div class="color-info">
+                        <div class="color-name">River</div>
+                        <div class="color-value">#234253</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background-color: var(--river-light);"></div>
+                    <div class="color-info">
+                        <div class="color-name">River Light</div>
+                        <div class="color-value">#3B6C80</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background-color: var(--gunmetal);"></div>
+                    <div class="color-info">
+                        <div class="color-name">Gunmetal</div>
+                        <div class="color-value">#192C36</div>
+                    </div>
+                </div>
+
+                <!-- Accent Colors -->
+                <div class="color-card">
+                    <div class="color-swatch" style="background-color: var(--sky);"></div>
+                    <div class="color-info">
+                        <div class="color-name">Sky</div>
+                        <div class="color-value">#72D1F6</div>
+                    </div>
+                </div>
+
+                <!-- Highlight -->
+                <div class="color-card">
+                    <div class="color-swatch" style="background-color: var(--city);"></div>
+                    <div class="color-info">
+                        <div class="color-name">City</div>
+                        <div class="color-value">#ff4f55</div>
+                    </div>
+                </div>
+
+                <!-- Neutrals -->
+                <div class="color-card">
+                    <div class="color-swatch" style="background-color: var(--limestone);"></div>
+                    <div class="color-info">
+                        <div class="color-name">Limestone</div>
+                        <div class="color-value">#FFF7EF</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background-color: var(--light);"></div>
+                    <div class="color-info">
+                        <div class="color-name">Light</div>
+                        <div class="color-value">#F7F7F7</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background-color: var(--pathway-light);"></div>
+                    <div class="color-info">
+                        <div class="color-name">Pathway-light</div>
+                        <div class="color-value">#DFE1E1</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background-color: var(--pathway);"></div>
+                    <div class="color-info">
+                        <div class="color-name">Pathway</div>
+                        <div class="color-value">#606969</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specifications Table -->
+        <section id="specifications" class="section">
+            <h2 class="section-title">Quick Reference</h2>
+
+            <div class="improvement-callout">
+                <h4>Changes Summary</h4>
+                <p>Rows highlighted in green indicate values that were updated in the repair. Previous values shown with strikethrough.</p>
+            </div>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Style</th>
+                        <th>Class</th>
+                        <th>Font</th>
+                        <th>Weight</th>
+                        <th>Size (Mobile/Desktop)</th>
+                        <th>Line Height</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="changed">
+                        <td>H1</td>
+                        <td><code>h1, .h1</code></td>
+                        <td>Zodiak</td>
+                        <td><span class="strike">400</span> <span class="new-value">300</span></td>
+                        <td>3rem / 7.5rem</td>
+                        <td><span class="strike">1.2</span> <span class="new-value">1.1</span></td>
+                    </tr>
+                    <tr>
+                        <td>H1 Alt</td>
+                        <td><code>.h1-alt</code></td>
+                        <td>Work Sans</td>
+                        <td>800</td>
+                        <td>3rem / 7.5rem</td>
+                        <td>1.1</td>
+                    </tr>
+                    <tr class="changed">
+                        <td>H2</td>
+                        <td><code>.h2</code></td>
+                        <td>Zodiak</td>
+                        <td>300</td>
+                        <td>2.25rem / 4.5rem</td>
+                        <td><span class="strike">1.2</span> <span class="new-value">1.15</span></td>
+                    </tr>
+                    <tr>
+                        <td>H2 Alt</td>
+                        <td><code>.h2-alt</code></td>
+                        <td>Work Sans</td>
+                        <td>400</td>
+                        <td>4.5rem</td>
+                        <td>1.15</td>
+                    </tr>
+                    <tr class="changed">
+                        <td>H3</td>
+                        <td><code>h3, .h3</code></td>
+                        <td>Work Sans</td>
+                        <td><span class="strike">600</span> <span class="new-value">700</span></td>
+                        <td>1.875rem / 2.25rem</td>
+                        <td><span class="strike">1.3</span> <span class="new-value">1.03</span></td>
+                    </tr>
+                    <tr class="changed">
+                        <td>H4</td>
+                        <td><code>h4, .h4</code></td>
+                        <td>Work Sans</td>
+                        <td><span class="strike">600</span> <span class="new-value">700</span></td>
+                        <td>1.5rem / 2rem</td>
+                        <td><span class="strike">1.3</span> <span class="new-value">1.03</span></td>
+                    </tr>
+                    <tr>
+                        <td>H5</td>
+                        <td><code>h5, .h5</code></td>
+                        <td>Zodiak</td>
+                        <td>300</td>
+                        <td>1.625rem / 1.875rem</td>
+                        <td>1.3</td>
+                    </tr>
+                    <tr>
+                        <td>Eyebrow</td>
+                        <td><code>.eyebrow</code></td>
+                        <td>Work Sans</td>
+                        <td>700</td>
+                        <td>0.75rem</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Kicker</td>
+                        <td><code>.kicker</code></td>
+                        <td>Work Sans</td>
+                        <td>700</td>
+                        <td>0.875rem</td>
+                        <td>1.5</td>
+                    </tr>
+                    <tr>
+                        <td>Deck</td>
+                        <td><code>.deck</code></td>
+                        <td>Work Sans</td>
+                        <td>300</td>
+                        <td>1.25rem / 1.375rem</td>
+                        <td>1.4</td>
+                    </tr>
+                    <tr>
+                        <td>Lead</td>
+                        <td><code>.lead</code></td>
+                        <td>Zodiak</td>
+                        <td>300</td>
+                        <td>1.5rem / 1.875rem</td>
+                        <td>1.4</td>
+                    </tr>
+                    <tr>
+                        <td>Body</td>
+                        <td><code>.body</code></td>
+                        <td>Work Sans</td>
+                        <td>400</td>
+                        <td>1rem</td>
+                        <td>1.5</td>
+                    </tr>
+                    <tr>
+                        <td>Caption</td>
+                        <td><code>.caption</code></td>
+                        <td>Work Sans</td>
+                        <td>400</td>
+                        <td>0.75rem</td>
+                        <td>1.5</td>
+                    </tr>
+                    <tr>
+                        <td>Footnote</td>
+                        <td><code>.footnote</code></td>
+                        <td>Work Sans</td>
+                        <td>300</td>
+                        <td>1rem</td>
+                        <td>1.4</td>
+                    </tr>
+                    <tr style="background-color: rgba(114, 209, 246, 0.1);">
+                        <td colspan="6" style="font-weight: 600; color: var(--sky);">Semantic Headline Utility Classes (New)</td>
+                    </tr>
+                    <tr class="changed">
+                        <td>Headline Hero</td>
+                        <td><code>.headline-hero</code></td>
+                        <td>Zodiak</td>
+                        <td>300</td>
+                        <td>2.25rem / 4.5rem</td>
+                        <td>1.2</td>
+                    </tr>
+                    <tr class="changed">
+                        <td>Headline Section</td>
+                        <td><code>.headline-section</code></td>
+                        <td>Work Sans</td>
+                        <td>700</td>
+                        <td>1.875rem / 2.25rem</td>
+                        <td>1.03</td>
+                    </tr>
+                    <tr class="changed">
+                        <td>Headline Card</td>
+                        <td><code>.headline-card</code></td>
+                        <td>Work Sans</td>
+                        <td>700</td>
+                        <td>1.25rem / 1.5rem</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin: 3rem 0 1.5rem; font-size: 1.125rem; font-weight: 600;">Split-Text Pattern Fix</h3>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Selector</th>
+                        <th>Previous Behavior</th>
+                        <th>Repaired Behavior</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="changed">
+                        <td><code>&lt;strong&gt;</code> inside <code>.font-serif</code></td>
+                        <td><code>.font-serif strong</code></td>
+                        <td>Inherited Zodiak Light (300) due to wildcard rule</td>
+                        <td><span class="new-value">Work Sans Bold (700)</span></td>
+                    </tr>
+                    <tr class="changed">
+                        <td><code>&lt;b&gt;</code> inside <code>.font-serif</code></td>
+                        <td><code>.font-serif b</code></td>
+                        <td>Inherited Zodiak Light (300) due to wildcard rule</td>
+                        <td><span class="new-value">Work Sans Bold (700)</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer style="background-color: var(--light); padding: 2rem; text-align: center; color: var(--pathway); font-size: 0.875rem;">
+        <p>G2O Style Guide &bull; Last Updated: January 2026</p>
+    </footer>
+
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.dataset.tab;
+
+                // Update button states
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                button.classList.add('active');
+
+                // Update content visibility
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

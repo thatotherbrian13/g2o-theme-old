@@ -1,0 +1,1985 @@
+/**
+ * Navigation Component - CSS Version
+ *
+ */
+
+/* CSS Custom Properties (Brand Tokens) */
+/* CACHE BUSTER TEST - If you see this comment, CSS is loading properly */
+/* STYLES RESET - Removed problematic universal rules */
+
+/* Prevent navigation shift using modern scrollbar-gutter approach */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Allow natural overflow behavior - let ScrollSmoother handle its own logic */
+body {
+  overflow-y: auto;
+}
+
+:root {
+  /* G2O Brand Colors */
+  --g2o-color-primary: #234353;    /* Deep teal/navy */
+  --g2o-color-accent: #72d1f6;     /* Light blue/cyan */
+  --g2o-color-accent-dark: #4ba5d1; /* Darker blue for active states */
+  --g2o-color-highlight: #ff5f5d;  /* Coral red */
+  --g2o-color-shore: #f7f7f7;      /* Light gray */
+  --g2o-color-white: #fff7ef;      /* Off-white */
+  --g2o-color-pure-white: #ffffff; /* Pure white */
+  
+  /* Advanced glassmorphism properties */
+  --nav-glass-noise: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="1" result="noise"/><feColorMatrix in="noise" type="saturate" values="0"/></filter></defs><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.02"/></svg>');
+  --nav-glass-gradient: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  
+  /* Navigation-specific tokens - Balanced glassmorphism */
+  --nav-glass-bg: rgba(35, 67, 83, 0.78); /* Balanced opacity with content behind */
+  --nav-glass-bg-scroll: rgba(35, 67, 83, 0.78); /* Keep same opacity */
+  --nav-glass-border: rgba(255, 255, 255, 0.18);
+  --nav-glass-shadow: rgba(35, 67, 83, 0.12);
+  --nav-bg-mobile: rgba(35, 67, 83, 0.95);
+  --nav-text: rgba(255, 255, 255, 0.95);
+  --nav-text-hover: rgba(255, 255, 255, 1);
+  --nav-text-mobile: rgba(255, 255, 255, 0.95);
+  --nav-backdrop: rgba(35, 67, 83, 0.7);
+  
+  /* Timing and easing */
+  --nav-transition-fast: 120ms ease-out;
+  --nav-transition-normal: 120ms ease-out;
+  --nav-transition-slow: 280ms ease-out;
+  
+  /* Spacing scale */
+  --nav-space-xs: 0.25rem;   /* 4px */
+  --nav-space-sm: 0.5rem;    /* 8px */
+  --nav-space-md: 0.75rem;   /* 12px */
+  --nav-space-lg: 1rem;      /* 16px */
+  --nav-space-xl: 1.5rem;    /* 24px */
+  --nav-space-xxl: 2rem;     /* 32px */
+  
+  /* Typography */
+  --nav-font-size: 1rem;
+  --nav-font-weight: 600; /* Changed to Semi Bold for top-level items */
+  --nav-font-weight-bold: 600;
+  --nav-line-height: 1.5;
+  
+  /* Z-index scale */
+  --nav-z-dropdown: 1000;
+  --nav-z-mobile: 9997;
+  --nav-z-backdrop: 9996;
+  --nav-z-toggle: 9999; /* Hamburger always on top */
+}
+
+/* Dark theme overrides */
+.page-theme-dark {
+  --nav-bg: rgba(35, 67, 83, 0.95);
+  --nav-text: var(--g2o-color-white);
+  --nav-text-hover: var(--g2o-color-accent);
+  --nav-border: rgba(255, 247, 239, 0.1);
+  --nav-shadow: rgba(0, 0, 0, 0.2);
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --nav-transition-fast: 0ms;
+    --nav-transition-normal: 0ms;
+    --nav-transition-slow: 0ms;
+  }
+  
+  .nav__link:hover,
+  .nav__toggle:hover,
+  .header__logo:hover {
+    transform: none !important; /* Disable micro-interactions */
+  }
+}
+
+/* Fallback for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(1px)) {
+  .header__backdrop {
+    background: rgba(35, 67, 83, 0.88) !important;
+  }
+  
+  .header[data-scrolled] .header__backdrop {
+    background: rgba(35, 67, 83, 0.88) !important;
+  }
+  
+  .nav__dropdown {
+    background: rgba(35, 67, 83, 0.75) !important; /* Still more transparent even without backdrop-filter */
+  }
+}
+
+/* Ensure no theme styles interfere with our positioning */
+* {
+  box-sizing: border-box;
+}
+
+/* Force WordPress theme containers to comply */
+.site-header + *,
+.masthead + *,
+header + * {
+  margin-top: 0 !important;
+  /* padding-top: 80px !important; */ /* Removed - causes white gap on home page */
+}
+
+/* Header Component */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--nav-z-dropdown);
+  transition: transform var(--nav-transition-normal);
+  min-height: 80px;
+  transform: translateZ(0);
+  will-change: transform;
+  width: 100vw;
+  /* Ensure no background on header itself */
+  background: transparent !important;
+}
+
+/* Fix for WordPress admin bar */
+body.admin-bar .header {
+  top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar .header {
+    top: 46px;
+  }
+}
+
+/* Remove all body padding - force content to start at top */
+body {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  /* Ensure body starts at absolute top */
+  position: relative;
+  top: 0;
+}
+
+body.admin-bar {
+  padding-top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar {
+    padding-top: 46px;
+  }
+}
+
+/* Eliminate any potential white elements at the very top */
+body::before,
+html::before {
+  display: none !important;
+}
+
+/* Force any potential theme containers to start at top */
+.wp-site-blocks,
+.site-content,
+.content-wrapper,
+.main-content,
+.primary-content {
+  margin-top: 0 !important;
+  padding-top: 80px !important;
+}
+
+/* Target WordPress block themes specifically */
+.wp-block-group__inner-container,
+.wp-block-cover__inner-container {
+  margin-top: 0 !important;
+}
+
+/* REAL SOLUTION: Pull main content up behind nav */
+main, .site-main, #main, .main {
+  margin-top: -100px !important; /* Pull up behind nav */
+  position: relative;
+  /* Background containers now start behind nav naturally */
+}
+
+/* Admin bar handled separately - no container padding needed */
+
+/* Ensure content flows naturally under the nav */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Hero and banner elements start at viewport top naturally */
+.hero, .banner, .page-header, .entry-header,
+.wp-block-cover, .wp-block-group {
+  margin-top: 0 !important;
+  position: relative;
+  /* Let backgrounds extend naturally from top */
+}
+
+/* Force all containers to start at viewport top */
+.site, .site-content, .content-area, .page, .post,
+.entry-content, .post-content, .page-content {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Reset all margins and padding */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* First elements start at viewport top naturally */
+body > *:first-child {
+  margin-top: 0 !important;
+  position: relative;
+  /* No negative margins - let backgrounds flow naturally */
+}
+
+/* CONTENT SPACING: Removed - now handled by mt-35 classes in templates */
+
+/* SERVICE PAGES: Extra spacing for billboard/hero sections */
+/* Multiple selectors to catch different HTML structures */
+/* Service pages get 140px padding (all stack types + specific pages) */
+.stack-billboard > *:first-child,
+.stack-banner > *:first-child,
+.stack-hero > *:first-child,
+.stack-billboard .eyebrow:first-child,
+.stack-billboard h1:first-child,
+.stack-billboard h2:first-child,
+body.page-id-2095 .stacks > .stack:first-child > *:first-child, /* Data Analytics page */
+body.page-id-2093 .stacks > .stack:first-child > *:first-child /* AI Consulting page */ {
+  padding-top: 140px !important; /* More space for service pages */
+}
+
+/* NUCLEAR OVERRIDE: Remove spacing for seamless home page hero */
+body.home .stack:first-child > *:first-child,
+body.home .stacks > .stack:first-child > *:first-child {
+  padding-top: 0 !important; /* Remove gap for seamless hero */
+}
+
+/* Mobile homepage override removed - no longer needed */
+
+/* Admin bar adjustments - Removed */
+
+/* SERVICE PAGES: Admin bar adjustments */
+/* Admin bar adjustments for all service pages */
+body.admin-bar .stack-billboard > *:first-child,
+body.admin-bar .stack-banner > *:first-child,
+body.admin-bar .stack-hero > *:first-child,
+body.admin-bar .stack-billboard .eyebrow:first-child,
+body.admin-bar .stack-billboard h1:first-child,
+body.admin-bar .stack-billboard h2:first-child,
+body.admin-bar.page-id-2095 .stacks > .stack:first-child > *:first-child,
+body.admin-bar.page-id-2093 .stacks > .stack:first-child > *:first-child {
+  padding-top: 172px !important; /* 140px service spacing + 32px admin bar */
+}
+
+@media screen and (max-width: 782px) {
+  /* Mobile admin bar rule removed */
+
+  /* SERVICE PAGES: Mobile admin bar adjustments */
+  /* Mobile admin bar adjustments for all service pages */
+  body.admin-bar .stack-billboard > *:first-child,
+  body.admin-bar .stack-banner > *:first-child,
+  body.admin-bar .stack-hero > *:first-child,
+  body.admin-bar .stack-billboard .eyebrow:first-child,
+  body.admin-bar .stack-billboard h1:first-child,
+  body.admin-bar .stack-billboard h2:first-child,
+  body.admin-bar.page-id-2095 .stacks > .stack:first-child > *:first-child,
+  body.admin-bar.page-id-2093 .stacks > .stack:first-child > *:first-child {
+    padding-top: 186px !important; /* 140px service spacing + 46px mobile admin bar */
+  }
+}
+
+
+
+/* CONTACT PAGE: Force correct shore background color with ultra-high specificity */
+html body.page-template-page-contact,
+html body.page-id-14,
+html body[class*="contact"],
+html body.page.contact,
+html body.single-page[data-page*="contact"],
+html.wp-toolbar body.page-template-page-contact,
+html.wp-toolbar body.page-id-14 {
+  background-color: #fff7ef !important; /* Shore color */
+  background-image: none !important; /* Remove any background images */
+}
+
+/* Also target the main container if body background isn't working */
+body.page-template-page-contact main,
+body.page-id-14 main,
+body[class*="contact"] main,
+body.page-template-page-contact .stacks,
+body.page-id-14 .stacks,
+body[class*="contact"] .stacks {
+  background-color: #fff7ef !important;
+  background-image: none !important;
+}
+
+/* Also target common WordPress theme wrappers */
+.site-wrapper, .page-wrapper, .main-wrapper,
+.container, .site-container {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Ensure the very first visual element starts at top */
+body > header + *,
+body .site > *:first-child,
+body .site-container > *:first-child {
+  margin-top: 0 !important;
+  padding-top: 80px !important;
+}
+
+body.admin-bar .hero,
+body.admin-bar .banner,
+body.admin-bar .page-header,
+body.admin-bar .entry-header,
+body.admin-bar .wp-block-cover,
+body.admin-bar .wp-block-group {
+  top: -80px;
+  padding-top: 112px; /* 80px nav + 32px admin bar */
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar .hero,
+  body.admin-bar .banner,
+  body.admin-bar .page-header,
+  body.admin-bar .entry-header,
+  body.admin-bar .wp-block-cover,
+  body.admin-bar .wp-block-group {
+    top: -80px;
+    padding-top: 126px; /* 80px nav + 46px mobile admin bar */
+  }
+}
+
+/* Remove all forced background elements */
+/* Let page content naturally appear behind nav */
+
+.header__backdrop {
+  position: absolute;
+  inset: 0;
+  /* Beautiful glassmorphism with your loved tint */
+  background: 
+    linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%),
+    rgba(35, 67, 83, 0.78); /* Balanced opacity with content behind */
+  backdrop-filter: blur(16px) saturate(1.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  opacity: 1;
+  transition: all var(--nav-transition-normal);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+    0 4px 24px -4px rgba(35, 67, 83, 0.12);
+  background-image: var(--nav-glass-noise);
+}
+
+.header[data-scrolled] .header__backdrop {
+  background: 
+    linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%),
+    rgba(35, 67, 83, 0.78); /* Keep same as non-scrolled */
+  backdrop-filter: blur(16px) saturate(1.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+    0 4px 24px -4px rgba(35, 67, 83, 0.12);
+  background-image: var(--nav-glass-noise);
+}
+
+.header__container {
+  position: relative;
+  z-index: 2;
+  padding: var(--nav-space-sm) 0; /* Much smaller padding */
+  transition: padding var(--nav-transition-normal);
+}
+
+.header[data-scrolled] .header__container {
+  padding: var(--nav-space-sm) 0; /* Keep consistent */
+}
+
+.header__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--nav-space-md) 0 0; /* Minimal left padding to align with content */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--nav-space-xl);
+  position: relative;
+  min-height: 64px;
+  /* Ensure no background on inner container */
+  background: transparent !important;
+}
+
+/* Mobile/tablet padding for proper spacing */
+@media (max-width: 1349px) {
+  .header__inner {
+    padding: 0 var(--nav-space-lg); /* Equal padding left and right */
+    gap: 0; /* No gap needed with space-between */
+    max-width: none; /* Full width on mobile */
+  }
+}
+
+/* Mobile layout - proper logo and hamburger positioning */
+@media (max-width: 1349px) {
+  .header__inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Force separation */
+    width: 100%;
+  }
+  
+  .header__brand {
+    flex: 0 0 auto;
+    order: 1;
+  }
+  
+  .header__navigation {
+    flex: 0 0 auto;
+    order: 2;
+    margin-left: auto; /* Force to right edge */
+  }
+  
+  /* Hide desktop navigation completely on mobile */
+  .nav__desktop {
+    display: none !important;
+  }
+  
+  /* Ensure hamburger is positioned correctly */
+  .nav__toggle {
+    margin-left: auto; /* Push to right */
+  }
+}
+
+.header__brand {
+  flex-shrink: 0;
+}
+
+.header__logo {
+  display: block;
+  color: var(--nav-text);
+  text-decoration: none;
+  margin-right: auto; /* Push logo to left, navigation to right */
+  transition: transform var(--nav-transition-fast);
+  z-index: 10;
+  flex-shrink: 0; /* Don't shrink logo */
+}
+
+/* SAFE ZONE: No negative margins until very large screens */
+@media (min-width: 1400px) {
+  .header__logo {
+    margin-left: calc(-1 * var(--nav-space-lg)); /* Only pull on very large screens */
+  }
+}
+
+/* PROBLEM RANGE: Force safe positioning 1024px-1399px */
+@media (min-width: 1350px) and (max-width: 1399px) {
+  .header__logo {
+    margin-left: var(--nav-space-xxl) !important; /* Force large safe margin 32px */
+  }
+  
+  .header__inner {
+    padding-left: var(--nav-space-xl) !important; /* Extra safe container padding 24px */
+  }
+}
+
+/* Mobile logo positioning - keep on screen */
+@media (max-width: 1349px) {
+  .header__logo {
+    margin-left: 0 !important; /* No negative margins on mobile */
+    margin-right: auto; /* Push hamburger to right */
+    min-width: 84px;
+    flex-shrink: 0;
+  }
+}
+
+.header__logo:hover {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.header__logo:focus-visible {
+  outline: 2px solid var(--g2o-color-accent);
+  outline-offset: 2px;
+  border-radius: 0;
+}
+
+.header__logo-svg {
+  width: 84px;
+  display: block;
+}
+
+.header__navigation {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end; /* Push navigation to the right */
+  min-width: 0; /* Allow shrinking */
+}
+
+.header__actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--nav-space-lg);
+}
+
+.header__sentinel {
+  position: absolute;
+  top: -1px;
+  height: 1px;
+  width: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Navigation Component */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  /* Ensure no background on nav container */
+  background: transparent !important;
+}
+
+/* Desktop Navigation */
+.nav__desktop {
+  display: none;
+}
+
+@media (min-width: 1350px) {
+  .nav__desktop {
+    display: flex;
+    flex: 1;
+    justify-content: center; /* Center the menu */
+    margin: 0 var(--nav-space-xl); /* Add breathing room */
+  }
+
+  .header__navigation {
+    justify-content: center; /* Center navigation instead of pushing right */
+  }
+}
+
+.nav__menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--nav-space-md); /* Smaller gap to prevent wrapping */
+  flex-wrap: nowrap; /* Prevent wrapping */
+}
+
+.nav__item {
+  position: relative;
+}
+
+/* Removed focus-within rule to prevent jumping issue
+.nav__item:focus-within .nav__dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+*/
+
+/* Better hover zone - expand hover area to cover gaps */
+.nav__item--has-dropdown {
+  position: relative;
+}
+
+/* Removed pseudo-element that was creating unnecessary complexity */
+
+/* Remove redundant rule - handled by main .nav__dropdown selector */
+
+.nav__link {
+  display: flex;
+  align-items: center;
+  gap: var(--nav-space-xs);
+  padding: 6px 14px; /* Match override padding to prevent jumping */
+  border: 2px solid transparent; /* Prevent height change on hover */
+  color: var(--nav-text);
+  text-decoration: none;
+  font-family: 'Work Sans', sans-serif !important;
+  font-size: var(--nav-font-size);
+  font-weight: var(--nav-font-weight) !important;
+  line-height: var(--nav-line-height);
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+  opacity: 1;
+  white-space: nowrap; /* Prevent text wrapping */
+  box-sizing: border-box; /* Consistent box model */
+  vertical-align: middle; /* Prevent flex alignment shifts */
+  height: auto;
+  min-height: 32px; /* Consistent minimum height */
+  transition:
+    color var(--nav-transition-fast),
+    background-color var(--nav-transition-fast);
+}
+
+/* Only non-dropdown items get default hover - dropdown parents handled separately */
+.nav__item:not(.nav__item--has-dropdown) > .nav__link:hover {
+  color: var(--nav-text-hover) !important;
+  background-color: transparent !important;
+  border-radius: 0 !important;
+}
+
+.nav__link:focus-visible {
+  outline: 2px solid var(--g2o-color-accent);
+  outline-offset: 2px;
+}
+
+.nav__item--current > .nav__link:not([aria-expanded]) {
+  color: var(--nav-text-hover);
+  font-weight: var(--nav-font-weight-bold);
+}
+
+/* Don't show background on parent items with dropdowns when they're current */
+.nav__item--current.nav__item--has-dropdown > .nav__link {
+  background: transparent;
+}
+
+/* Dropdown parent items handled by higher specificity selectors below */
+
+.nav__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid #72d1f6; /* G2O accent color triangle */
+  transition: transform var(--nav-transition-fast);
+  margin-left: var(--nav-space-xs);
+}
+
+/* Hide SVG icons in desktop navigation in favor of CSS triangles */
+.nav__desktop .nav__icon svg {
+  display: none;
+}
+
+/* Hide ALL SVG icons in mobile menu items */
+.nav__mobile-menu .nav__icon {
+  display: none !important;
+}
+
+.nav__mobile-menu .nav__icon svg {
+  display: none !important;
+}
+
+.nav__link[aria-expanded="true"] .nav__icon {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Styles */
+.nav__dropdown {
+  position: absolute;
+  top: calc(100% - 1px); /* Subtle overlap for clean connection */
+  left: 0; /* Align exactly with parent hover background left edge */
+  transform: translateY(0);
+  min-width: 240px;
+  background: rgba(25, 35, 45, 0.95); /* Dark background for strong contrast */
+  backdrop-filter: blur(20px) saturate(1.5) contrast(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.25); /* Stronger border for better visibility */
+  border-top: 1px solid rgba(255, 255, 255, 0.25); /* Stronger border for better visibility */
+  border-radius: 0; /* Sharp corners */
+  z-index: 10 !important; /* Below parent but above other content */
+  box-shadow:
+    0 12px 40px -8px rgba(0, 0, 0, 0.5),
+    0 4px 16px -4px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--nav-transition-normal),
+    visibility var(--nav-transition-normal);
+    /* Removed transform transition to prevent jumping */
+  z-index: calc(var(--nav-z-dropdown) + 1);
+}
+
+/* Dropdowns only show when explicitly opened via JavaScript */
+.nav__item--has-dropdown .nav__dropdown[aria-hidden="false"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+/* Desktop dropdowns - controlled by JavaScript only */
+
+@media (max-width: 640px) {
+  .nav__dropdown {
+    left: 0;
+    transform: translateY(0); /* No gap, perfect connection */
+    width: calc(100vw - 2rem);
+    margin: 0 1rem;
+  }
+}
+
+.nav__dropdown[aria-hidden="false"] {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Removed - dropdowns now only controlled by JavaScript */
+
+@media (max-width: 640px) {
+  .nav__dropdown[aria-hidden="false"] {
+    transform: translateY(0);
+  }
+}
+
+.nav__submenu {
+  list-style: none;
+  margin: 0;
+  padding: 0; /* Remove container padding to prevent double padding */
+}
+
+.nav__submenu .nav__link {
+  display: block;
+  padding: 6px 14px; /* Match main nav padding to prevent jumping */
+  color: #F7F7F7; /* Light text on dark background */
+  border-radius: 0;
+  margin: 0; /* Remove margin for perfect alignment */
+  line-height: 1.5; /* Explicit line-height to prevent jumping */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: none !important; /* Prevent any inherited transforms from causing jumping */
+  font-weight: 400 !important; /* Force regular weight to prevent text growth on hover */
+  font-size: 1rem !important; /* Lock font size to prevent changes */
+  transition: background-color 150ms ease-out !important; /* Only allow background transitions */
+  box-sizing: border-box !important; /* Ensure borders don't add to height */
+}
+
+/* Add subtle dividers between submenu items */
+.nav__submenu .nav__item:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Ensure nav items have proper box sizing to prevent border height issues */
+.nav__submenu .nav__item,
+.nav__dropdown .nav__item {
+  box-sizing: border-box !important;
+}
+
+/* Hover state - bright blue */
+/* Removed - handled by high-specificity rules below with body selectors to prevent conflicts */
+
+/* Active/Current state - darker blue */
+.nav__submenu .nav__item--current .nav__link,
+.nav__submenu .nav__link[aria-current],
+.nav__submenu .nav__link.current {
+  background-color: rgba(75, 165, 209, 0.9) !important; /* Darker blue for active state */
+  color: #191919 !important; /* Dark text on light background */
+}
+
+/* Hide dropdowns on mobile - use accordion instead */
+@media (max-width: 1349px) {
+  .nav__dropdown {
+    display: none !important;
+  }
+}
+
+/* Mobile Navigation - Clean Implementation */
+
+/* Hamburger Toggle Button */
+.nav__toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  color: var(--nav-text);
+  cursor: pointer;
+  padding: 8px;
+  z-index: var(--nav-z-toggle);
+}
+
+@media (max-width: 1349px) {
+  .nav__toggle {
+    display: flex;
+  }
+
+  .nav__desktop {
+    display: none;
+  }
+
+  /* Hamburger visibility will be managed by JavaScript */
+}
+
+/* Hamburger Lines */
+.nav__toggle-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav__toggle-line {
+  width: 24px;
+  height: 3px;
+  background: currentColor;
+  border-radius: 0;
+  transition: transform var(--nav-transition-normal), opacity var(--nav-transition-normal);
+}
+
+/* Hamburger to X Animation */
+.nav__toggle[aria-expanded="true"] .nav__toggle-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-line:nth-child(2) {
+  opacity: 0;
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Panel */
+.nav__mobile {
+  position: fixed;
+  top: 0;
+  right: 0; /* Position from right */
+  width: 100vw;
+  height: 100vh;
+  background: var(--nav-backdrop);
+  z-index: var(--nav-z-mobile);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(100%); /* Start off-screen to the right */
+  transition: opacity var(--nav-transition-slow), visibility var(--nav-transition-slow), transform var(--nav-transition-slow);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+
+.nav__mobile[aria-hidden="false"] {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0); /* Slide in from right */
+}
+
+@media (max-width: 1349px) {
+  .nav__mobile {
+    display: block;
+  }
+}
+
+/* Force mobile navigation to escape any container constraints */
+.nav__mobile {
+  /* Removed conflicting transform - handled in main rule above */
+  will-change: opacity, visibility, transform;
+}
+
+/* Ensure mobile navigation isn't contained by header overflow */
+.header {
+  overflow: visible;
+}
+
+@media (max-width: 1349px) {
+  .header {
+    overflow: visible;
+  }
+}
+
+/* Mobile Header */
+.nav__mobile-header {
+  position: relative;
+  background: var(--nav-backdrop);
+  height: 80px; /* Match desktop header height exactly */
+  padding: 0 var(--nav-space-lg); /* Match mobile header padding */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(16px);
+  /* Ensure exact same structure as desktop header */
+  min-height: 80px;
+}
+
+/* Mobile Logo - match desktop positioning exactly */
+.nav__mobile-logo {
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: opacity var(--nav-transition-fast);
+  /* Match desktop logo exact positioning */
+  margin-left: 0;
+  margin-right: auto;
+  min-width: 84px;
+  flex-shrink: 0;
+}
+
+.nav__mobile-logo:hover {
+  opacity: 0.8;
+}
+
+.nav__mobile-logo-svg {
+  width: 84px;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* Mobile Close Button - Hidden since hamburger animates to X */
+.nav__mobile-close {
+  display: none !important; /* Hide duplicate - hamburger X serves as close button */
+}
+
+.nav__mobile-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 1);
+}
+
+.nav__close-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Mobile Content Area */
+.nav__mobile-content {
+  position: absolute;
+  top: 80px; /* Start below fixed header */
+  left: 0;
+  width: 100%;
+  height: calc(100% - 80px); /* Account for header height */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  padding: var(--nav-space-lg) var(--nav-space-xl) 100px; /* Extra bottom padding for Contact button */
+  background: transparent;
+}
+
+/* Mobile Menu Items */
+.nav__mobile-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__mobile-menu .nav__item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0;
+}
+
+.nav__mobile-menu .nav__item:last-child {
+  border-bottom: none;
+}
+
+/* MOBILE ONLY - Base mobile menu link styles */
+@media (max-width: 1349px) {
+  .nav__mobile-menu .nav__link,
+  .nav__mobile-menu button.nav__link {
+    display: block;
+    width: 100%;
+    padding: 18px 20px;
+    color: var(--nav-text-mobile);
+    font-size: 1.125rem;
+    font-weight: 600;
+    font-family: 'Work Sans', sans-serif;
+    text-align: left;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color var(--nav-transition-fast);
+  }
+}
+
+@media (max-width: 1349px) {
+  /* Touch feedback for mobile navigation */
+  .nav__mobile-menu .nav__link:active,
+  .nav__mobile-menu button.nav__link:active {
+    color: var(--g2o-color-accent);
+    transform: none; /* Prevent any movement */
+  }
+}
+
+@media (max-width: 1349px) {
+  /* Mobile menu items with dropdowns */
+  .nav__mobile-menu .nav__item--has-dropdown > .nav__link,
+  .nav__mobile-menu .nav__item--has-dropdown > button.nav__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav__mobile-menu .nav__item--has-dropdown > .nav__link::after,
+  .nav__mobile-menu .nav__item--has-dropdown > button.nav__link::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid var(--g2o-color-accent);
+    transition: transform var(--nav-transition-normal);
+    flex-shrink: 0;
+  }
+
+  /* Expanded state arrow */
+  .nav__mobile-menu .nav__item--has-dropdown[data-expanded="true"] > .nav__link::after,
+  .nav__mobile-menu .nav__item--has-dropdown[data-expanded="true"] > button.nav__link::after,
+  .nav__mobile-menu .nav__item--has-dropdown > .nav__link[aria-expanded="true"]::after,
+  .nav__mobile-menu .nav__item--has-dropdown > button.nav__link[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+  }
+
+  /* Expanded parent text color */
+  .nav__mobile-menu .nav__item--has-dropdown[data-expanded="true"] > .nav__link,
+  .nav__mobile-menu .nav__item--has-dropdown[data-expanded="true"] > button.nav__link,
+  .nav__mobile-menu .nav__item--has-dropdown > .nav__link[aria-expanded="true"],
+  .nav__mobile-menu .nav__item--has-dropdown > button.nav__link[aria-expanded="true"] {
+    color: var(--g2o-color-accent);
+  }
+
+  /* ULTRA HIGH SPECIFICITY - Expanded parent background */
+  html body .nav__mobile .nav__mobile-menu .nav__item--has-dropdown[data-expanded="true"] > .nav__link,
+  html body .nav__mobile .nav__mobile-menu .nav__item--has-dropdown[data-expanded="true"] > button.nav__link,
+  html body .nav__mobile .nav__mobile-menu .nav__item--has-dropdown > .nav__link[aria-expanded="true"],
+  html body .nav__mobile .nav__mobile-menu .nav__item--has-dropdown > button.nav__link[aria-expanded="true"] {
+    background: rgba(35, 57, 73, 0.7) !important; /* Strong background for parent visibility */
+    color: var(--g2o-color-accent) !important;
+  }
+
+  /* Force expanded state to persist even on hover */
+  html body .nav__mobile .nav__mobile-menu .nav__item--has-dropdown[data-expanded="true"] > .nav__link:hover,
+  html body .nav__mobile .nav__mobile-menu .nav__item--has-dropdown[data-expanded="true"] > button.nav__link:hover,
+  html body .nav__mobile .nav__mobile-menu .nav__item--has-dropdown > .nav__link[aria-expanded="true"]:hover,
+  html body .nav__mobile .nav__mobile-menu .nav__item--has-dropdown > button.nav__link[aria-expanded="true"]:hover {
+    background: rgba(35, 57, 73, 0.7) !important; /* Same as expanded state */
+    color: var(--g2o-color-accent) !important;
+  }
+}
+
+
+/* Mobile Dropdown Accordion */
+@media (max-width: 1349px) {
+  .nav__mobile-menu .nav__dropdown {
+    max-height: 0;
+    overflow: hidden;
+    background: rgba(35, 57, 73, 0.1);
+    transition: max-height 300ms ease-out;
+  }
+
+  .nav__mobile-menu .nav__item--has-dropdown[data-expanded="true"] .nav__dropdown,
+  .nav__mobile-menu .nav__item--has-dropdown .nav__dropdown[aria-hidden="false"] {
+    max-height: 400px;
+  }
+}
+
+/* MOBILE ACCORDION CONTROLS - Complete visibility management */
+@media (max-width: 1349px) {
+  .nav__mobile .nav__dropdown {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    background: rgba(35, 57, 73, 0.3) !important; /* Match parent opacity for consistency */
+    transition: all 300ms ease-out !important;
+    position: static !important; /* Override desktop positioning */
+    left: auto !important;
+    top: auto !important;
+    box-shadow: none !important;
+    transform: none !important; /* Reset any desktop transforms */
+    z-index: auto !important; /* Reset any z-index issues */
+    display: block !important; /* Ensure not display:none */
+    margin: 0 !important; /* Remove any margins that cause indentation */
+    padding: 0 !important; /* Remove any padding that causes indentation */
+    width: 100% !important; /* Ensure full width */
+  }
+
+  .nav__mobile .nav__item--has-dropdown[data-expanded="true"] .nav__dropdown,
+  .nav__mobile .nav__item--has-dropdown .nav__dropdown[aria-hidden="false"] {
+    opacity: 1 !important;
+    visibility: visible !important;
+    max-height: 400px !important;
+    background: rgba(35, 57, 73, 0.3) !important; /* Match parent opacity for consistency */
+    border: none !important;
+    margin: 0 !important; /* Align to left edge */
+    padding: 0 !important; /* No container padding */
+    width: 100% !important; /* Full width background */
+  }
+}
+
+.nav__mobile-menu .nav__dropdown .nav__link {
+  padding: 14px 20px 14px 40px;
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.95); /* Match desktop contrast */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Touch feedback for dropdown items */
+.nav__mobile-menu .nav__dropdown .nav__link:active {
+  color: var(--g2o-color-accent);
+  background: rgba(114, 209, 246, 0.1);
+  transform: none; /* Prevent any movement */
+}
+
+.nav__mobile-menu .nav__dropdown .nav__item:last-child .nav__link {
+  border-bottom: none;
+}
+
+/* Mobile Contact Button */
+.nav__mobile-menu .nav__item--contact {
+  border-bottom: none;
+  margin: 16px 20px; /* Add right margin to prevent button from being too wide */
+}
+
+.nav__mobile-menu .nav__item--contact .nav__link,
+.nav__mobile-menu .nav__item--contact button.nav__link {
+  border: 2px solid var(--g2o-color-accent);
+  border-radius: 0;
+  background: transparent;
+  color: var(--g2o-color-accent);
+  padding: 36px 20px;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+  font-weight: 600;
+  text-align: center;
+}
+
+.nav__mobile-menu .nav__item--contact .nav__link:hover,
+.nav__mobile-menu .nav__item--contact button.nav__link:hover {
+  background: var(--g2o-color-accent);
+  color: var(--g2o-color-primary);
+  border-color: var(--g2o-color-accent);
+}
+
+/* Mobile Backdrop */
+.nav__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(35, 67, 83, 0.2);
+  z-index: var(--nav-z-backdrop);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--nav-transition-slow), visibility var(--nav-transition-slow);
+  backdrop-filter: blur(4px);
+}
+
+.nav__backdrop[aria-hidden="false"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Utility Menu (Desktop) */
+.nav__utility {
+  display: none;
+}
+
+@media (min-width: 1350px) {
+  .nav__utility {
+    display: block;
+  }
+}
+
+.nav__utility .nav__utility-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--nav-space-md);
+}
+
+.nav__utility .nav__link {
+  padding: var(--nav-space-sm);
+  font-size: 0.875rem;
+  color: var(--g2o-color-accent);
+}
+
+.nav__utility .nav__link:hover {
+  color: var(--nav-text);
+  background-color: rgba(114, 209, 246, 0.1);
+}
+
+/* MAXIMUM SPECIFICITY OVERRIDE - NUCLEAR OPTION */
+body#page .header .nav .nav__dropdown,
+body.page .header .nav .nav__dropdown,
+body.single .header .nav .nav__dropdown,
+body.archive .header .nav .nav__dropdown,
+body.home .header .nav .nav__dropdown {
+  background: rgba(35, 47, 58, 0.65) !important; /* Enhanced glassmorphism with more transparency */
+  backdrop-filter: blur(16px) !important; /* Enhanced glassmorphism */
+  border: 2px solid transparent !important; /* Remove visible white border */
+  border-top-color: transparent !important; /* Seamlessly connect to parent */
+  left: 0 !important; /* Force perfect alignment */
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 4px 16px rgba(0, 0, 0, 0.2),
+ /* Enhanced glass depth */
+  left: calc(0px - var(--nav-space-sm)) !important;
+}
+
+/* SAFE ZONE: Only allow negative margins on very large screens */
+@media (min-width: 1400px) {
+  body#page .header .header__logo,
+  body.page .header .header__logo,
+  body.single .header .header__logo,
+  body.archive .header .header__logo,
+  body.tax-projects .header .header__logo,
+  body.home .header .header__logo {
+    margin-left: calc(-1 * var(--nav-space-lg)) !important;
+  }
+}
+
+/* NUCLEAR OVERRIDE: Force safe positioning 1024px-1399px */
+@media (min-width: 1350px) and (max-width: 1399px) {
+  html body#page .header .header__logo,
+  html body.page .header .header__logo,
+  html body.single .header .header__logo,
+  html body.archive .header .header__logo,
+  html body.tax-projects .header .header__logo,
+  html body.home .header .header__logo {
+    margin-left: var(--nav-space-xxl) !important; /* Force 32px safe margin */
+  }
+  
+  html body#page .header .header__inner,
+  html body.page .header .header__inner,
+  html body.single .header .header__inner,
+  html body.archive .header .header__inner,
+  html body.tax-projects .header .header__inner,
+  html body.home .header .header__inner {
+    padding-left: var(--nav-space-xl) !important; /* Force 24px container padding */
+  }
+}
+
+/* Mobile override - no negative margins */
+@media (max-width: 1349px) {
+  body#page .header .header__logo,
+  body.page .header .header__logo,
+  body.single .header .header__logo,
+  body.archive .header .header__logo,
+  body.home .header .header__logo {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+}
+
+/* Also ensure the SVG itself has no internal spacing issues */
+body .header .header__logo-svg {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+body#page .header .nav__link,
+body#page .header .nav__item .nav__link,
+body#page .header .menu-item .nav__link,
+body.page .header .nav__link,
+body.page .header .nav__item .nav__link,
+body.page .header .menu-item .nav__link,
+body.single .header .nav__link,
+body.single .header .nav__item .nav__link,
+body.single .header .menu-item .nav__link,
+body.archive .header .nav__link,
+body.archive .header .nav__item .nav__link,
+body.archive .header .menu-item .nav__link,
+body.home .header .nav__link,
+body.home .header .nav__item .nav__link,
+body.home .header .menu-item .nav__link {
+  color: var(--nav-text) !important;
+  background: transparent !important;
+  border: 2px solid transparent !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* ULTRA-HIGH SPECIFICITY: Contact button overrides to defeat border: none !important */
+/* IMPORTANT: Only applies to NON-ACTIVE contact buttons */
+body#page .header .nav__item--contact:not(.nav__item--current) .nav__link,
+body#page .header .nav__item--contact:not(.nav__item--current) button.nav__link,
+body.page .header .nav__item--contact:not(.nav__item--current) .nav__link,
+body.page .header .nav__item--contact:not(.nav__item--current) button.nav__link,
+body.single .header .nav__item--contact:not(.nav__item--current) .nav__link,
+body.single .header .nav__item--contact:not(.nav__item--current) button.nav__link,
+body.archive .header .nav__item--contact:not(.nav__item--current) .nav__link,
+body.archive .header .nav__item--contact:not(.nav__item--current) button.nav__link,
+body.home .header .nav__item--contact:not(.nav__item--current) .nav__link,
+body.home .header .nav__item--contact:not(.nav__item--current) button.nav__link {
+  border: 2px solid var(--g2o-color-accent) !important;
+  border-radius: 0 !important;
+  padding: 6px 14px !important; /* 8px - 2px border = 6px, 16px - 2px = 14px for visual consistency */
+  margin-left: 8px !important;
+  background: transparent !important;
+  color: var(--g2o-color-accent) !important;
+  font-weight: 600 !important;
+  font-family: 'Work Sans', sans-serif !important;
+  box-sizing: border-box !important;
+}
+
+/* ULTRA-HIGH SPECIFICITY: ACTIVE contact button base styles */
+body#page .header .nav__item--contact.nav__item--current .nav__link,
+body#page .header .nav__item--contact.nav__item--current button.nav__link,
+body.page .header .nav__item--contact.nav__item--current .nav__link,
+body.page .header .nav__item--contact.nav__item--current button.nav__link,
+body.single .header .nav__item--contact.nav__item--current .nav__link,
+body.single .header .nav__item--contact.nav__item--current button.nav__link,
+body.archive .header .nav__item--contact.nav__item--current .nav__link,
+body.archive .header .nav__item--contact.nav__item--current button.nav__link,
+body.home .header .nav__item--contact.nav__item--current .nav__link,
+body.home .header .nav__item--contact.nav__item--current button.nav__link {
+  border: 2px solid var(--g2o-color-accent) !important;
+  border-radius: 0 !important;
+  padding: 6px 14px !important; /* 8px - 2px border = 6px, 16px - 2px = 14px for visual consistency */
+  margin-left: 8px !important;
+  background: var(--g2o-color-accent) !important; /* ACTIVE: Blue background */
+  color: var(--g2o-color-primary) !important; /* ACTIVE: Dark text */
+  font-weight: 600 !important;
+  font-family: 'Work Sans', sans-serif !important;
+  box-sizing: border-box !important;
+}
+
+/* Contact button hover states with ultra-high specificity */
+/* IMPORTANT: Only applies to NON-ACTIVE contact buttons */
+body#page .header .nav__item--contact:not(.nav__item--current) .nav__link:hover,
+body#page .header .nav__item--contact:not(.nav__item--current) button.nav__link:hover,
+body.page .header .nav__item--contact:not(.nav__item--current) .nav__link:hover,
+body.page .header .nav__item--contact:not(.nav__item--current) button.nav__link:hover,
+body.single .header .nav__item--contact:not(.nav__item--current) .nav__link:hover,
+body.single .header .nav__item--contact:not(.nav__item--current) button.nav__link:hover,
+body.archive .header .nav__item--contact:not(.nav__item--current) .nav__link:hover,
+body.archive .header .nav__item--contact:not(.nav__item--current) button.nav__link:hover,
+body.home .header .nav__item--contact:not(.nav__item--current) .nav__link:hover,
+body.home .header .nav__item--contact:not(.nav__item--current) button.nav__link:hover {
+  background: var(--g2o-color-accent) !important;
+  color: var(--g2o-color-primary) !important;
+  border-color: var(--g2o-color-accent) !important;
+  border-radius: 0 !important;
+}
+
+
+/* Universal Contact button hover rule - works on ALL pages including archives */
+body .header .nav__item--contact .nav__link:hover,
+body .header .nav__item--contact button.nav__link:hover {
+  background: var(--g2o-color-accent) !important;
+  color: var(--g2o-color-primary) !important;
+  border-color: var(--g2o-color-accent) !important;
+  border-radius: 0 !important;
+}
+
+
+/* Only non-dropdown items get default hover styles */
+body#page .header .nav__item:not(.nav__item--has-dropdown):not(.nav__item--contact) > .nav__link:hover,
+body.page .header .nav__item:not(.nav__item--has-dropdown):not(.nav__item--contact) > .nav__link:hover,
+body.single .header .nav__item:not(.nav__item--has-dropdown):not(.nav__item--contact) > .nav__link:hover,
+body.archive .header .nav__item:not(.nav__item--has-dropdown):not(.nav__item--contact) > .nav__link:hover,
+body.home .header .nav__item:not(.nav__item--has-dropdown):not(.nav__item--contact) > .nav__link:hover,
+body .header .nav__item:not(.nav__item--has-dropdown):not(.nav__item--contact) > .nav__link:hover {
+  color: var(--nav-text-hover) !important;
+  background: rgba(35, 47, 58, 0.65) !important; /* Match dropdown background */
+  backdrop-filter: blur(20px) saturate(1.5) !important;
+  border-radius: 0 !important;
+}
+
+/* Submenu HOVER state - bright blue */
+body#page .header .nav__submenu .nav__link:hover,
+body.page .header .nav__submenu .nav__link:hover,
+body.single .header .nav__submenu .nav__link:hover,
+body.archive .header .nav__submenu .nav__link:hover,
+body.home .header .nav__submenu .nav__link:hover,
+body .header .nav__submenu .nav__link:hover {
+  background-color: rgba(114, 209, 246, 0.9) !important; /* Bright blue */
+  color: #191919 !important;
+  border-radius: 0 !important;
+  transform: none !important; /* Prevent any transforms from causing jumping */
+  font-weight: 400 !important; /* Keep regular weight on hover - no font changes */
+  font-size: 1rem !important; /* Lock font size on hover */
+  transition: background-color 150ms ease-out !important; /* Only background transitions */
+}
+
+/* Submenu CURRENT/ACTIVE state - darker blue */
+body#page .header .nav__submenu .nav__item--current .nav__link,
+body#page .header .nav__submenu .nav__link[aria-current],
+body#page .header .nav__submenu .nav__link.current,
+body#page .header .nav__submenu .menu-item-current .nav__link,
+body.page .header .nav__submenu .nav__item--current .nav__link,
+body.page .header .nav__submenu .nav__link[aria-current],
+body.page .header .nav__submenu .nav__link.current,
+body.page .header .nav__submenu .menu-item-current .nav__link,
+body.single .header .nav__submenu .nav__item--current .nav__link,
+body.single .header .nav__submenu .nav__link[aria-current],
+body.single .header .nav__submenu .nav__link.current,
+body.single .header .nav__submenu .menu-item-current .nav__link,
+body.archive .header .nav__submenu .nav__item--current .nav__link,
+body.archive .header .nav__submenu .nav__link[aria-current],
+body.archive .header .nav__submenu .nav__link.current,
+body.archive .header .nav__submenu .menu-item-current .nav__link,
+body.home .header .nav__submenu .nav__item--current .nav__link,
+body.home .header .nav__submenu .nav__link[aria-current],
+body.home .header .nav__submenu .nav__link.current,
+body.home .header .nav__submenu .menu-item-current .nav__link,
+body .header .nav__submenu .nav__item--current .nav__link,
+body .header .nav__submenu .nav__link[aria-current],
+body .header .nav__submenu .nav__link.current,
+body .header .nav__submenu .menu-item-current .nav__link {
+  background-color: rgba(75, 165, 209, 0.9) !important; /* Darker blue */
+  color: #191919 !important;
+  border-radius: 0 !important;
+}
+
+body#page .header .nav__icon,
+body.page .header .nav__icon,
+body.single .header .nav__icon,
+body.archive .header .nav__icon,
+body.home .header .nav__icon {
+  border-top: 6px solid #72d1f6 !important;
+}
+
+/* Selected/Current state in main nav - bold light blue text instead of background */
+body#page .header .nav__item--current > .nav__link:not(.nav__item--has-dropdown .nav__link),
+body.page .header .nav__item--current > .nav__link:not(.nav__item--has-dropdown .nav__link),
+body.single .header .nav__item--current > .nav__link:not(.nav__item--has-dropdown .nav__link),
+body.archive .header .nav__item--current > .nav__link:not(.nav__item--has-dropdown .nav__link),
+body.home .header .nav__item--current > .nav__link:not(.nav__item--has-dropdown .nav__link) {
+  color: #72d1f6 !important;
+  font-weight: 600 !important;
+  background: transparent !important;
+}
+
+/* DESKTOP ONLY - Force hover backgrounds on ALL dropdown parent items, even if current */
+@media (min-width: 1350px) {
+  body#page .header .nav__item--has-dropdown > .nav__link:hover,
+  body.page .header .nav__item--has-dropdown > .nav__link:hover,
+  body.single .header .nav__item--has-dropdown > .nav__link:hover,
+  body.archive .header .nav__item--has-dropdown > .nav__link:hover,
+  body.home .header .nav__item--has-dropdown > .nav__link:hover,
+  body#page .header .nav__item--current.nav__item--has-dropdown > .nav__link:hover,
+  body.page .header .nav__item--current.nav__item--has-dropdown > .nav__link:hover,
+  body.single .header .nav__item--current.nav__item--has-dropdown > .nav__link:hover,
+  body.archive .header .nav__item--current.nav__item--has-dropdown > .nav__link:hover,
+  body.home .header .nav__item--current.nav__item--has-dropdown > .nav__link:hover {
+    background: rgba(35, 47, 58, 0.65) !important;
+    background-color: rgba(35, 47, 58, 0.65) !important;
+    backdrop-filter: blur(20px) saturate(1.5) !important;
+    border-radius: 0 !important;
+    color: var(--nav-text-hover) !important;
+  }
+}
+
+/* REMOVED - No longer needed since dropdown parents work */
+
+/* DESKTOP ONLY - Dropdown parent hovers with subtle white background */
+@media (min-width: 1350px) {
+  html body .header .nav__item--has-dropdown:hover > .nav__link,
+  html body .header .nav__item--has-dropdown > .nav__link:hover,
+  html body .header .nav__item--has-dropdown > .nav__link[aria-expanded="true"],
+  html body .header .nav__item--has-dropdown:has(.nav__dropdown[aria-hidden="false"]) > .nav__link {
+    background: rgba(35, 47, 58, 0.65) !important; /* Match dropdown background with enhanced glassmorphism */
+    background-image: none !important;
+    backdrop-filter: blur(20px) saturate(1.5) !important;
+    border: 2px solid transparent !important; /* Match regular nav item border width */
+    border-bottom: 2px solid transparent !important; /* Remove visible border to prevent white line */
+    border-radius: 0 !important; /* Square corners as requested */
+    color: var(--nav-text-hover) !important;
+    transform: translateY(0) !important; /* No lift - stay connected */
+    z-index: 15 !important; /* Higher z-index to be above dropdown */
+    position: relative !important;
+    transition: none !important; /* Remove transition to prevent flash */
+  }
+}
+
+@media (min-width: 1350px) {
+  /* Disable background transitions specifically for dropdown parents to prevent flash */
+  html body .header .nav__item--has-dropdown > .nav__link,
+  html body .header .nav__item--has-dropdown > .nav__link[aria-expanded="true"] {
+    transition: none !important; /* No transitions on dropdown parents */
+  }
+
+  /* NUCLEAR OPTION - MAXIMUM SPECIFICITY TO ELIMINATE ANY COLOR FLASH */
+  html body#page .header .nav .nav__item--has-dropdown:hover > .nav__link,
+  html body#page .header .nav .nav__item--has-dropdown > .nav__link:hover,
+  html body#page .header .nav .nav__item--has-dropdown > .nav__link[aria-expanded="true"],
+  html body.page .header .nav .nav__item--has-dropdown:hover > .nav__link,
+  html body.page .header .nav .nav__item--has-dropdown > .nav__link:hover,
+  html body.page .header .nav .nav__item--has-dropdown > .nav__link[aria-expanded="true"],
+  html body.single .header .nav .nav__item--has-dropdown:hover > .nav__link,
+  html body.single .header .nav .nav__item--has-dropdown > .nav__link:hover,
+  html body.single .header .nav .nav__item--has-dropdown > .nav__link[aria-expanded="true"],
+  html body.archive .header .nav .nav__item--has-dropdown:hover > .nav__link,
+  html body.archive .header .nav .nav__item--has-dropdown > .nav__link:hover,
+  html body.archive .header .nav .nav__item--has-dropdown > .nav__link[aria-expanded="true"],
+  html body.tax-projects .header .nav .nav__item--has-dropdown:hover > .nav__link,
+  html body.tax-projects .header .nav .nav__item--has-dropdown > .nav__link:hover,
+  html body.tax-projects .header .nav .nav__item--has-dropdown > .nav__link[aria-expanded="true"],
+  html body.home .header .nav .nav__item--has-dropdown:hover > .nav__link,
+  html body.home .header .nav .nav__item--has-dropdown > .nav__link:hover,
+  html body.home .header .nav .nav__item--has-dropdown > .nav__link[aria-expanded="true"],
+  html body .header .nav .nav__item--has-dropdown a:hover,
+  html body .header .nav .nav__item--has-dropdown button:hover {
+    background: rgba(35, 47, 58, 0.65) !important;
+    background-color: rgba(35, 47, 58, 0.65) !important;
+    background-image: none !important;
+    backdrop-filter: blur(20px) saturate(1.5) !important;
+    border: 2px solid transparent !important;
+    border-bottom: 2px solid transparent !important;
+    border-radius: 0 !important;
+    color: var(--nav-text-hover) !important;
+    transform: translateY(0) !important;
+    z-index: 10 !important;
+    position: relative !important;
+    transition: none !important;
+  }
+}
+
+/* ULTRA HIGH SPECIFICITY - FORCE ALL NAVIGATION ELEMENTS TO HAVE SQUARE CORNERS */
+html body#page .header .nav .nav__link,
+html body.page .header .nav .nav__link,
+html body.single .header .nav .nav__link,
+html body.archive .header .nav .nav__link,
+html body.tax-projects .header .nav .nav__link,
+html body.home .header .nav .nav__link,
+html body#page .header .nav button.nav__link,
+html body.page .header .nav button.nav__link,
+html body.single .header .nav button.nav__link,
+html body.archive .header .nav button.nav__link,
+html body.tax-projects .header .nav button.nav__link,
+html body.home .header .nav button.nav__link,
+html body .header .nav .nav__link,
+html body .header nav .nav__link,
+html body .header .nav button.nav__link,
+html body .header nav button.nav__link {
+  border-radius: 0 !important;
+}
+
+/* ULTRA HIGH SPECIFICITY - FORCE DROPDOWN TO MATCH PARENT */
+html body#page .header .nav .nav__item--has-dropdown .nav__dropdown,
+html body.page .header .nav .nav__item--has-dropdown .nav__dropdown,
+html body.single .header .nav .nav__item--has-dropdown .nav__dropdown,
+html body.archive .header .nav .nav__item--has-dropdown .nav__dropdown,
+html body.tax-projects .header .nav .nav__item--has-dropdown .nav__dropdown,
+html body.home .header .nav .nav__item--has-dropdown .nav__dropdown,
+html body .header .nav__item--has-dropdown .nav__dropdown[aria-hidden="false"],
+html body .header .nav .nav__dropdown,
+html body .header nav .nav__dropdown,
+html body .header [class*="nav__dropdown"] {
+  background: rgba(35, 47, 58, 0.65) !important; /* Enhanced glassmorphism with more transparency */
+  background-image: none !important; /* Remove any other backgrounds */
+  backdrop-filter: blur(20px) saturate(1.5) !important;
+  border: 2px solid transparent !important;
+  border-top: 2px solid transparent !important; /* Maintain consistent borders */
+  left: 0 !important; /* Perfect alignment */
+  top: calc(100% - 1px) !important; /* 1px overlap for clean connection */
+  transform: translateY(0) !important; /* No offset */
+  box-shadow: 
+    0 8px 32px -4px rgba(0, 0, 0, 0.3),
+    0 2px 8px -2px rgba(0, 0, 0, 0.2),
+}
+
+/* Disable the pseudo-element that might be interfering */
+html body .header .nav__item--has-dropdown::before {
+  display: none !important;
+}
+
+/* DESKTOP ONLY - MAXIMUM SPECIFICITY FOR DROPDOWN ITEMS - MUST BE BLUE */
+@media (min-width: 1350px) {
+  html body .header .nav__dropdown .nav__link:hover,
+  html body .header .nav__submenu .nav__link:hover,
+  html body .header .nav__dropdown a:hover,
+  html body .header .nav__submenu a:hover,
+  html body .header .nav__item--has-dropdown .nav__dropdown .nav__link:hover,
+  html body .header .nav__item--has-dropdown .nav__submenu .nav__link:hover,
+  html body .header nav .nav__dropdown .nav__link:hover,
+  html body .header nav .nav__submenu .nav__link:hover,
+  html body .header #menu-primary-menu .nav__dropdown .nav__link:hover,
+  html body .header #menu-primary-menu .nav__submenu .nav__link:hover {
+    background-color: rgba(114, 209, 246, 0.9) !important; /* Blue for dropdown items */
+    background-image: none !important;
+    color: #191919 !important; /* Dark text on blue */
+    border-radius: 0 !important;
+    z-index: 20 !important;
+    box-shadow: none !important;
+    outline: none;
+    transform: none !important; /* Prevent any transforms from causing jumping */
+    font-weight: 400 !important; /* Keep regular weight on hover - no font changes */
+    font-size: 1rem !important; /* Lock font size on hover */
+    transition: background-color 150ms ease-out !important; /* Only background transitions */
+  }
+
+  /* Also target by specific dropdown structure */
+  html body .header li[class*="dropdown"] a:hover,
+  html body .header ul[role="menu"] a:hover,
+  html body .header .nav__item .nav__dropdown a:hover {
+    background-color: rgba(114, 209, 246, 0.9) !important;
+    color: #191919 !important;
+    border-radius: 0 !important;
+  }
+}
+
+/* Screen Reader Support */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --nav-text: #ffffff !important;
+    --nav-text-hover: #ffffff !important;
+  }
+  
+  .header__backdrop {
+    background: rgba(35, 67, 83, 0.98) !important; /* Brand high contrast */
+    border-bottom: 2px solid #ffffff !important;
+  }
+  
+  .nav__link,
+  .nav__toggle {
+    border: 2px solid rgba(255, 255, 255, 0.4) !important;
+    background: rgba(35, 67, 83, 0.3) !important;
+  }
+  
+  .nav__dropdown {
+    background: 
+      linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(114, 209, 246, 0.15) 100%),
+      rgba(35, 67, 83, 0.65) !important; /* Enhanced glassmorphism even in high contrast */
+    border: 2px solid transparent !important;
+    border-top-color: transparent !important;
+  }
+}
+
+/* Dark mode preference support */
+@media (prefers-color-scheme: dark) {
+  /* Already optimized for dark backgrounds */
+}
+
+/* Focus Management */
+body[data-nav-open] {
+  overflow: hidden;
+  position: fixed; /* Prevent iOS bounce scrolling */
+  width: 100%;
+}
+
+body[data-nav-open] > *:not(.header):not(.nav) {
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Enhanced focus indicators */
+.nav__link:focus-visible,
+.nav__toggle:focus-visible {
+  outline: 2px solid var(--g2o-color-accent);
+  outline-offset: 2px;
+  background: rgba(114, 209, 246, 0.2);
+  border-color: rgba(114, 209, 246, 0.5) !important;
+  box-shadow: 
+    0 0 0 4px rgba(114, 209, 246, 0.1),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Keyboard navigation enhancements */
+/* Removed focus-within rule to prevent jumping issue
+.nav__item:focus-within .nav__dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+*/
+
+/* Print Styles */
+/* ========================================
+   Font Weight Fixes (Override Tailwind Resets)
+   ======================================== */
+
+/* TOP-LEVEL ONLY: Ensure only main navigation items get Semi Bold weight */
+.nav__menu > .nav__item > .nav__link,
+.nav__menu > .nav__item > button.nav__link,
+.nav__menu > .nav__item > .nav__link .nav__text,
+.nav__menu > .nav__item > button.nav__link .nav__text,
+.nav__menu > .nav__item > .nav__link span:not(.nav__icon),
+.nav__menu > .nav__item > button.nav__link span:not(.nav__icon) {
+  font-weight: 600 !important;
+  font-family: 'Work Sans', sans-serif !important;
+}
+
+/* Mobile top-level navigation items only */
+.nav__mobile-menu > .nav__item > .nav__link,
+.nav__mobile-menu > .nav__item > button.nav__link,
+.nav__mobile-menu > .nav__item > .nav__link .nav__text,
+.nav__mobile-menu > .nav__item > button.nav__link .nav__text {
+  font-weight: 600 !important;
+  font-family: 'Work Sans', sans-serif !important;
+}
+
+/* DROPDOWNS: Explicitly keep dropdown/submenu items at regular weight */
+.nav__submenu .nav__link,
+.nav__dropdown .nav__link,
+.nav__submenu .nav__link .nav__text,
+.nav__dropdown .nav__link .nav__text,
+.nav__submenu button.nav__link,
+.nav__dropdown button.nav__link,
+.nav__submenu button.nav__link .nav__text,
+.nav__dropdown button.nav__link .nav__text {
+  font-weight: 400 !important;
+  font-family: 'Work Sans', sans-serif !important;
+}
+
+/* ========================================
+   Hover Movement Fix
+   ======================================== */
+
+/* Prevent layout shift by giving all nav items consistent box-sizing and transparent borders */
+.nav__menu > .nav__item:not(.nav__item--contact) > .nav__link,
+.nav__menu > .nav__item:not(.nav__item--contact) > button.nav__link {
+  border: 2px solid transparent !important;
+  border-radius: 0 !important;
+  box-sizing: border-box !important;
+  /* Use fixed padding that matches Contact button visually when accounting for borders */
+  padding: 6px 14px !important; /* Match Contact button width for consistent alignment */
+  transition:
+    border-color var(--nav-transition-normal),
+    background-color var(--nav-transition-normal) !important;
+}
+
+/* ========================================
+   Contact Us Button Styling
+   ======================================== */
+
+/* Contact Us button - special styling to make it stand out */
+/* Base styles for ALL contact buttons (active and non-active) */
+.nav__item--contact .nav__link,
+.nav__item--contact button.nav__link {
+  border: 2px solid var(--g2o-color-accent) !important;
+  border-radius: 0 !important;
+  padding: 6px 14px !important; /* Match ultra-high specificity version */
+  margin-left: 8px;
+  font-weight: 600 !important;
+  font-family: 'Work Sans', sans-serif !important;
+  box-sizing: border-box !important;
+  transition:
+    background-color var(--nav-transition-normal),
+    color var(--nav-transition-normal),
+    border-color var(--nav-transition-normal);
+}
+
+
+/* Contact button text styling */
+.nav__item--contact .nav__link .nav__text,
+.nav__item--contact button.nav__link .nav__text {
+  font-weight: 600 !important;
+  font-family: 'Work Sans', sans-serif !important;
+  color: inherit;
+}
+
+.nav__item--contact:not(.nav__item--current) .nav__link:hover,
+.nav__item--contact:not(.nav__item--current) button.nav__link:hover {
+  background: var(--g2o-color-accent) !important;
+  color: var(--g2o-color-primary) !important;
+  border-color: var(--g2o-color-accent) !important;
+  font-weight: 600 !important;
+  font-family: 'Work Sans', sans-serif !important;
+}
+
+.nav__item--contact:not(.nav__item--current) .nav__link:hover .nav__text,
+.nav__item--contact:not(.nav__item--current) button.nav__link:hover .nav__text {
+  color: var(--g2o-color-primary) !important;
+  font-weight: 600 !important;
+}
+
+/* Desktop: Push Contact Us to the right using flexbox */
+@media (min-width: 768px) {
+  .nav__menu {
+    display: flex !important;
+    align-items: center;
+  }
+
+  .nav__menu .nav__item--contact {
+    margin-left: auto !important;
+  }
+}
+
+/* Mobile: Keep Contact Us button styling but in normal flow */
+@media (max-width: 767px) {
+  .nav__mobile-menu .nav__item--contact .nav__link,
+  .nav__mobile-menu .nav__item--contact button.nav__link {
+    margin-left: 0 !important;
+    width: auto;
+    border-color: var(--g2o-color-accent) !important;
+    background: transparent !important;
+    color: var(--g2o-color-accent) !important;
+    font-weight: 600 !important;
+    font-family: 'Work Sans', sans-serif !important;
+    padding: 36px 20px !important;
+  }
+
+  .nav__mobile-menu .nav__item--contact .nav__link .nav__text,
+  .nav__mobile-menu .nav__item--contact button.nav__link .nav__text {
+    font-weight: 600 !important;
+    font-family: 'Work Sans', sans-serif !important;
+  }
+
+  .nav__mobile-menu .nav__item--contact .nav__link:hover,
+  .nav__mobile-menu .nav__item--contact button.nav__link:hover {
+    background: var(--g2o-color-accent) !important;
+    color: var(--g2o-color-primary) !important;
+    font-weight: 600 !important;
+  }
+
+  .nav__mobile-menu .nav__item--contact .nav__link:hover .nav__text,
+  .nav__mobile-menu .nav__item--contact button.nav__link:hover .nav__text {
+    color: var(--g2o-color-primary) !important;
+    font-weight: 600 !important;
+  }
+}
+
+@media print {
+  .nav__mobile,
+  .nav__backdrop,
+  .nav__toggle {
+    display: none !important;
+  }
+
+  .header {
+    position: static;
+  }
+
+  .nav__dropdown {
+    position: static;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}
+
+/* CONTACT BUTTON - PROPER SIZE */
+html body .nav__mobile .nav__mobile-menu li.nav__item--contact > a,
+html body .nav__mobile .nav__mobile-menu li.nav__item--contact > button,
+html body .nav__mobile .nav__mobile-menu .nav__item--contact > .nav__link,
+html body .nav__mobile .nav__mobile-menu .nav__item--contact > button.nav__link,
+html body [data-nav="mobile"] .nav__item--contact a,
+html body [data-nav="mobile"] .nav__item--contact button {
+  padding: 20px 20px !important;
+}
+
+/* CONTACT BUTTON CONTAINER - ALIGN LEFT EDGE WITH MENU TEXT */
+html body .nav__mobile .nav__mobile-menu .nav__item--contact {
+  margin: 41px 0 16px 0 !important;
+}
+
+/* Mobile rule moved to after 140px rule for proper override */
+
+/* ========================================
+   TAX-PROJECTS PAGE SPECIFIC FIXES
+   ======================================== */
+
+/* NUCLEAR OVERRIDE: Force submenu items to be completely static on tax-projects pages */
+html body.tax-projects .header .nav__submenu .nav__link,
+html body.tax-projects .header .nav__dropdown .nav__link {
+  font-weight: 400 !important; /* Never change weight */
+  font-size: 1rem !important; /* Never change size */
+  line-height: 1.5 !important; /* Lock line height */
+  transform: none !important; /* Never transform */
+  transition: background-color 150ms ease-out !important; /* Only background transitions */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important; /* Keep text shadow consistent */
+}
+
+/* MAXIMUM SPECIFICITY FIX: Override the broad nav__link rule for submenu items */
+html body#page.archive .header .nav .nav__submenu .nav__link,
+html body#page.archive .header .nav .nav__dropdown .nav__link,
+html body.archive .header .nav .nav__submenu .nav__link,
+html body.archive .header .nav .nav__dropdown .nav__link,
+html body#page.taxonomy-projects .header .nav .nav__submenu .nav__link,
+html body#page.taxonomy-projects .header .nav .nav__dropdown .nav__link,
+html body#page.tax-projects .header .nav .nav__submenu .nav__link,
+html body#page.tax-projects .header .nav .nav__dropdown .nav__link,
+html body.archive.taxonomy-projects .header .nav .nav__submenu .nav__link,
+html body.archive.taxonomy-projects .header .nav .nav__dropdown .nav__link,
+html body.archive.tax-projects .header .nav .nav__submenu .nav__link,
+html body.archive.tax-projects .header .nav .nav__dropdown .nav__link,
+html body.taxonomy-projects.archive .header nav .nav__submenu .nav__link,
+html body.taxonomy-projects.archive .header nav .nav__dropdown .nav__link,
+html body.tax-projects.archive .header nav .nav__submenu .nav__link,
+html body.tax-projects.archive .header nav .nav__dropdown .nav__link,
+html body.taxonomy-projects .header nav .nav__submenu .nav__link,
+html body.taxonomy-projects .header nav .nav__dropdown .nav__link,
+html body.tax-projects .header nav .nav__submenu .nav__link,
+html body.tax-projects .header nav .nav__dropdown .nav__link {
+  padding: 6px 14px !important; /* Force consistent padding */
+  font-weight: 400 !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  transform: none !important;
+  transition: background-color 150ms ease-out !important;
+  box-sizing: border-box !important; /* Ensure borders don't add to height */
+}
+
+html body#page.archive .header .nav .nav__submenu .nav__link:hover,
+html body#page.archive .header .nav .nav__dropdown .nav__link:hover,
+html body.archive .header .nav .nav__submenu .nav__link:hover,
+html body.archive .header .nav .nav__dropdown .nav__link:hover,
+html body#page.taxonomy-projects .header .nav .nav__submenu .nav__link:hover,
+html body#page.taxonomy-projects .header .nav .nav__dropdown .nav__link:hover,
+html body#page.tax-projects .header .nav .nav__submenu .nav__link:hover,
+html body#page.tax-projects .header .nav .nav__dropdown .nav__link:hover,
+html body.archive.taxonomy-projects .header .nav .nav__submenu .nav__link:hover,
+html body.archive.taxonomy-projects .header .nav .nav__dropdown .nav__link:hover,
+html body.archive.tax-projects .header .nav .nav__submenu .nav__link:hover,
+html body.archive.tax-projects .header .nav .nav__dropdown .nav__link:hover,
+html body.taxonomy-projects.archive .header nav .nav__submenu .nav__link:hover,
+html body.taxonomy-projects.archive .header nav .nav__dropdown .nav__link:hover,
+html body.tax-projects.archive .header nav .nav__submenu .nav__link:hover,
+html body.tax-projects.archive .header nav .nav__dropdown .nav__link:hover,
+html body.taxonomy-projects .header nav .nav__submenu .nav__link:hover,
+html body.taxonomy-projects .header nav .nav__dropdown .nav__link:hover,
+html body.tax-projects .header nav .nav__submenu .nav__link:hover,
+html body.tax-projects .header nav .nav__dropdown .nav__link:hover {
+  padding: 6px 14px !important; /* Keep same padding on hover */
+  font-weight: 400 !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  transform: none !important;
+  background-color: rgba(114, 209, 246, 0.9) !important;
+  color: #191919 !important;
+  transition: background-color 150ms ease-out !important;
+  text-shadow: none !important; /* Remove text shadow on hover for contrast */
+  box-sizing: border-box !important; /* Ensure borders don't add to height */
+}
+
+/* ========================================
+   FOCUS STATE OVERRIDES - PREVENT LAYOUT SHIFTS
+   ======================================== */
+
+/* Prevent focus from changing dimensions or adding visual elements that affect layout */
+.nav__dropdown .nav__link:focus,
+.nav__submenu .nav__link:focus {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+  /* Use background color change for focus indication instead */
+  background-color: rgba(114, 209, 246, 0.9) !important;
+  color: #191919 !important;
+}
+
+/* More specific focus override for better browser support */
+html body .header .nav__dropdown .nav__link:focus,
+html body .header .nav__submenu .nav__link:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  padding: 6px 14px !important; /* Lock padding on focus */
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  font-weight: 400 !important;
+}
+
+/* Override global :focus rule that adds borders to dropdown links */
+.nav__dropdown .nav__link:focus,
+.nav__submenu .nav__link:focus,
+.nav__dropdown a:focus,
+.nav__submenu a:focus {
+  border-color: transparent !important;
+  outline: none !important;
+}
+

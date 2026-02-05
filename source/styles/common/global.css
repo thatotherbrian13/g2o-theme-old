@@ -1,0 +1,133 @@
+/*! purgecss start ignore */
+
+h1, .h1 {
+	@apply font-serif font-light text-5xl lg:text-9xl leading-[1.2];
+	letter-spacing: -0.04em;
+}
+
+.h1-alt {
+	@apply font-sans font-bold text-5xl lg:text-9xl leading-[1.2];
+	letter-spacing: -0.02em;
+}
+
+.h2 {
+/* mobile  / 130% / -2% */
+/* 	@apply font-serif font-light text-4xl lg:text-7xl leading-[1.2]; */
+	letter-spacing: -0.04em;
+}
+
+.h2-alt {
+	@apply font-sans font-light text-7xl leading-[1.2];
+	letter-spacing: -0.02em;
+}
+
+/*
+h3, .h3 {
+	@apply font-sans text-6xl leading-[1.3];
+	letter-spacing: -0.02em;
+}
+*/
+
+h4, .h4 {
+/* mobile  / 140% / 0% */
+/* 	@apply font-sans font-semibold text-3xl lg:text-4xl leading-[1.3]; */
+/* 	letter-spacing: -0.02em; */
+}
+
+
+.deck {
+	@apply font-sans font-light text-xl lg:text-[1.375rem] leading-snug; /* 22px */
+}
+.footnote {
+	@apply font-sans font-light text-base leading-snug; /* 22px */
+}
+
+
+h5, .h5 {
+/* mobile  / 140% / -2% */
+	@apply font-serif font-light text-[1.625rem] lg:text-3xl leading-[1.3];
+}
+
+/*
+h6, .h6 {
+	@apply font-sans font-bold text-base leading-normal;
+	#footer & {
+		@apply text-sky;
+	}
+}
+*/
+
+.eyebrow {
+	@apply font-sans font-bold text-xs leading-none tracking-widest uppercase;
+}
+
+.kicker {
+	@apply font-sans font-bold text-sm leading-normal tracking-widest uppercase; /* FINAL */
+}
+
+/* Semantic headline utility classes - decouple visual appearance from heading level */
+/* Use these to maintain visual hierarchy while using proper semantic heading tags */
+.headline-hero {
+	/* h1-sized styling for hero/banner headlines */
+	@apply font-serif font-light text-4xl lg:text-7xl leading-[1.2];
+	letter-spacing: -0.04em;
+}
+
+.headline-section {
+	/* h2-sized styling for major section headlines */
+	@apply font-sans font-bold text-3xl lg:text-4xl leading-[1.03];
+	letter-spacing: -0.02em;
+}
+
+.headline-card {
+	/* h3-sized styling for cards, accordions, nested content */
+	@apply font-sans font-bold text-xl lg:text-2xl leading-none;
+	letter-spacing: -0.02em;
+}
+
+
+
+
+
+.att-name {
+	@apply font-sans font-bold text-xs tracking-wider uppercase leading-[1.2];
+}
+
+.att-title {
+	@apply font-sans font-normal text-xs tracking-tighter uppercase leading-[1.2];
+}
+
+
+.heading {
+	@apply font-sans font-bold leading-normal; /* FINAL */
+}
+.body {
+	@apply font-sans font-normal leading-normal; /* FINAL - Regular (400) for readability */
+}
+
+
+
+/*
+.p-large, .body-large {
+	@apply font-sans text-[1.375rem] leading-normal;
+}
+*/
+
+.caption {
+	@apply font-sans text-xs leading-normal;
+}
+
+/*
+.arrow {
+	@apply font-sans font-bold text-xs leading-none tracking-wide;
+}
+
+*/
+
+.lead {
+	@apply font-serif font-light text-2xl leading-[1.4] lg:text-3xl lg:leading-[1.4];
+}
+
+
+/*! purgecss end ignore */
+

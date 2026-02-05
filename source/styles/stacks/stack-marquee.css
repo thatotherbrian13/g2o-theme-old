@@ -1,0 +1,37 @@
+/*! purgecss start ignore */
+
+.stack-marquee {
+}
+.marquee {
+	animation: scroll-x 60s linear infinite;
+/* 	gap: 2rem; */
+/*
+	padding-left: 1rem;
+	padding-right: 1rem;
+*/
+}
+@media (prefers-reduced-motion: reduce) {
+	.marquee {
+		animation-play-state: paused;
+	}
+}
+.marquee--reverse {
+	animation-delay: -3s;
+	animation-direction: reverse;
+}
+
+@keyframes scroll-x {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(calc(-100% - 30px));
+	}
+}
+
+
+.marquee__box {
+	box-shadow: 10px -6px 30px 0px rgba(59, 108, 128, 0.10);
+}
+
+/*! purgecss end ignore */

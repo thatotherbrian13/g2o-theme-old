@@ -1,0 +1,301 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* ------ Add your CSS below this line (or @import your other CSS files). ------- */
+
+@import 'fonts/zodiak.css';
+@import 'vendor/hubspot.css';
+
+
+@import 'common/global.css';
+@import 'common/vcard.css';
+
+@import 'links/link-arrow.css';
+@import 'links/link-box.css';
+@import 'links/link-dart.css';
+
+@import 'layouts/header.css';
+@import 'layouts/footer.css';
+
+@import 'accordions.css';
+
+@import 'stacks/stacks.css';
+@import 'stacks/stack-accordion.css';
+@import 'stacks/stack-author.css';
+@import 'stacks/stack-authors.css';
+@import 'stacks/stack-banking-solutions.css';
+@import 'stacks/stack-banner.css';
+@import 'stacks/stack-banner-data-ai.css';
+@import 'stacks/stack-billboard.css';
+@import 'stacks/stack-capabilities.css';
+@import 'stacks/stack-carousel.css';
+@import 'stacks/stack-comparison.css';
+@import 'stacks/stack-cta.css';
+@import 'stacks/stack-expertise.css';
+@import 'stacks/stack-form.css';
+@import 'stacks/stack-graphs.css';
+@import 'stacks/stack-gravity-form.css';
+@import 'stacks/stack-hubspot-form.css';
+@import 'stacks/stack-industries.css';
+@import 'stacks/stack-marquee.css';
+@import 'stacks/stack-pillars.css';
+@import 'stacks/stack-process.css';
+@import 'stacks/stack-profile-banner.css';
+@import 'stacks/stack-projects.css';
+@import 'stacks/stack-public-sector-solutions.css';
+@import 'stacks/stack-quote.css';
+@import 'stacks/stack-scroller.css';
+@import 'stacks/stack-slabs.css';
+@import 'stacks/stack-slideshow.css';
+@import 'stacks/stack-solutions.css';
+@import 'stacks/stack-steps.css';
+@import 'stacks/stack-story.css';
+@import 'stacks/stack-subscribe.css';
+@import 'stacks/stack-team.css';
+@import 'stacks/stack-testimonial.css';
+@import 'stacks/stack-three-columns.css';
+@import 'stacks/stack-video.css';
+
+@import 'stack-guide.css';
+
+@import 'vendor/lenis.css';
+@import 'vendor/swiper.css';
+
+
+
+
+
+
+
+/* Added default base styles for specific HTML elements: */
+@layer base {
+	html {
+		@apply outline-none;
+	}
+	:root {
+		--sky: #72D1F6;
+		--limestone: #FFF7EF;
+		--city: #ff4f55;
+	}
+
+	/* Accessible focus indicators for keyboard navigation (WCAG 2.1 AA) */
+	:focus-visible {
+		outline: 2px solid var(--sky);
+		outline-offset: 2px;
+	}
+
+	/* Ensure interactive elements have visible focus */
+	a:focus-visible,
+	button:focus-visible,
+	input:focus-visible,
+	select:focus-visible,
+	textarea:focus-visible,
+	[tabindex]:focus-visible {
+		outline: 2px solid var(--sky);
+		outline-offset: 2px;
+	}
+}
+
+/* Won't be included in compiled CSS unless it is used: */
+@layer components {
+
+	:root {
+		--grid-gutter: 32px;
+		--grid-columns: 16;
+		--grid-column-gap: 10px;
+		--grid-max-width: 1600px;
+		--grid-width-input: 100%;
+		--grid-width: min( var(--grid-width-input) , var(--grid-max-width) );
+		--grid-gutters: calc( var(--grid-column-gap) * var(--grid-columns) );
+		--grid-total-width: calc( (var(--grid-padding-x) * 2) + var(--grid-max-width) );
+	}
+
+	.noscroll {
+		overflow: hidden;
+	}
+
+#menu {
+  bottom: 0;
+  overflow-y: auto;
+  position: fixed;
+  right: -100vw;
+  top: 0;
+  width: 100vw;
+  z-index: 1000;
+}
+
+	#main {
+		@apply overflow-hidden relative;
+	}
+
+	.constrain {
+		@apply max-w-screen-2xl mx-auto relative z-10 px-5 lg:px-8;
+	}
+
+	.row {
+		@apply grid grid-cols-16; /* gap-x-2.5 */
+	}
+
+	.body {
+		ul {
+			list-style-type: disc;
+			margin-bottom: 1.25em;
+			margin-top: 1.25em;
+			padding-left: 1.625em;
+		}
+		ol, ul {
+			margin-bottom: 1.25em;
+			margin-top: 1.25em;
+			padding-left: 1.625em;
+		}
+		ol:first-child,
+		ul:first-child {
+			margin-top: 0;
+		}
+		ol:last-child,
+		ul:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+
+}
+
+@layer utilities {
+
+}
+
+
+
+
+/* Always included in compiled CSS: */
+
+.reveal {
+	opacity: 1;
+}
+.categories {
+	li {
+		@apply mb-4;
+	}
+	li a {
+		@apply font-sans font-bold text-[1.375rem] leading-normal text-river;
+	}
+	li.current-cat a::before {
+		transform-origin: 0% 50%;
+		transform: scale3d(1, 1, 1);
+	}
+	a {
+		display: inline-block;
+		position: relative;
+	}
+	a::before {
+		background: currentColor;
+		height: 1px;
+		left: 0;
+		pointer-events: none;
+		position: absolute;
+		top: 100%;
+		width: 100%;
+	}
+	a::before {
+		content: '';
+		transform-origin: 100% 50%;
+		transform: scale3d(0, 1, 1);
+		transition: transform 0.3s;
+	}
+	a:hover::before {
+		transform-origin: 0% 50%;
+		transform: scale3d(1, 1, 1);
+	}
+
+}
+
+
+
+
+.menu-item-has-children:has(ul.sub-menu li.current-menu-item) {
+	font-weight: 700 !important;
+}
+
+
+
+.prose {
+	a {
+		@apply underline decoration-1 text-river underline-offset-2 decoration-solid transition-colors hover:text-city;
+	}
+
+
+}
+
+
+.max-height-0 {
+max-height: 0px;
+}
+
+
+
+body.error404 {
+	h1 {
+		@apply relative inline-block mb-12;
+	}
+	h1::after {
+		background-image: url("data:image/svg+xml,%3Csvg fill='none' height='74' viewBox='0 0 70 74' width='70' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m0 9 14.1025 13.5114 10.4136 9.9772c4.6984 4.5014 9.4042 9.01 14.1025 13.5114v-37z' fill='%2395ddf8'/%3E%3Cpath d='m44 50 9.1476 8.7642 6.7547 6.4716c3.0476 2.9199 6.1 5.8443 9.1476 8.7642v-24z' fill='%23ff5f5d'/%3E%3Cpath d='m12 0 20.8506 19.9767 15.3965 14.7511c6.9465 6.6554 13.904 13.3213 20.8506 19.9767v-54.7045z' fill='%233b6c80'/%3E%3C/svg%3E");
+		background-repeat: no-repeat no-repeat;
+		background-position: center center;
+		background-size: cover;
+		width: 70px;
+		height: 74px;
+		bottom: 30px;
+		right: -70px;
+		content: '';
+		position: absolute;
+	}
+}
+
+.bg-sky-light {
+	background: rgba(114, 209, 246, 0.1);
+}
+.font-sans strong {
+	font-weight: 700;
+}
+
+/*
+.collapse {
+  visibility: visible !important;
+}
+.collapse:not(.show) {
+  display: none !important;
+  visibility: visible !important;
+}
+*/
+
+/*
+
+
+.accordion {
+	.accordion-item {
+		.accordion-header {
+			cursor: pointer;
+		}
+		.accordion-body {
+			height: 0;
+			overflow: hidden;
+			transition: height 0.3s ease-in-out;
+		}
+	}
+
+	.accordion-item.active {
+		.accordion-body {
+			height: 0;
+			overflow: hidden;
+			transition: height 0.3s ease-in-out;
+		}
+		.accordion-item.active {
+			.accordion-body {
+				height: auto;
+			}
+		}
+	}
+}
+*/
