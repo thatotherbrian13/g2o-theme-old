@@ -3806,6 +3806,32 @@ body.page-template-page-solution #footer {
   position: relative;
   overflow: hidden;
 }
+/* Pull header stacks up behind the fixed nav.
+   #main has padding-top: var(--nav-height) for clearance, but this
+   creates a visible gap. Negative margin lets the stack's background
+   extend behind the glassmorphism nav. The ::before spacer below
+   restores original text positioning. */
+.stacks--header {
+	margin-top: calc(var(--nav-height, 80px)*-1);
+}
+/* Spacer: push in-flow content down by nav-height to compensate for
+   the negative margin. Absolute-positioned backgrounds are unaffected
+   and still extend behind the nav. In flex-row containers (solution,
+   boxed), this becomes a 0-width item with no vertical effect — those
+   stacks use padding overrides below instead. */
+.stacks--header > .stack:first-child::before {
+	content: '';
+	display: block;
+	height: var(--nav-height, 80px);
+}
+/* Flex-based stacks: the ::before has no vertical effect in a
+   row flex layout, so add section padding-top instead. */
+.stacks--header > .stack-banner-solution:first-child {
+	padding-top: var(--nav-height, 80px);
+}
+.stacks--header > .stack-banner-boxed:first-child {
+	padding-top: calc(var(--nav-height, 80px) + 6.25rem);
+}
 /*! purgecss end ignore */
 /*! purgecss start ignore */
 /*
@@ -3984,6 +4010,9 @@ body.page-template-page-solution #footer {
 .stack-banner-wedge h1 strong strong {
 	font-weight: 700;
 }
+.stack-banner-gradient {
+	padding-top: calc(var(--nav-height, 80px) + 8.75rem);
+}
 .stack-banner-gradient h1 strong {
   font-family: Work Sans, sans-serif;
   font-weight: 700;
@@ -3996,8 +4025,6 @@ body.page-template-page-solution #footer {
 	}
 .stack-banner-gradient h1 strong strong {
 	font-weight: 700;
-}
-.stack-banner-boxed {
 }
 .stack-banner-form h1 strong {
   font-family: Work Sans, sans-serif;
@@ -4024,9 +4051,6 @@ body.page-template-page-solution #footer {
 		z-index: 10;
 	}
 .stack-banner-download {
-}
-.stack-banner-solution {
-
 }
 .solution__quote > :first-child {
 	position: relative;
@@ -7650,10 +7674,6 @@ body.error404 h1::after {
 
   .lg\:pt-25 {
     padding-top: 6.25rem;
-  }
-
-  .lg\:pt-45 {
-    padding-top: 11.25rem;
   }
 
   .lg\:pt-50 {

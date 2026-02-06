@@ -18,6 +18,10 @@ body {
 }
 
 :root {
+  /* Nav layout tokens */
+  --nav-height: 80px;
+  --nav-content-gap: 2.5rem; /* 40px breathing room below nav */
+
   /* G2O Brand Colors */
   --g2o-color-primary: #234353;    /* Deep teal/navy */
   --g2o-color-accent: #72d1f6;     /* Light blue/cyan */
@@ -179,7 +183,7 @@ html::before {
 .main-content,
 .primary-content {
   margin-top: 0 !important;
-  padding-top: 80px !important;
+  padding-top: var(--nav-height) !important;
 }
 
 /* Target WordPress block themes specifically */
@@ -188,14 +192,41 @@ html::before {
   margin-top: 0 !important;
 }
 
-/* REAL SOLUTION: Pull main content up behind nav */
+/* CONTENT CLEARANCE: Push main content below fixed nav */
 main, .site-main, #main, .main {
-  margin-top: -100px !important; /* Pull up behind nav */
+  margin-top: 0 !important;
+  padding-top: var(--nav-height) !important;
   position: relative;
-  /* Background containers now start behind nav naturally */
 }
 
-/* Admin bar handled separately - no container padding needed */
+/* Admin bar: add admin bar height to main padding */
+body.admin-bar main, body.admin-bar .site-main, body.admin-bar #main, body.admin-bar .main {
+  padding-top: calc(var(--nav-height) + 32px) !important;
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar main, body.admin-bar .site-main, body.admin-bar #main, body.admin-bar .main {
+    padding-top: calc(var(--nav-height) + 46px) !important;
+  }
+}
+
+/* Home page: hero extends to viewport top — its own layout handles text positioning */
+body.home main, body.home .site-main, body.home #main, body.home .main {
+  padding-top: 0 !important;
+}
+
+body.admin-bar.home main, body.admin-bar.home #main {
+  padding-top: 0 !important;
+}
+
+/* Blog single-post: header background bleeds behind nav, pt-50 handles clearance */
+body.single-post main, body.single-post .site-main, body.single-post #main, body.single-post .main {
+  padding-top: 0 !important;
+}
+
+body.admin-bar.single-post main, body.admin-bar.single-post #main {
+  padding-top: 0 !important;
+}
 
 /* Ensure content flows naturally under the nav */
 body {
@@ -233,59 +264,7 @@ body > *:first-child {
 
 /* CONTENT SPACING: Removed - now handled by mt-35 classes in templates */
 
-/* SERVICE PAGES: Extra spacing for billboard/hero sections */
-/* Multiple selectors to catch different HTML structures */
-/* Service pages get 140px padding (all stack types + specific pages) */
-.stack-billboard > *:first-child,
-.stack-banner > *:first-child,
-.stack-hero > *:first-child,
-.stack-billboard .eyebrow:first-child,
-.stack-billboard h1:first-child,
-.stack-billboard h2:first-child,
-body.page-id-2095 .stacks > .stack:first-child > *:first-child, /* Data Analytics page */
-body.page-id-2093 .stacks > .stack:first-child > *:first-child /* AI Consulting page */ {
-  padding-top: 140px !important; /* More space for service pages */
-}
-
-/* NUCLEAR OVERRIDE: Remove spacing for seamless home page hero */
-body.home .stack:first-child > *:first-child,
-body.home .stacks > .stack:first-child > *:first-child {
-  padding-top: 0 !important; /* Remove gap for seamless hero */
-}
-
-/* Mobile homepage override removed - no longer needed */
-
-/* Admin bar adjustments - Removed */
-
-/* SERVICE PAGES: Admin bar adjustments */
-/* Admin bar adjustments for all service pages */
-body.admin-bar .stack-billboard > *:first-child,
-body.admin-bar .stack-banner > *:first-child,
-body.admin-bar .stack-hero > *:first-child,
-body.admin-bar .stack-billboard .eyebrow:first-child,
-body.admin-bar .stack-billboard h1:first-child,
-body.admin-bar .stack-billboard h2:first-child,
-body.admin-bar.page-id-2095 .stacks > .stack:first-child > *:first-child,
-body.admin-bar.page-id-2093 .stacks > .stack:first-child > *:first-child {
-  padding-top: 172px !important; /* 140px service spacing + 32px admin bar */
-}
-
-@media screen and (max-width: 782px) {
-  /* Mobile admin bar rule removed */
-
-  /* SERVICE PAGES: Mobile admin bar adjustments */
-  /* Mobile admin bar adjustments for all service pages */
-  body.admin-bar .stack-billboard > *:first-child,
-  body.admin-bar .stack-banner > *:first-child,
-  body.admin-bar .stack-hero > *:first-child,
-  body.admin-bar .stack-billboard .eyebrow:first-child,
-  body.admin-bar .stack-billboard h1:first-child,
-  body.admin-bar .stack-billboard h2:first-child,
-  body.admin-bar.page-id-2095 .stacks > .stack:first-child > *:first-child,
-  body.admin-bar.page-id-2093 .stacks > .stack:first-child > *:first-child {
-    padding-top: 186px !important; /* 140px service spacing + 46px mobile admin bar */
-  }
-}
+/* Old first-child padding overrides removed — main padding-top provides clearance */
 
 
 
@@ -319,35 +298,7 @@ body[class*="contact"] .stacks {
   padding-top: 0 !important;
 }
 
-/* Ensure the very first visual element starts at top */
-body > header + *,
-body .site > *:first-child,
-body .site-container > *:first-child {
-  margin-top: 0 !important;
-  padding-top: 80px !important;
-}
-
-body.admin-bar .hero,
-body.admin-bar .banner,
-body.admin-bar .page-header,
-body.admin-bar .entry-header,
-body.admin-bar .wp-block-cover,
-body.admin-bar .wp-block-group {
-  top: -80px;
-  padding-top: 112px; /* 80px nav + 32px admin bar */
-}
-
-@media screen and (max-width: 782px) {
-  body.admin-bar .hero,
-  body.admin-bar .banner,
-  body.admin-bar .page-header,
-  body.admin-bar .entry-header,
-  body.admin-bar .wp-block-cover,
-  body.admin-bar .wp-block-group {
-    top: -80px;
-    padding-top: 126px; /* 80px nav + 46px mobile admin bar */
-  }
-}
+/* Old admin-bar hero/banner positioning removed — main padding-top handles this globally */
 
 /* Remove all forced background elements */
 /* Let page content naturally appear behind nav */

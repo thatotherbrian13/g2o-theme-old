@@ -2,7 +2,7 @@
 
 if( have_rows( 'header_stacks' ) ):
 
-	echo "<div class='stacks'>";
+	echo "<div class='stacks stacks--header'>";
 
 		while ( have_rows( 'header_stacks' ) ) : the_row();
 

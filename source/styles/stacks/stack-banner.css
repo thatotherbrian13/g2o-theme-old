@@ -20,11 +20,10 @@
 	}
 }
 .stack-banner-gradient {
+	padding-top: calc(var(--nav-height, 80px) + 8.75rem);
 	h1 strong {
 		@apply font-sans font-bold;
 	}
-}
-.stack-banner-boxed {
 }
 .stack-banner-form {
 	h1 strong {
@@ -44,10 +43,6 @@
 }
 .stack-banner-download {
 }
-.stack-banner-solution {
-
-}
-
 .solution__quote > :first-child {
 	position: relative;
 }

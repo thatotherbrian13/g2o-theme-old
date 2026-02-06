@@ -35,8 +35,8 @@ $taxonomy_prefix = 'category';
 $term_id = get_the_category()[0]->cat_ID;
 $term_id_prefixed = $taxonomy_prefix .'_'. $term_id;
 ?>
-<div class="stacks">
-	<section id="stack-banner-1" class="stack stack-banner stack-banner-wedge pt-10 pb-25">
+<div class="stacks stacks--header">
+	<section id="stack-banner-1" class="stack stack-banner stack-banner-wedge pt-15 pb-25">
 		<div class="constrain">
 			<div class="row gap-x-2.5">
 				<div class="col-start-2 col-span-13  lg:col-start-3 lg:col-span-9">

@@ -4,4 +4,33 @@
 	@apply overflow-hidden relative;
 }
 
+/* Pull header stacks up behind the fixed nav.
+   #main has padding-top: var(--nav-height) for clearance, but this
+   creates a visible gap. Negative margin lets the stack's background
+   extend behind the glassmorphism nav. The ::before spacer below
+   restores original text positioning. */
+.stacks--header {
+	margin-top: calc(-1 * var(--nav-height, 80px));
+}
+
+/* Spacer: push in-flow content down by nav-height to compensate for
+   the negative margin. Absolute-positioned backgrounds are unaffected
+   and still extend behind the nav. In flex-row containers (solution,
+   boxed), this becomes a 0-width item with no vertical effect — those
+   stacks use padding overrides below instead. */
+.stacks--header > .stack:first-child::before {
+	content: '';
+	display: block;
+	height: var(--nav-height, 80px);
+}
+
+/* Flex-based stacks: the ::before has no vertical effect in a
+   row flex layout, so add section padding-top instead. */
+.stacks--header > .stack-banner-solution:first-child {
+	padding-top: var(--nav-height, 80px);
+}
+.stacks--header > .stack-banner-boxed:first-child {
+	padding-top: calc(var(--nav-height, 80px) + 6.25rem);
+}
+
 /*! purgecss end ignore */

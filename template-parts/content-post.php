@@ -17,7 +17,7 @@ echo "<article id='post-" . $post_id . "' class='" . esc_attr( implode( ' ', $po
 	// Background image for all blog post headers
 	$header_bg_url = content_url( '/uploads/2023/07/46_72dpi-2048x1536.png' );
 
-	echo "<header class='stack stack-header-post pt-35 lg:pt-45 relative xl:min-h-3/4' style='background-image: url(" . esc_url( $header_bg_url ) . "); background-size: cover; background-position: center;'>";
+	echo "<header class='stack stack-header-post pt-35 lg:pt-50 relative xl:min-h-3/4' style='background-image: url(" . esc_url( $header_bg_url ) . "); background-size: cover; background-position: center;'>";
 		echo "<div class='constrain z-30 relative'>";
 
 			echo "<div class='row'>";

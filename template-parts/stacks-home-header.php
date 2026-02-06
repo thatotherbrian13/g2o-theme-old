@@ -2,7 +2,7 @@
 
 if( have_rows( 'home_header_stacks' ) ):
 
-	echo "<div class='stacks relative bg-river'>";
+	echo "<div class='stacks relative bg-river' style='padding-top: var(--nav-height, 80px);'>";
 
 		while ( have_rows( 'home_header_stacks' ) ) : the_row();
 

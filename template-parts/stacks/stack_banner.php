@@ -125,7 +125,7 @@ if ($component_type == 'wedge') {
 	$body = $args['body'] ?? get_sub_field('body');
 	$link = $args['link'] ?? get_sub_field('link');
 
-	$stack_class .= ' stack-banner-gradient pt-35 pb-75';
+	$stack_class .= ' stack-banner-gradient pb-75';
 	echo "<section id='" . esc_attr( $stack_id ) . "' class='" . $stack_class . "'>";
 		echo "<div class='constrain'>";
 
@@ -177,7 +177,7 @@ if ($component_type == 'wedge') {
 	$border_color = $args['border_color'] ?? get_sub_field('border_color');
 	$bg_image = $args['bg_image'] ?? get_sub_field('bg_image');
 
-	$stack_class .= ' stack-banner-boxed min-h-screen lg:h-screen flex items-center bg-pathway-light py-25';
+	$stack_class .= ' stack-banner-boxed min-h-screen flex items-center bg-pathway-light py-25';
 	echo "<section id='" . esc_attr( $stack_id ) . "' class='" . $stack_class . "'>";
 		echo "<div class='constrain'>";
 
