@@ -915,7 +915,7 @@ foreach ($categories as $cat_stacks) {
 				<div class="style-sample">
 					<div class="style-name">Heading 1 Alt <span class="style-class">.h1-alt</span></div>
 					<div class="style-preview">
-						<span class="font-sans text-5xl lg:text-[7.5rem] font-extrabold leading-none tracking-tight">Making an impact together</span>
+						<span class="font-sans text-5xl lg:text-[7.5rem] font-bold leading-none tracking-tight">Making an impact together</span>
 					</div>
 					<div class="style-meta">
 						<span class="style-meta-item"><strong>Font:</strong> Work Sans</span>

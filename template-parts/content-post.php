@@ -40,7 +40,7 @@ echo "<article id='post-" . $post_id . "' class='" . esc_attr( implode( ' ', $po
 
 					if ( $author ) echo "<div class='font-sans font-normal text-sm text-river mb-3'>" . esc_html( $author ) . "</div>";
 
-					echo "<div class='font-sans font-medium text-xs text-pathway'>";
+					echo "<div class='font-sans font-normal text-xs text-pathway'>";
 						g2o_posted_on();
 					echo "</div>";
 

@@ -27,7 +27,7 @@ if ($page_theme) {
 ?>
 
 <!-- Skip navigation link for keyboard accessibility -->
-<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[10000] focus:bg-river focus:text-white focus:px-4 focus:py-3 focus:rounded focus:no-underline focus:font-semibold">
+<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[10000] focus:bg-river focus:text-white focus:px-4 focus:py-3 focus:rounded focus:no-underline focus:font-bold">
 	<?php esc_html_e('Skip to main content', 'g2o'); ?>
 </a>
 

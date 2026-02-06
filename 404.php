@@ -16,7 +16,7 @@ echo "<main id='main'>";
 			echo "<div class='row gap-x-2.5'>";
 				echo "<div class='col-start-2 col-span-13  lg:col-start-4 lg:col-span-10  text-center'>";
 					echo "<div class='reveal'>";
-						echo "<h1 class='font-sans font-extrabold text-3xl md:text-5xl lg:text-7xl tracking-tight text-gunmetal'>404</h1>";
+						echo "<h1 class='font-sans font-bold text-3xl md:text-5xl lg:text-7xl tracking-tight text-gunmetal'>404</h1>";
 						echo "<div class='deck text-river'>Not the outcome you were looking for?<br>We have solutions for you!</div>";
 					echo "</div>";
 				echo "</div>";
