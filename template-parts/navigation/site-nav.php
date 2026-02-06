@@ -52,7 +52,7 @@ if (!$has_primary_menu && !$has_utility_menu) {
 				'container'       => false,
 				'fallback_cb'     => false,
 				'walker'          => new $walker_class(),
-				'items_wrap'      => '<ul id="%1$s" class="%2$s" role="menubar" data-nav="menu">%3$s</ul>',
+				'items_wrap'      => '<ul id="%1$s" class="%2$s" role="menubar" aria-orientation="horizontal" aria-label="' . esc_attr__('Primary navigation', 'g2o') . '" data-nav="menu">%3$s</ul>',
 				'depth'           => 2, // Limit to 2 levels for performance
 			));
 			?>
@@ -122,7 +122,7 @@ if (!$has_primary_menu && !$has_utility_menu) {
 					'container'       => false,
 					'fallback_cb'     => false,
 					'walker'          => new $walker_class(),
-					'items_wrap'      => '<ul id="%1$s" class="%2$s" role="menu" data-mobile-menu="accordion">%3$s</ul>',
+					'items_wrap'      => '<ul id="%1$s" class="%2$s" role="menu" aria-label="' . esc_attr__('Mobile navigation', 'g2o') . '" data-mobile-menu="accordion">%3$s</ul>',
 					'depth'           => 2,
 				));
 				?>
@@ -161,7 +161,7 @@ if (!$has_primary_menu && !$has_utility_menu) {
 				'container'       => false,
 				'fallback_cb'     => false,
 				'walker'          => new $walker_class(),
-				'items_wrap'      => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>',
+				'items_wrap'      => '<ul id="%1$s" class="%2$s" role="menubar" aria-orientation="horizontal">%3$s</ul>',
 				'depth'           => 1,
 			));
 			?>

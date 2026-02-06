@@ -356,9 +356,10 @@ body.admin-bar .wp-block-group {
   position: absolute;
   inset: 0;
   /* Beautiful glassmorphism with your loved tint */
-  background: 
+  background:
     linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%),
     rgba(35, 67, 83, 0.78); /* Balanced opacity with content behind */
+  -webkit-backdrop-filter: blur(16px) saturate(1.8);
   backdrop-filter: blur(16px) saturate(1.8);
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   opacity: 1;
@@ -370,9 +371,10 @@ body.admin-bar .wp-block-group {
 }
 
 .header[data-scrolled] .header__backdrop {
-  background: 
+  background:
     linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%),
     rgba(35, 67, 83, 0.78); /* Keep same as non-scrolled */
+  -webkit-backdrop-filter: blur(16px) saturate(1.8);
   backdrop-filter: blur(16px) saturate(1.8);
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 
@@ -489,8 +491,10 @@ body.admin-bar .wp-block-group {
   }
 }
 
-.header__logo:hover {
-  transform: translateY(-1px) scale(1.02);
+@media (hover: hover) {
+  .header__logo:hover {
+    transform: translateY(-1px) scale(1.02);
+  }
 }
 
 .header__logo:focus-visible {
@@ -612,10 +616,13 @@ body.admin-bar .wp-block-group {
 }
 
 /* Only non-dropdown items get default hover - dropdown parents handled separately */
-.nav__item:not(.nav__item--has-dropdown) > .nav__link:hover {
-  color: var(--nav-text-hover) !important;
-  background-color: transparent !important;
-  border-radius: 0 !important;
+/* Wrapped in hover media query to prevent sticky hover on touch devices */
+@media (hover: hover) {
+  .nav__item:not(.nav__item--has-dropdown) > .nav__link:hover {
+    color: var(--nav-text-hover) !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+  }
 }
 
 .nav__link:focus-visible {
@@ -674,6 +681,7 @@ body.admin-bar .wp-block-group {
   transform: translateY(0);
   min-width: 240px;
   background: rgba(25, 35, 45, 0.95); /* Dark background for strong contrast */
+  -webkit-backdrop-filter: blur(20px) saturate(1.5) contrast(1.2);
   backdrop-filter: blur(20px) saturate(1.5) contrast(1.2);
   border: 1px solid rgba(255, 255, 255, 0.25); /* Stronger border for better visibility */
   border-top: 1px solid rgba(255, 255, 255, 0.25); /* Stronger border for better visibility */
@@ -838,7 +846,7 @@ body.admin-bar .wp-block-group {
   position: fixed;
   top: 0;
   right: 0; /* Position from right */
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: var(--nav-backdrop);
   z-index: var(--nav-z-mobile);
@@ -846,6 +854,7 @@ body.admin-bar .wp-block-group {
   visibility: hidden;
   transform: translateX(100%); /* Start off-screen to the right */
   transition: opacity var(--nav-transition-slow), visibility var(--nav-transition-slow), transform var(--nav-transition-slow);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   overflow: hidden;
 }
@@ -889,6 +898,7 @@ body.admin-bar .wp-block-group {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   /* Ensure exact same structure as desktop header */
   min-height: 80px;
@@ -1154,6 +1164,7 @@ body.admin-bar .wp-block-group {
   visibility: hidden;
   pointer-events: none;
   transition: opacity var(--nav-transition-slow), visibility var(--nav-transition-slow);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
 
@@ -1188,9 +1199,11 @@ body.admin-bar .wp-block-group {
   color: var(--g2o-color-accent);
 }
 
-.nav__utility .nav__link:hover {
-  color: var(--nav-text);
-  background-color: rgba(114, 209, 246, 0.1);
+@media (hover: hover) {
+  .nav__utility .nav__link:hover {
+    color: var(--nav-text);
+    background-color: rgba(114, 209, 246, 0.1);
+  }
 }
 
 /* MAXIMUM SPECIFICITY OVERRIDE - NUCLEAR OPTION */
@@ -1634,7 +1647,7 @@ html body .header .nav__item--has-dropdown::before {
   
   .nav__link,
   .nav__toggle {
-    border: 2px solid rgba(255, 255, 255, 0.4) !important;
+    border: 2px solid rgba(255, 255, 255, 0.7) !important;
     background: rgba(35, 67, 83, 0.3) !important;
   }
   
@@ -1770,19 +1783,22 @@ body[data-nav-open] > *:not(.header):not(.nav) {
   color: inherit;
 }
 
-.nav__item--contact:not(.nav__item--current) .nav__link:hover,
-.nav__item--contact:not(.nav__item--current) button.nav__link:hover {
-  background: var(--g2o-color-accent) !important;
-  color: var(--g2o-color-primary) !important;
-  border-color: var(--g2o-color-accent) !important;
-  font-weight: 600 !important;
-  font-family: 'Work Sans', sans-serif !important;
-}
+/* Wrapped in hover media query to prevent sticky hover on touch devices */
+@media (hover: hover) {
+  .nav__item--contact:not(.nav__item--current) .nav__link:hover,
+  .nav__item--contact:not(.nav__item--current) button.nav__link:hover {
+    background: var(--g2o-color-accent) !important;
+    color: var(--g2o-color-primary) !important;
+    border-color: var(--g2o-color-accent) !important;
+    font-weight: 600 !important;
+    font-family: 'Work Sans', sans-serif !important;
+  }
 
-.nav__item--contact:not(.nav__item--current) .nav__link:hover .nav__text,
-.nav__item--contact:not(.nav__item--current) button.nav__link:hover .nav__text {
-  color: var(--g2o-color-primary) !important;
-  font-weight: 600 !important;
+  .nav__item--contact:not(.nav__item--current) .nav__link:hover .nav__text,
+  .nav__item--contact:not(.nav__item--current) button.nav__link:hover .nav__text {
+    color: var(--g2o-color-primary) !important;
+    font-weight: 600 !important;
+  }
 }
 
 /* Desktop: Push Contact Us to the right using flexbox */

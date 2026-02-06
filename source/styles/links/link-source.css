@@ -1,0 +1,19 @@
+/*! purgecss start ignore */
+
+.link-source {
+    display: inline-block;
+}
+
+.link-source a {
+    font-family: theme('fontFamily.sans');
+    font-weight: 400; /* Regular */
+    font-size: 0.875rem; /* 14px - smaller than body text */
+    text-decoration: none;
+    transition: text-decoration 0.2s ease;
+}
+
+.link-source a:hover {
+    text-decoration: underline;
+}
+
+/*! purgecss end ignore */

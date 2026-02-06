@@ -208,6 +208,10 @@
 
 }
 
+.accordion--spread .accordion-item .accordion-body {
+	@apply lg:flex lg:flex-col lg:justify-center;
+}
+
 .accordion--spread-alt {
 }
 

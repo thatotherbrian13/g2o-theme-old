@@ -37,7 +37,7 @@ echo "<section id='" . esc_attr( $stack_id ) . "' class='" . $stack_class . "'>"
 						$icon_url = is_array($icon) ? ($icon['url'] ?? '') : '';
 						$icon_alt = is_array($icon) ? ($icon['alt'] ?? '') : '';
 						if ($icon_url) {
-							echo "<div class='text-center mb-9'><img class='mx-auto' src='" . esc_url($icon_url) . "' alt='" . esc_attr($icon_alt) . "'></div>";
+							echo "<div class='text-center mb-9'><img class='mx-auto' style='max-width: 80px; height: auto;' src='" . esc_url($icon_url) . "' alt='" . esc_attr($icon_alt) . "'></div>";
 						}
 					}
 					if ($subhead) echo "<div class='kicker text-white mb-4'>" . acf_esc_html( $subhead ) . "</div>";
@@ -61,19 +61,27 @@ echo "<section id='" . esc_attr( $stack_id ) . "' class='" . $stack_class . "'>"
 
 							foreach( $rows as $row ) {
 
-//								$icon = $row['icon'];
-//								$heading = $row['heading'];
-//								$body = $row['body'];
+								$slide_icon = $row['icon'] ?? null;
+								$slide_heading = $row['heading'] ?? null;
+								$slide_body = $row['body'] ?? null;
 								$image = $row['image'] ?? null;
 
+								// Tighter spacing on heading when no body copy
+								$heading_margin = $slide_body ? 'mb-6' : 'mb-4';
 
-								echo "<div class='swiper-slide items-center text-center relative'>";
-//echo "<div class='py-25 px-15 relative'>";
-//									if( !empty( $icon ) ) echo "<div class='text-center mb-9'><img class='mx-auto' src='" . esc_url($icon['url']) . "' alt='" . esc_attr($icon['alt']) . "'></div>";
+								echo "<div class='swiper-slide items-center text-center relative px-4'>";
 
+									// Slide icon (sized elegantly)
+									if( !empty( $slide_icon ) ) {
+										$slide_icon_url = is_array($slide_icon) ? ($slide_icon['url'] ?? '') : '';
+										$slide_icon_alt = is_array($slide_icon) ? ($slide_icon['alt'] ?? '') : '';
+										if ($slide_icon_url) {
+											echo "<div class='text-center mb-4'><img class='mx-auto' style='max-width: 64px; height: auto;' src='" . esc_url($slide_icon_url) . "' alt='" . esc_attr($slide_icon_alt) . "'></div>";
+										}
+									}
 
-//									if ($heading) echo "<h3 class='font-serif font-light text-3xl lg:text-4xl leading-[1.3] -tracking-[0.02em] text-white mb-15'>" . acf_esc_html( $heading ) . "</h3>";
-//									if ($body) echo "<div class='body text-limestone'>" . acf_esc_html( $body ) . "</div>";
+									if ($slide_heading) echo "<h3 class='font-serif font-light text-3xl lg:text-4xl leading-[1.3] -tracking-[0.02em] text-white " . $heading_margin . "'>" . acf_esc_html( $slide_heading ) . "</h3>";
+									if ($slide_body) echo "<div class='body text-limestone mb-6'>" . acf_esc_html( $slide_body ) . "</div>";
 
 //echo "</div>";
 

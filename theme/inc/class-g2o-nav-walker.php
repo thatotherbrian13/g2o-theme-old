@@ -13,18 +13,6 @@ if (!class_exists('G2O_Nav_Walker')) {
 	class G2O_Nav_Walker extends Walker_Nav_Menu {
 
 		/**
-		 * Unique menu ID for ARIA relationships
-		 * @var string
-		 */
-		private $menu_id = '';
-
-		/**
-		 * Track dropdown count for unique IDs
-		 * @var int
-		 */
-		private $dropdown_count = 0;
-
-		/**
 		 * Start outputting the menu list
 		 * 
 		 * @param string $output Used to append additional content
@@ -78,7 +66,9 @@ if (!class_exists('G2O_Nav_Walker')) {
 				$item_classes[] = 'nav__item--has-dropdown';
 			}
 
-			if (in_array('current-menu-item', $classes) || in_array('current-menu-ancestor', $classes) || in_array('current_page_item', $classes)) {
+			$is_current_page = in_array('current-menu-item', $classes) || in_array('current_page_item', $classes);
+			$is_current = $is_current_page || in_array('current-menu-ancestor', $classes);
+			if ($is_current) {
 				$item_classes[] = 'nav__item--current';
 			}
 
@@ -117,10 +107,13 @@ if (!class_exists('G2O_Nav_Walker')) {
 
 			$link_class_names = join(' ', $link_classes);
 
-			// ARIA attributes for dropdown triggers
+			// ARIA attributes for dropdown triggers and current page
 			$aria_attrs = '';
+			if ($is_current_page) {
+				$aria_attrs .= ' aria-current="page"';
+			}
 			if ($has_children) {
-				$aria_attrs = ' aria-expanded="false" aria-haspopup="menu"';
+				$aria_attrs .= ' aria-expanded="false" aria-haspopup="menu"';
 				if ($dropdown_id) {
 					$aria_attrs .= ' aria-controls="' . esc_attr($dropdown_id) . '"';
 				}
@@ -191,29 +184,5 @@ if (!class_exists('G2O_Nav_Walker')) {
 			$output .= "</li>\n";
 		}
 
-		/**
-		 * Traverse elements to create list from elements
-		 * 
-		 * Override to add proper ARIA structure to the root menu
-		 */
-		public function walk($elements, $max_depth, ...$args) {
-			$args = $args[0] ?? null;
-			
-			// Generate unique menu ID
-			$this->menu_id = 'nav-menu-' . wp_rand(100, 999);
-			
-			// Add menubar role to the root container
-			add_filter('nav_menu_css_class', array($this, 'add_menubar_class'), 10, 3);
-			
-			return parent::walk($elements, $max_depth, $args);
-		}
-
-		/**
-		 * Add menubar class to root menu items
-		 */
-		public function add_menubar_class($classes, $item, $args) {
-			// This will be handled by the nav template part
-			return $classes;
-		}
 	}
 }

@@ -115,15 +115,15 @@ if ($component_type == 'gradient') {
 								$column_body    = $column['body'];
 								$column_link    = $column['link'];
 
-								echo "<div class='h-full px-4 pb-5  md:px-5 md:pb-15 border-s border-city border-solid reveal'>";
+								echo "<div class='h-full px-4 pb-5  md:px-5 md:pb-15 border-s border-city border-solid reveal flex flex-col'>";
 
-									echo "<div class='flex flex-col'>";
-										echo "<h3 class='font-sans font-light text-2xl leading-snug text-river strong-city'>" . acf_esc_html($column_heading) . "</h3>";
+									echo "<div class='flex-grow'>";
+										echo "<h3 class='font-sans font-bold text-2xl leading-snug text-river strong-city'>" . acf_esc_html($column_heading) . "</h3>";
 										echo "<p class='font-sans text-river'>" . $column_body . "</p>";
 									echo "</div>";
 
 									if ($column_link) {
-										echo acf_link( $column_link, 'box', 'text-river box-river mt-12' );
+										echo acf_link( $column_link, 'source', 'text-river mt-auto pt-8' );
 									}
 								echo "</div>";
 							}

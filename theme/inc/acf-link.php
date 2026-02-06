@@ -88,6 +88,12 @@ function acf_link( $link, $type = '', $class = '', $label = '' ) {
 			$output .= "</div>";
 		}
 
+		if ($type == 'source') {
+			$output .= "<div class='link-source " . $link_class . "' >";
+				$output .= "<a href='" . esc_url( $link_url ) . "' target='" . esc_attr( $link_target ) . "'>" . acf_esc_html( $link_title ) . "</a>";
+			$output .= "</div>";
+		}
+
 
 	}
 

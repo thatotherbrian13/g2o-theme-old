@@ -73,7 +73,7 @@ if ($form_layout == 'spread') {
 //			echo "<div class='row gap-x-2.5 items-center gap-y-10'>";
 
 //		echo "<div class='constrain  row gap-y-4'>";
-			echo "<div class='row gap-x-2.5 items-center'>";
+			echo "<div class='row gap-x-2.5 gap-y-10 items-center'>";
 
 
 

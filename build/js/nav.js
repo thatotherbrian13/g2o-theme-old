@@ -1,9 +1,18 @@
 /**
  * G2O Navigation Controller
- * 
+ *
  * Award-level, accessible navigation with full WCAG 2.2 AA compliance
  * Vanilla JavaScript ES modules - no dependencies
  */
+
+// Timing constants (ms) - coordinated with CSS variables
+const TIMING = {
+  HOVER_OPEN: 160,      // Hover intent delay to prevent flicker
+  HOVER_CLOSE: 120,     // Delay before closing to prevent accidental closes
+  PREVENT_HOVER: 220,   // Block hover after click to prevent conflicts
+  RESIZE_DEBOUNCE: 100, // Debounce window resize handler
+  ANNOUNCEMENT: 2000    // Screen reader announcement visibility
+};
 
 class NavigationController {
   constructor() {
@@ -18,6 +27,7 @@ class NavigationController {
     this.backdrop = this.nav.querySelector('[data-nav="backdrop"]');
     this.dropdownTriggers = this.nav.querySelectorAll('[data-nav-trigger="dropdown"]');
     this.dropdowns = this.nav.querySelectorAll('[data-nav="dropdown"]');
+    this.mobileAccordionTriggers = this.nav.querySelectorAll('[data-mobile-accordion="trigger"]');
     this.sentinel = this.header?.querySelector('[data-header="sentinel"]');
 
     // State
@@ -25,13 +35,28 @@ class NavigationController {
     this.activeDropdown = null;
     this.focusableElements = [];
     this.originalFocusedElement = null;
-    this.mediaQuery = window.matchMedia('(min-width: 1024px)');
+    this.mediaQuery = window.matchMedia('(min-width: 1350px)');
+    this.scrollObserver = null;
 
     // Timers
     this.hoverTimer = null;
     this.resizeTimer = null;
     this.preventHover = false;
     this.preventHoverTimeout = null;
+
+    // Bound event handlers (stored for proper cleanup)
+    this._boundToggleMobile = this.toggleMobile.bind(this);
+    this._boundCloseMobile = this.closeMobile.bind(this);
+    this._boundHandleDropdownClick = this.handleDropdownClick.bind(this);
+    this._boundHandleDropdownHover = this.handleDropdownHover.bind(this);
+    this._boundHandleDropdownLeave = this.handleDropdownLeave.bind(this);
+    this._boundHandleDropdownKeydown = this.handleDropdownKeydown.bind(this);
+    this._boundHandleMobileAccordionClick = this.handleMobileAccordionClick.bind(this);
+    this._boundHandleGlobalKeydown = this.handleGlobalKeydown.bind(this);
+    this._boundHandleOutsideClick = this.handleOutsideClick.bind(this);
+    this._boundHandleResize = this.handleResize.bind(this);
+    this._boundHandleMediaQueryChange = this.handleMediaQueryChange.bind(this);
+    this._boundCleanup = this.cleanup.bind(this);
 
     this.init();
   }
@@ -51,46 +76,51 @@ class NavigationController {
   bindEvents() {
     // Mobile toggle
     if (this.mobileToggle) {
-      this.mobileToggle.addEventListener('click', this.toggleMobile.bind(this));
+      this.mobileToggle.addEventListener('click', this._boundToggleMobile);
     }
 
     if (this.mobileClose) {
-      this.mobileClose.addEventListener('click', this.closeMobile.bind(this));
+      this.mobileClose.addEventListener('click', this._boundCloseMobile);
     }
 
     // Backdrop
     if (this.backdrop) {
-      this.backdrop.addEventListener('click', this.closeMobile.bind(this));
+      this.backdrop.addEventListener('click', this._boundCloseMobile);
     }
 
     // Desktop dropdowns
     this.dropdownTriggers.forEach(trigger => {
-      trigger.addEventListener('click', this.handleDropdownClick.bind(this));
-      trigger.addEventListener('mouseenter', this.handleDropdownHover.bind(this));
-      trigger.addEventListener('mouseleave', this.handleDropdownLeave.bind(this));
-      trigger.addEventListener('keydown', this.handleDropdownKeydown.bind(this));
+      trigger.addEventListener('click', this._boundHandleDropdownClick);
+      trigger.addEventListener('mouseenter', this._boundHandleDropdownHover);
+      trigger.addEventListener('mouseleave', this._boundHandleDropdownLeave);
+      trigger.addEventListener('keydown', this._boundHandleDropdownKeydown);
     });
 
     this.dropdowns.forEach(dropdown => {
-      dropdown.addEventListener('mouseenter', this.handleDropdownHover.bind(this));
-      dropdown.addEventListener('mouseleave', this.handleDropdownLeave.bind(this));
-      dropdown.addEventListener('keydown', this.handleDropdownKeydown.bind(this));
+      dropdown.addEventListener('mouseenter', this._boundHandleDropdownHover);
+      dropdown.addEventListener('mouseleave', this._boundHandleDropdownLeave);
+      dropdown.addEventListener('keydown', this._boundHandleDropdownKeydown);
+    });
+
+    // Mobile accordion triggers
+    this.mobileAccordionTriggers.forEach(trigger => {
+      trigger.addEventListener('click', this._boundHandleMobileAccordionClick);
     });
 
     // Global events
-    document.addEventListener('keydown', this.handleGlobalKeydown.bind(this));
-    document.addEventListener('click', this.handleOutsideClick.bind(this));
-    window.addEventListener('resize', this.handleResize.bind(this));
-    this.mediaQuery.addEventListener('change', this.handleMediaQueryChange.bind(this));
+    document.addEventListener('keydown', this._boundHandleGlobalKeydown);
+    document.addEventListener('click', this._boundHandleOutsideClick);
+    window.addEventListener('resize', this._boundHandleResize);
+    this.mediaQuery.addEventListener('change', this._boundHandleMediaQueryChange);
 
     // Route changes (for SPAs or page navigation)
-    window.addEventListener('beforeunload', this.cleanup.bind(this));
+    window.addEventListener('beforeunload', this._boundCleanup);
   }
 
   setupIntersectionObserver() {
     if (!this.sentinel || !this.header) return;
 
-    const observer = new IntersectionObserver(
+    this.scrollObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           this.header.removeAttribute('data-scrolled');
@@ -101,7 +131,7 @@ class NavigationController {
       { threshold: 0 }
     );
 
-    observer.observe(this.sentinel);
+    this.scrollObserver.observe(this.sentinel);
   }
 
   setupKeyboardNavigation() {
@@ -186,6 +216,47 @@ class NavigationController {
       this.originalFocusedElement.focus();
       this.originalFocusedElement = null;
     }
+
+    // Reset all mobile accordions
+    this.closeAllMobileAccordions();
+  }
+
+  // =============================================================================
+  // Mobile Accordion Submenus
+  // =============================================================================
+
+  handleMobileAccordionClick(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const trigger = event.currentTarget;
+    const parentItem = trigger.closest('.nav__item--has-dropdown');
+    const dropdown = parentItem?.querySelector('.nav__dropdown');
+
+    if (!parentItem || !dropdown) return;
+
+    const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+    // Close all other open accordions (single-open behavior)
+    if (!isExpanded) {
+      this.closeAllMobileAccordions();
+    }
+
+    // Toggle this accordion
+    trigger.setAttribute('aria-expanded', !isExpanded);
+    parentItem.setAttribute('data-expanded', !isExpanded);
+    dropdown.setAttribute('aria-hidden', isExpanded);
+  }
+
+  closeAllMobileAccordions() {
+    this.mobileAccordionTriggers.forEach(trigger => {
+      const parentItem = trigger.closest('.nav__item--has-dropdown');
+      const dropdown = parentItem?.querySelector('.nav__dropdown');
+
+      trigger.setAttribute('aria-expanded', 'false');
+      if (parentItem) parentItem.setAttribute('data-expanded', 'false');
+      if (dropdown) dropdown.setAttribute('aria-hidden', 'true');
+    });
   }
 
   // =============================================================================
@@ -207,7 +278,7 @@ class NavigationController {
     this.hoverTimer = setTimeout(() => {
       this.closeAllDropdowns();
       this.openDropdown(dropdown, trigger);
-    }, 160);
+    }, TIMING.HOVER_OPEN);
   }
 
   handleDropdownLeave(event) {
@@ -218,7 +289,7 @@ class NavigationController {
     // Small delay before closing to prevent accidental closes
     this.hoverTimer = setTimeout(() => {
       this.closeAllDropdowns();
-    }, 120);
+    }, TIMING.HOVER_CLOSE);
   }
 
   handleDropdownKeydown(event) {
@@ -258,7 +329,7 @@ class NavigationController {
     this.preventHoverTimeout = setTimeout(() => {
       this.preventHover = false;
       this.preventHoverTimeout = null;
-    }, 220);
+    }, TIMING.PREVENT_HOVER);
 
     if (isExpanded) {
       this.closeDropdown(dropdown);
@@ -539,12 +610,12 @@ class NavigationController {
       if (this.mediaQuery.matches && this.isMobileOpen) {
         this.closeMobile();
       }
-      
+
       // Reposition dropdowns
       if (this.activeDropdown) {
         this.positionDropdown(this.activeDropdown);
       }
-    }, 100);
+    }, TIMING.RESIZE_DEBOUNCE);
   }
 
   handleMediaQueryChange() {
@@ -572,9 +643,12 @@ class NavigationController {
     
     document.body.appendChild(announcement);
     
+    // Allow time for slower screen readers to finish reading
     setTimeout(() => {
-      document.body.removeChild(announcement);
-    }, 1000);
+      if (announcement.parentNode) {
+        announcement.parentNode.removeChild(announcement);
+      }
+    }, TIMING.ANNOUNCEMENT);
   }
 
   // =============================================================================
@@ -589,20 +663,48 @@ class NavigationController {
     clearTimeout(this.preventHoverTimeout);
     this.preventHoverTimeout = null;
     this.preventHover = false;
+
+    // Disconnect IntersectionObserver
+    if (this.scrollObserver) {
+      this.scrollObserver.disconnect();
+      this.scrollObserver = null;
+    }
   }
 
   destroy() {
     this.cleanup();
-    
-    // Remove event listeners
-    this.mobileToggle?.removeEventListener('click', this.toggleMobile);
-    this.mobileClose?.removeEventListener('click', this.closeMobile);
-    this.backdrop?.removeEventListener('click', this.closeMobile);
-    
-    document.removeEventListener('keydown', this.handleGlobalKeydown);
-    document.removeEventListener('click', this.handleOutsideClick);
-    window.removeEventListener('resize', this.handleResize);
-    this.mediaQuery.removeEventListener('change', this.handleMediaQueryChange);
+
+    // Remove event listeners using stored bound references
+    this.mobileToggle?.removeEventListener('click', this._boundToggleMobile);
+    this.mobileClose?.removeEventListener('click', this._boundCloseMobile);
+    this.backdrop?.removeEventListener('click', this._boundCloseMobile);
+
+    // Remove dropdown trigger listeners
+    this.dropdownTriggers.forEach(trigger => {
+      trigger.removeEventListener('click', this._boundHandleDropdownClick);
+      trigger.removeEventListener('mouseenter', this._boundHandleDropdownHover);
+      trigger.removeEventListener('mouseleave', this._boundHandleDropdownLeave);
+      trigger.removeEventListener('keydown', this._boundHandleDropdownKeydown);
+    });
+
+    // Remove dropdown listeners
+    this.dropdowns.forEach(dropdown => {
+      dropdown.removeEventListener('mouseenter', this._boundHandleDropdownHover);
+      dropdown.removeEventListener('mouseleave', this._boundHandleDropdownLeave);
+      dropdown.removeEventListener('keydown', this._boundHandleDropdownKeydown);
+    });
+
+    // Remove mobile accordion listeners
+    this.mobileAccordionTriggers.forEach(trigger => {
+      trigger.removeEventListener('click', this._boundHandleMobileAccordionClick);
+    });
+
+    // Remove global listeners
+    document.removeEventListener('keydown', this._boundHandleGlobalKeydown);
+    document.removeEventListener('click', this._boundHandleOutsideClick);
+    window.removeEventListener('resize', this._boundHandleResize);
+    this.mediaQuery.removeEventListener('change', this._boundHandleMediaQueryChange);
+    window.removeEventListener('beforeunload', this._boundCleanup);
   }
 }
 
@@ -620,11 +722,6 @@ if (document.readyState === 'loading') {
 function initNavigation() {
   // Initialize navigation controller
   window.g2oNavigation = new NavigationController();
-  
-  // Make available globally for debugging
-  if (window.location.hostname === 'localhost' || window.location.hostname.includes('local')) {
-    console.log('G2O Navigation initialized', window.g2oNavigation);
-  }
 }
 
 // Export for modules
