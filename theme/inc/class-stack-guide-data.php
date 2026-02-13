@@ -254,6 +254,39 @@ class G2O_Stack_Guide {
                 ],
             ],
 
+            'card_grid' => [
+                'label'       => 'Card Grid',
+                'description' => 'Heading, intro, and a grid of cards with configurable columns and color variants.',
+                'file'        => 'stack_card_grid.php',
+                'fields'      => [
+                    'component_type' => 'select',
+                    'grid_columns'   => 'select',
+                    'kicker'         => 'text',
+                    'heading'        => 'text',
+                    'deck'           => 'textarea',
+                    'cards'          => 'repeater',
+                    'link'           => 'link',
+                ],
+                'variants'    => ['light_on_dark', 'dark_on_light', 'subtle'],
+                'options'     => ['Grid columns: 2 or 3', 'Card items with heading, body, optional link'],
+                'data'        => [
+                    'component_type' => '',
+                    'grid_columns'   => '3',
+                    'kicker'         => 'Performance Testing',
+                    'heading'        => 'Comprehensive Testing Services',
+                    'deck'           => 'We deliver a full range of performance testing to ensure your applications meet the highest standards of reliability and speed.',
+                    'cards'          => [
+                        ['heading' => 'Load Testing', 'body' => 'Simulate expected user traffic to validate your system handles normal and peak conditions without degradation.', 'link' => null],
+                        ['heading' => 'Stress Testing', 'body' => 'Push your application beyond normal capacity to identify breaking points and ensure graceful failure handling.', 'link' => null],
+                        ['heading' => 'Endurance Testing', 'body' => 'Run sustained workloads over extended periods to detect memory leaks, resource drain, and long-term stability issues.', 'link' => null],
+                        ['heading' => 'Spike Testing', 'body' => 'Measure how your system responds to sudden, dramatic surges in traffic and recovers afterward.', 'link' => null],
+                        ['heading' => 'Scalability Testing', 'body' => 'Determine your system\'s ability to scale up or out to accommodate growing user demand and data volume.', 'link' => null],
+                        ['heading' => 'Volume Testing', 'body' => 'Validate system behavior when processing large volumes of data, ensuring database and storage performance hold steady.', 'link' => null],
+                    ],
+                    'link'           => self::mock_link('Explore Our Testing Services'),
+                ],
+            ],
+
             'three_columns' => [
                 'label'       => 'Three Columns',
                 'description' => 'Three-column layout with multiple style variants.',

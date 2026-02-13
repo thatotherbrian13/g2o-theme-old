@@ -1,0 +1,13 @@
+/*! purgecss start ignore */
+
+.stack-card-grid-light-on-dark {
+	background: linear-gradient(180deg, #234253 0%, #192C36 100%);
+}
+
+.stack-card-grid-dark-on-light {
+}
+
+.stack-card-grid-subtle {
+}
+
+/*! purgecss end ignore */

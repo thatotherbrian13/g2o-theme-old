@@ -1979,6 +1979,9 @@ select {
 .rounded-2xl {
   border-radius: 1rem;
 }
+.rounded-sm {
+  border-radius: 0.125rem;
+}
 .rounded-tl-lg {
   border-top-left-radius: 0.5rem;
 }
@@ -1997,6 +2000,9 @@ select {
 }
 .border-l {
   border-left-width: 1px;
+}
+.border-l-2 {
+  border-left-width: 2px;
 }
 .border-r {
   border-right-width: 1px;
@@ -2560,6 +2566,9 @@ select {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
+.text-white\/80 {
+  color: rgb(255 255 255 / 0.8);
+}
 .underline {
   text-decoration-line: underline;
 }
@@ -2591,6 +2600,11 @@ select {
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-sm {
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .outline-none {
@@ -4393,6 +4407,15 @@ body.page-template-page-solution #footer {
 		bottom: 72px;
 	}
 }
+/*! purgecss start ignore */
+.stack-card-grid-light-on-dark {
+	background: linear-gradient(180deg, #234253 0%, #192C36 100%);
+}
+.stack-card-grid-dark-on-light {
+}
+.stack-card-grid-subtle {
+}
+/*! purgecss end ignore */
 .stack-carousel {
 	--swiper-theme-color: #72D1F6;
 	--swiper-navigation-size: 44px;
