@@ -1584,6 +1584,9 @@ select {
 .mb-0 {
   margin-bottom: 0px;
 }
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
 .mb-10 {
   margin-bottom: 2.5rem;
 }
@@ -1640,6 +1643,9 @@ select {
 }
 .mt-0 {
   margin-top: 0px;
+}
+.mt-0\.5 {
+  margin-top: 0.125rem;
 }
 .mt-10 {
   margin-top: 2.5rem;
@@ -1713,8 +1719,14 @@ select {
 .h-100 {
   height: 25rem;
 }
+.h-4 {
+  height: 1rem;
+}
 .h-6 {
   height: 1.5rem;
+}
+.h-8 {
+  height: 2rem;
 }
 .h-auto {
   height: auto;
@@ -1731,6 +1743,9 @@ select {
 .w-1\/2 {
   width: 50%;
 }
+.w-4 {
+  width: 1rem;
+}
 .w-4\/5 {
   width: 80%;
 }
@@ -1745,6 +1760,9 @@ select {
 }
 .w-6 {
   width: 1.5rem;
+}
+.w-8 {
+  width: 2rem;
 }
 .w-auto {
   width: auto;
@@ -1979,6 +1997,9 @@ select {
 .rounded-2xl {
   border-radius: 1rem;
 }
+.rounded-full {
+  border-radius: 9999px;
+}
 .rounded-sm {
   border-radius: 0.125rem;
 }
@@ -2034,6 +2055,10 @@ select {
   --tw-border-opacity: 1;
   border-color: rgb(255 247 239 / var(--tw-border-opacity));
 }
+.border-pathway-light {
+  --tw-border-opacity: 1;
+  border-color: rgb(223 225 225 / var(--tw-border-opacity));
+}
 .border-river {
   --tw-border-opacity: 1;
   border-color: rgb(35 66 83 / var(--tw-border-opacity));
@@ -2045,6 +2070,9 @@ select {
 .border-white {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+.border-white\/15 {
+  border-color: rgb(255 255 255 / 0.15);
 }
 .border-white\/20 {
   border-color: rgb(255 255 255 / 0.2);
@@ -4454,6 +4482,20 @@ body.page-template-page-solution #footer {
 .stack-carousel .swiper-button-prev {
 		left: 8px;
 	}
+/*! purgecss start ignore */
+.stack-checklist-light-on-dark {
+    background: linear-gradient(180deg, #234253 0%, #192C36 100%);
+}
+.stack-checklist__heading {
+    transition: color 0.2s ease;
+}
+.stack-checklist__item:hover .stack-checklist__heading {
+    color: #3B6C80; /* river-light */
+}
+.stack-checklist-light-on-dark .stack-checklist__item:hover .stack-checklist__heading {
+    color: #ffffff;
+}
+/*! purgecss end ignore */
 /*! purgecss start ignore */
 /* Table container */
 .stack-comparison .comparison-table {
@@ -7336,6 +7378,10 @@ body.error404 h1::after {
     position: absolute;
   }
 
+  .lg\:sticky {
+    position: sticky;
+  }
+
   .lg\:-right-10 {
     right: -2.5rem;
   }
@@ -7350,6 +7396,10 @@ body.error404 h1::after {
 
   .lg\:top-0 {
     top: 0px;
+  }
+
+  .lg\:top-40 {
+    top: 10rem;
   }
 
   .lg\:col-span-1 {
@@ -7494,6 +7544,10 @@ body.error404 h1::after {
     margin-right: auto;
   }
 
+  .lg\:mb-0 {
+    margin-bottom: 0px;
+  }
+
   .lg\:mb-12 {
     margin-bottom: 3rem;
   }
@@ -7522,8 +7576,24 @@ body.error404 h1::after {
     display: none;
   }
 
+  .lg\:h-10 {
+    height: 2.5rem;
+  }
+
+  .lg\:h-5 {
+    height: 1.25rem;
+  }
+
   .lg\:h-screen {
     height: 100vh;
+  }
+
+  .lg\:w-10 {
+    width: 2.5rem;
+  }
+
+  .lg\:w-5 {
+    width: 1.25rem;
   }
 
   .lg\:max-w-2xl {
@@ -7585,6 +7655,10 @@ body.error404 h1::after {
 
   .lg\:gap-16 {
     gap: 4rem;
+  }
+
+  .lg\:gap-5 {
+    gap: 1.25rem;
   }
 
   .lg\:gap-6 {
@@ -7671,6 +7745,11 @@ body.error404 h1::after {
     padding-bottom: 12.5rem;
   }
 
+  .lg\:py-8 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
   .lg\:pb-12 {
     padding-bottom: 3rem;
   }
@@ -7744,6 +7823,10 @@ body.error404 h1::after {
     font-size: 2rem;
   }
 
+  .lg\:text-\[3\.5rem\] {
+    font-size: 3.5rem;
+  }
+
   .lg\:text-\[4\.5rem\] {
     font-size: 4.5rem;
   }
@@ -7763,6 +7846,11 @@ body.error404 h1::after {
   .lg\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+
+  .lg\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
   }
 
   .lg\:leading-\[1\.1\] {

@@ -287,6 +287,36 @@ class G2O_Stack_Guide {
                 ],
             ],
 
+            'checklist' => [
+                'label'       => 'Checklist',
+                'description' => 'Split-layout checklist with heading column and deliverable items.',
+                'file'        => 'stack_checklist.php',
+                'fields'      => [
+                    'component_type'  => 'select',
+                    'checkmark_color' => 'select',
+                    'kicker'          => 'text',
+                    'heading'         => 'text',
+                    'deck'            => 'textarea',
+                    'items'           => 'repeater',
+                ],
+                'variants'    => ['light_on_dark', 'dark_on_light'],
+                'options'     => ['Checkmark color: sky, city, river, white', 'Zodiak serif heading'],
+                'data'        => [
+                    'component_type'  => '',
+                    'checkmark_color' => 'sky',
+                    'kicker'  => 'What You Get',
+                    'heading' => 'What You Get from an Engagement',
+                    'deck'    => 'When you partner with us for application performance testing services, you receive tangible assets your team can use immediately.',
+                    'items'   => [
+                        ['heading' => 'Custom test scripts and scenario plans', 'body' => 'Aligned to your application architecture, e-commerce flows, and key digital experiences.'],
+                        ['heading' => 'Baseline metrics and detailed reports', 'body' => 'Across load, stress, spike, and endurance testing.'],
+                        ['heading' => 'Scalability and reliability assessments', 'body' => 'Across application, database, and infrastructure components.'],
+                        ['heading' => 'Bottleneck analysis', 'body' => 'With prioritized remediation recommendations and future-state guidance.'],
+                        ['heading' => 'A practical roadmap', 'body' => 'For integrating performance checks into your ongoing development and release processes.'],
+                    ],
+                ],
+            ],
+
             'three_columns' => [
                 'label'       => 'Three Columns',
                 'description' => 'Three-column layout with multiple style variants.',

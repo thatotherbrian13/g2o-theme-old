@@ -1,0 +1,19 @@
+/*! purgecss start ignore */
+
+.stack-checklist-light-on-dark {
+    background: linear-gradient(180deg, #234253 0%, #192C36 100%);
+}
+
+.stack-checklist__heading {
+    transition: color 0.2s ease;
+}
+
+.stack-checklist__item:hover .stack-checklist__heading {
+    color: #3B6C80; /* river-light */
+}
+
+.stack-checklist-light-on-dark .stack-checklist__item:hover .stack-checklist__heading {
+    color: #ffffff;
+}
+
+/*! purgecss end ignore */

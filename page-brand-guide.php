@@ -31,7 +31,7 @@ $stacks = G2O_Stack_Guide::get_all_stacks();
 // Group stacks by category
 $categories = [
 	'Heroes & Banners' => ['banner', 'banner_data_ai', 'billboard', 'profile_banner', 'lead', 'story'],
-	'Content Blocks' => ['content', 'columns', 'three_columns', 'spread', 'slabs', 'blockquote', 'quote', 'testimonial', 'steps', 'scroller'],
+	'Content Blocks' => ['content', 'columns', 'card_grid', 'checklist', 'three_columns', 'spread', 'slabs', 'blockquote', 'quote', 'testimonial', 'steps', 'scroller'],
 	'CTAs & Forms' => ['cta', 'form', 'gravity_form', 'hubspot_form', 'subscribe', 'tout'],
 	'Carousels & Lists' => ['carousel', 'slideshow', 'marquee', 'accordion', 'pillars', 'process', 'graphs', 'video'],
 	'People & Teams' => ['author', 'authors', 'team'],
