@@ -244,7 +244,7 @@ if ($component_type == 'wedge') {
 							echo "<ul class='list-disc list-outside pl-6'>";
 								foreach ($rows as $row) {
 									$bullet_point = $row['bullet_point'];
-									if ($bullet_point) echo "<li class='font-sans font-bold text-xl leading-[1.1] text-river mb-4 last:mb-0'>" . acf_esc_html( $bullet_point ) . "</li>";
+									if ($bullet_point) echo "<li class='font-sans font-normal text-lg leading-snug text-river mb-4 last:mb-0'>" . acf_esc_html( $bullet_point ) . "</li>";
 								}
 							echo "</ul>"; // list-disc
 						}

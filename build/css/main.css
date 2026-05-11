@@ -4092,8 +4092,9 @@ body.page-template-page-solution #footer {
 		width: 83.33%;
 		z-index: 10;
 	}
-.stack-banner-download {
-}
+.stack-banner-download .gform_title {
+		margin-bottom: 2rem;
+	}
 .solution__quote > :first-child {
 	position: relative;
 }

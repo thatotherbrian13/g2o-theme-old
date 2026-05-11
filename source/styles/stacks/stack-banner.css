@@ -42,6 +42,9 @@
 	}
 }
 .stack-banner-download {
+	.gform_title {
+		margin-bottom: 2rem;
+	}
 }
 .solution__quote > :first-child {
 	position: relative;
