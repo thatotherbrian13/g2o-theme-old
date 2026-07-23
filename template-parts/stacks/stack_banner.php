@@ -229,6 +229,7 @@ if ($component_type == 'wedge') {
 	$hubspot_form_shortcode = do_shortcode( $args['hubspot_form_shortcode'] ?? get_sub_field('hubspot_form_shortcode') ?? '', true );
 	$form_image = $args['form_image'] ?? get_sub_field('form_image');
 	$bg_image = $args['bg_image'] ?? get_sub_field('bg_image');
+	$link = $args['link'] ?? get_sub_field('link');
 
 	$stack_class .= ' stack-banner-download pt-35 pb-25';
 	echo "<section id='" . esc_attr( $stack_id ) . "' class='" . $stack_class . "'>";
@@ -247,6 +248,11 @@ if ($component_type == 'wedge') {
 									if ($bullet_point) echo "<li class='font-sans font-normal text-lg leading-snug text-river mb-4 last:mb-0'>" . acf_esc_html( $bullet_point ) . "</li>";
 								}
 							echo "</ul>"; // list-disc
+						}
+
+						// Ungated download: direct link button (only when no form gate is configured)
+						if (!$gravity_form_shortcode && !$hubspot_form_shortcode) {
+							echo acf_link( $link, 'box', 'text-river box-city mt-12' );
 						}
 
 					echo "</div>"; // reveal
@@ -283,6 +289,27 @@ if ($component_type == 'wedge') {
 								}
 							}
 							echo "<div class='form-main'>" . $hubspot_form_shortcode . "</div>";
+						echo "</div>"; // form-container
+
+					echo "</div>"; // col
+				}
+
+				// Ungated download: no form, but still show the cover image column (linked when a download link is set)
+				if (!$gravity_form_shortcode && !$hubspot_form_shortcode && $form_image) {
+					echo "<div class='col-span-full md:col-start-9 md:col-span-6'>";
+						echo "<div class='form-container mt-0'>";
+							$url = is_array($form_image) ? ($form_image['url'] ?? '') : '';
+							$alt = is_array($form_image) ? ($form_image['alt'] ?? '') : '';
+							$link_url = is_array($link) ? ($link['url'] ?? '') : '';
+							$link_target = (is_array($link) && !empty($link['target'])) ? $link['target'] : '_self';
+							$link_title = is_array($link) ? ($link['title'] ?? '') : '';
+							if ($url) {
+								echo "<div class='form-image'>";
+									if ($link_url) echo "<a href='" . esc_url($link_url) . "' target='" . esc_attr($link_target) . "' aria-label='" . esc_attr($link_title ?: 'Download') . "'>";
+										echo "<img class='' src='" . esc_url($url) . "' alt='" . esc_attr($alt) . "'>";
+									if ($link_url) echo "</a>";
+								echo "</div>"; // form-image
+							}
 						echo "</div>"; // form-container
 
 					echo "</div>"; // col
