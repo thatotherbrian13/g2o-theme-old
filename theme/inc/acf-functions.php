@@ -1,5 +1,22 @@
 <?php
 
+/**
+ * Build a dialable tel: href from a display phone number.
+ *
+ * Don't pass phone numbers through esc_url(): it treats "(614) 523-3070"
+ * as a relative URL and prepends http://, producing tel:http://… links.
+ *
+ * @param string $tel Display phone number, e.g. "(614) 523-3070".
+ * @return string Escaped href, e.g. "tel:+16145233070".
+ */
+function g2o_tel_href( $tel ) {
+    $digits = preg_replace( '/\D/', '', (string) $tel );
+    if ( 10 === strlen( $digits ) ) {
+        $digits = '1' . $digits;
+    }
+    return esc_attr( 'tel:+' . $digits );
+}
+
 function g2o_render_body( $field ) {
     if ( empty( $field ) ) {
         return;

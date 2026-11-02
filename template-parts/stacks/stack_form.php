@@ -105,7 +105,7 @@ if ($form_layout == 'spread') {
 								if ($map_url) echo "</a>";
 							echo "</div>";
 
-							if ($tel) echo "<div class='tel'><a href='tel:" . esc_url( $tel ) . "'>" . acf_esc_html( $tel ) . "</a></div>";
+							if ($tel) echo "<div class='tel'><a href='" . g2o_tel_href( $tel ) . "'>" . acf_esc_html( $tel ) . "</a></div>";
 						echo "</div>"; // vcard
 					}
 
@@ -254,7 +254,7 @@ if ($form_layout == 'spread') {
 								if ($map_url) echo "</a>";
 							echo "</div>";
 
-							if ($tel) echo "<div class='tel'><a href='tel:" . esc_url( $tel ) . "'>" . acf_esc_html( $tel ) . "</a></div>";
+							if ($tel) echo "<div class='tel'><a href='" . g2o_tel_href( $tel ) . "'>" . acf_esc_html( $tel ) . "</a></div>";
 						echo "</div>"; // vcard
 					}
 
@@ -340,7 +340,7 @@ if ($form_layout == 'spread') {
 									if ($map_url) echo "</a>";
 								echo "</div>";
 
-								if ($tel) echo "<div class='tel'><a href='tel:" . esc_url( $tel ) . "'>" . acf_esc_html( $tel ) . "</a></div>";
+								if ($tel) echo "<div class='tel'><a href='" . g2o_tel_href( $tel ) . "'>" . acf_esc_html( $tel ) . "</a></div>";
 							echo "</div>"; // vcard
 						echo "</div>"; // reveal
 					}

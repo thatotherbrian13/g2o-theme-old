@@ -47,6 +47,7 @@ npm run build:nav  # Copy nav.js to build (standalone, not bundled)
 npm run watch:css  # Watch CSS changes
 npm run watch:js   # Watch JS changes
 npm run watch:nav  # Watch nav.js changes
+npm run watch      # All three watchers (no initial build)
 ```
 
 **PostCSS Pipeline** (postcss.config.js): postcss-import → postcss-calc → tailwindcss/nesting → tailwindcss → autoprefixer
@@ -63,15 +64,17 @@ npm run watch:nav  # Watch nav.js changes
 | `build/css/changemakers-2025.css` | None (edit directly) | ChangeMakers conference styles |
 | `build/css/changemakers-survey.css` | None (edit directly) | ChangeMakers survey styles |
 | `build/js/nav.js` | `source/scripts/nav.js` | Copied as-is (not bundled) |
-| `build/js/gradient.js` | `source/scripts/gradient.js` | Copied as-is (not bundled) |
-| `build/js/DrawSVGPlugin.min.js` | `source/scripts/DrawSVGPlugin.min.js` | GSAP premium plugin |
-| `build/js/ScrollSmoother.min.js` | `source/scripts/ScrollSmoother.min.js` | GSAP premium plugin |
+| `build/js/gradient.js` | `source/scripts/gradient.js` | Copy manually (`cp`) — no npm script does it |
+| `build/js/DrawSVGPlugin.min.js` | `source/scripts/DrawSVGPlugin.min.js` | GSAP premium plugin; copy manually |
+| `build/js/ScrollSmoother.min.js` | `source/scripts/ScrollSmoother.min.js` | GSAP premium plugin; copy manually |
 | `build/js/changemakers-modal.js` | None (edit directly) | ChangeMakers modal (build only) |
 | `build/js/changemakers-video.js` | None (edit directly) | ChangeMakers video (build only) |
 
 **esbuild CSS side-output**: esbuild generates `build/js/scripts.css` (Swiper's CSS) alongside the JS bundle. This IS auto-generated.
 
 **Local Development**: Uses Local by Flywheel (LocalWP). Site runs at local URL configured in Local app (`https://g2o.local`; the self-signed cert means headless browsers need cert-error bypass).
+
+**Pulling from WP Engine**: `app/public/.wpe-pull-ignore` (outside git) excludes `/wp-content/themes/g2o/` so a Local pull brings down content without overwriting the git-tracked theme. `.wpe-push-ignore` excludes the theme's `node_modules/` and `.git/`. After any pull, run `git status` here to confirm the theme wasn't touched.
 
 ### wp-cli / Database Access (LocalWP)
 
@@ -119,7 +122,7 @@ app/public/wp-content/themes/g2o/
 
 **Asset Loading**: Uses `filemtime()` for cache busting in functions.php.
 
-**Custom Page Templates**: `template-changemakers.php` (conference page), `page-brand-guide.php` (component catalog), `template-stack-guide.php` (stack showcase), `page-work.php` (portfolio).
+**Custom Page Templates**: `template-changemakers.php` (conference page), `template-changemakers-survey.php` (conference survey), `page-brand-guide.php` (component catalog), `template-stack-guide.php` (stack showcase), `page-work.php` (portfolio).
 
 **Stack Variants**: Some stacks support a `component_type` ACF field that switches between color/layout variants. The template uses `if/elseif/else` blocks — each variant renders the same layout structure with different color classes and an optional CSS class for custom backgrounds (e.g., dark gradients). The Stack Guide (`class-stack-guide-data.php`) lists supported variants per stack and renders each automatically.
 
@@ -189,7 +192,7 @@ Bundled via esbuild in scripts.js:
 
 Loaded separately (NOT bundled):
 - **Splitting.js** - text animations (loaded via CDN in header.php)
-- **DrawSVGPlugin** / **ScrollSmoother** - GSAP premium plugins (`build/js/`, not in source)
+- **DrawSVGPlugin** / **ScrollSmoother** - GSAP premium plugins (vendored in `source/scripts/`, manually copied to `build/js/`, enqueued in functions.php)
 
 ## CSS Architecture
 

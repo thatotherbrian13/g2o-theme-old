@@ -85,7 +85,7 @@ if ($state) echo "<span class='region'>" . acf_esc_html($state) . " </span>";
 if ($zip_code) echo "<span class='postal-code'>" . acf_esc_html($zip_code) . "</span>";
 if ($map_url) echo "</a>";
 echo "</div>";
-if ($tel) echo "<div class='tel'><a href='tel:" . acf_esc_html($tel) . "'>" . acf_esc_html($tel) . "</a></div>";
+if ($tel) echo "<div class='tel'><a href='" . g2o_tel_href( $tel ) . "'>" . acf_esc_html($tel) . "</a></div>";
 echo "</div>";
 echo "</div>";
 echo "</div>";
@@ -120,7 +120,7 @@ if ($state) echo "<span class='region'>" . acf_esc_html($state) . " </span>";
 if ($zip_code) echo "<span class='postal-code'>" . acf_esc_html($zip_code) . "</span>";
 if ($map_url) echo "</a>";
 echo "</div>";
-if ($tel) echo "<div class='tel'><a href='tel:" . acf_esc_html($tel) . "'>" . acf_esc_html($tel) . "</a></div>";
+if ($tel) echo "<div class='tel'><a href='" . g2o_tel_href( $tel ) . "'>" . acf_esc_html($tel) . "</a></div>";
 echo "</div>";
 echo "</div>";
 
