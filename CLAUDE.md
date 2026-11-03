@@ -90,6 +90,11 @@ SOCK="$HOME/Library/Application Support/Local/run/baGT-EtbC/mysql/mysqld.sock"
 
 This emits a harmless "Constant DB_HOST already defined" warning. Direct MySQL access: same socket, user `root`, password `root`, database `local`. Updating existing ACF values via `wp post meta update` is safe; **adding** flexible-content rows via DB requires the serialized layout list plus `_`-prefixed field-key companion rows — error-prone, prefer the WP admin editor for structural changes.
 
+**Content gotchas when scripting changes:**
+- **Yoast**: changing `_yoast_wpseo_*` meta or post status via wp-cli doesn't update the `wp_yoast_indexable` table, so the page keeps its old robots tag and sitemap entry. Rebuild with `YoastSEO()->classes->get(\Yoast\WP\SEO\Builders\Indexable_Builder::class)->build_for_id_and_type($id, 'post', $existing)->save()`, then curl the page for `<meta name='robots'>`.
+- **Redirects** live in the Redirection plugin (`wp_redirection_items`, group 1, plain `url` match; create with `Red_Item::create()`). Renamed posts also get WordPress's own `_wp_old_slug` redirects, which can point retired URLs at the wrong page; delete the postmeta row to stop one.
+- **Database pushes**: a Local push with the database replaces production's DB, including any Gravity Forms entries or job applications submitted since the last pull. Check those in production WP Admin first. Content fixes (redirects, Yoast, ACF) need the DB pushed; theme code needs only files.
+
 ## Theme Architecture
 
 ```
