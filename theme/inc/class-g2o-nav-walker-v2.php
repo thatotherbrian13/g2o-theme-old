@@ -21,7 +21,7 @@ if (!class_exists('G2O_Nav_Walker_V2')) {
 		 */
 		public function start_lvl(&$output, $depth = 0, $args = null) {
 			$indent = str_repeat("\t", $depth);
-			$output .= "\n{$indent}<ul class=\"nav__submenu\" role=\"menu\">\n";
+			$output .= "\n{$indent}<ul class=\"nav__submenu\">\n";
 		}
 
 		/**
@@ -87,10 +87,7 @@ if (!class_exists('G2O_Nav_Walker_V2')) {
 			$id_attr = apply_filters('nav_menu_item_id', $item_id, $item, $args);
 			$id_attr = $id_attr ? ' id="' . esc_attr($id_attr) . '"' : '';
 
-			// Menu item role
-			$role = ($depth === 0) ? 'none' : 'menuitem';
-
-			$output .= $indent . '<li' . $id_attr . $class_names . ' role="' . $role . '">';
+			$output .= $indent . '<li' . $id_attr . $class_names . '>';
 
 			// Link attributes
 			$attributes = !empty($item->attr_title) ? ' title="' . esc_attr($item->attr_title) . '"' : '';
@@ -113,7 +110,7 @@ if (!class_exists('G2O_Nav_Walker_V2')) {
 				$aria_attrs .= ' aria-current="page"';
 			}
 			if ($has_children) {
-				$aria_attrs .= ' aria-expanded="false" aria-haspopup="menu"';
+				$aria_attrs .= ' aria-expanded="false"';
 				if ($dropdown_id) {
 					$aria_attrs .= ' aria-controls="' . esc_attr($dropdown_id) . '"';
 				}
@@ -160,7 +157,7 @@ if (!class_exists('G2O_Nav_Walker_V2')) {
 
 			// Start dropdown container
 			if ($has_children && $dropdown_id) {
-				$output .= '<div id="' . esc_attr($dropdown_id) . '" class="nav__dropdown" data-nav="dropdown" role="menu" aria-hidden="true">';
+				$output .= '<div id="' . esc_attr($dropdown_id) . '" class="nav__dropdown" data-nav="dropdown" aria-hidden="true">';
 			}
 		}
 

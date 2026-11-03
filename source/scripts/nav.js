@@ -51,6 +51,7 @@ class NavigationController {
     this._boundHandleDropdownHover = this.handleDropdownHover.bind(this);
     this._boundHandleDropdownLeave = this.handleDropdownLeave.bind(this);
     this._boundHandleDropdownKeydown = this.handleDropdownKeydown.bind(this);
+    this._boundHandleDropdownFocusOut = this.handleDropdownFocusOut.bind(this);
     this._boundHandleMobileAccordionClick = this.handleMobileAccordionClick.bind(this);
     this._boundHandleGlobalKeydown = this.handleGlobalKeydown.bind(this);
     this._boundHandleOutsideClick = this.handleOutsideClick.bind(this);
@@ -64,7 +65,6 @@ class NavigationController {
   init() {
     this.bindEvents();
     this.setupIntersectionObserver();
-    this.setupKeyboardNavigation();
     this.handleMediaQueryChange();
 
     // Handle reduced motion preference
@@ -100,6 +100,7 @@ class NavigationController {
       dropdown.addEventListener('mouseenter', this._boundHandleDropdownHover);
       dropdown.addEventListener('mouseleave', this._boundHandleDropdownLeave);
       dropdown.addEventListener('keydown', this._boundHandleDropdownKeydown);
+      dropdown.parentElement?.addEventListener('focusout', this._boundHandleDropdownFocusOut);
     });
 
     // Mobile accordion triggers
@@ -132,15 +133,6 @@ class NavigationController {
     );
 
     this.scrollObserver.observe(this.sentinel);
-  }
-
-  setupKeyboardNavigation() {
-    // Create roving tabindex for menu items
-    const menuItems = this.nav.querySelectorAll('[role="menuitem"], [role="menubar"] > li > a, [role="menubar"] > li > button');
-    
-    menuItems.forEach((item, index) => {
-      item.setAttribute('tabindex', index === 0 ? '0' : '-1');
-    });
   }
 
   // =============================================================================
@@ -226,6 +218,10 @@ class NavigationController {
   // =============================================================================
 
   handleMobileAccordionClick(event) {
+    // Desktop buttons carry this listener too; let handleDropdownClick own desktop,
+    // otherwise the two handlers toggle the same dropdown open and straight back shut.
+    if (this.mediaQuery.matches) return;
+
     event.preventDefault();
     event.stopPropagation();
 
@@ -295,8 +291,14 @@ class NavigationController {
   handleDropdownKeydown(event) {
     const { key } = event;
     
-    if (key === 'Escape') {
+    // Desktop: Escape closes the open dropdown and returns focus to its button.
+    // Mobile: let Escape bubble to the global handler, which closes the panel.
+    if (key === 'Escape' && this.mediaQuery.matches) {
+      const trigger = event.target
+        .closest('.nav__item--has-dropdown')
+        ?.querySelector('[data-nav-trigger="dropdown"]');
       this.closeAllDropdowns();
+      trigger?.focus();
       event.stopPropagation();
       return;
     }
@@ -304,6 +306,21 @@ class NavigationController {
     // Arrow key navigation
     if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(key)) {
       this.handleArrowKeyNavigation(event);
+    }
+  }
+
+  // Disclosure pattern: close a desktop dropdown once keyboard focus leaves it.
+  handleDropdownFocusOut(event) {
+    if (!this.mediaQuery.matches) return;
+
+    const item = event.currentTarget;
+    // relatedTarget is null when a mouse click blurs the trigger; only react
+    // when focus actually moves to another element outside this item.
+    if (!event.relatedTarget || item.contains(event.relatedTarget)) return;
+
+    const dropdown = item.querySelector('[data-nav="dropdown"]');
+    if (dropdown && dropdown.getAttribute('aria-hidden') === 'false') {
+      this.closeDropdown(dropdown);
     }
   }
 
@@ -432,7 +449,7 @@ class NavigationController {
 
   handleMenuBarArrowKeys(event) {
     const { key, target } = event;
-    const menuItems = Array.from(this.nav.querySelectorAll('[role="menubar"] > li > a, [role="menubar"] > li > button'));
+    const menuItems = Array.from(this.nav.querySelectorAll('[data-nav="menu"] > li > .nav__link'));
     const currentIndex = menuItems.indexOf(target);
     
     if (currentIndex === -1) return;
@@ -452,7 +469,7 @@ class NavigationController {
         if (dropdown) {
           event.preventDefault();
           this.openDropdown(dropdown, target);
-          const firstMenuItem = dropdown.querySelector('[role="menuitem"]');
+          const firstMenuItem = dropdown.querySelector('.nav__link');
           firstMenuItem?.focus();
         }
         return;
@@ -467,8 +484,6 @@ class NavigationController {
     }
     
     event.preventDefault();
-    menuItems[currentIndex].setAttribute('tabindex', '-1');
-    menuItems[nextIndex].setAttribute('tabindex', '0');
     menuItems[nextIndex].focus();
   }
 
@@ -477,7 +492,7 @@ class NavigationController {
     const dropdown = target.closest('[data-nav="dropdown"]');
     if (!dropdown) return;
     
-    const menuItems = Array.from(dropdown.querySelectorAll('[role="menuitem"]'));
+    const menuItems = Array.from(dropdown.querySelectorAll('.nav__link'));
     const currentIndex = menuItems.indexOf(target);
     
     if (currentIndex === -1) return;
@@ -692,6 +707,7 @@ class NavigationController {
       dropdown.removeEventListener('mouseenter', this._boundHandleDropdownHover);
       dropdown.removeEventListener('mouseleave', this._boundHandleDropdownLeave);
       dropdown.removeEventListener('keydown', this._boundHandleDropdownKeydown);
+      dropdown.parentElement?.removeEventListener('focusout', this._boundHandleDropdownFocusOut);
     });
 
     // Remove mobile accordion listeners

@@ -122,6 +122,8 @@ app/public/wp-content/themes/g2o/
 
 **Asset Loading**: Uses `filemtime()` for cache busting in functions.php.
 
+**Analytics events**: GTM (`GTM-T8H9RVD4`) is loaded in `header.php`. `theme/inc/analytics-events.php` pushes `form_submit` (Gravity Forms via `gform_confirmation`, HubSpot via its postMessage/window events), `file_download` (Gravity Forms confirmations that redirect to a PDF are turned into a short message + push + JS redirect) and `job_application` (job page with `?application_success=1`) to the dataLayer. The Gravity Forms Google Analytics add-on separately pushes its own older events for forms 2, 6, 8, 9.
+
 **Custom Page Templates**: `template-changemakers.php` (conference page), `template-changemakers-survey.php` (conference survey), `page-brand-guide.php` (component catalog), `template-stack-guide.php` (stack showcase), `page-work.php` (portfolio).
 
 **Stack Variants**: Some stacks support a `component_type` ACF field that switches between color/layout variants. The template uses `if/elseif/else` blocks — each variant renders the same layout structure with different color classes and an optional CSS class for custom backgrounds (e.g., dark gradients). The Stack Guide (`class-stack-guide-data.php`) lists supported variants per stack and renders each automatically.
@@ -170,11 +172,11 @@ define('G2O_NAV_VERSION_OVERRIDE', 'v2');
 
 ### Navigation Behavior
 
-**Desktop**: Hover-based dropdowns (160ms open delay, 120ms close). Clicking parent items is prevented (they're containers, not pages). Keyboard navigation via arrow keys.
+**Desktop**: Hover-based dropdowns (160ms open delay, 120ms close). Parent items are `<button>`s (containers, not pages): click, Enter or Space toggles the dropdown; Escape closes it and returns focus to the button; Tabbing out of an open dropdown closes it. Arrow keys also move between items.
 
 **Mobile**: Full-screen hamburger menu with accordion submenus. Click toggles open/close. Only one section open at a time.
 
-**Accessibility**: WCAG 2.2 AA compliant. ARIA roles (`menubar`, `menu`, `menuitem`), keyboard navigation, focus trapping in mobile menu.
+**Accessibility**: Disclosure navigation pattern: plain `nav > ul > li` with `button[aria-expanded][aria-controls]` triggers. **Don't add `menubar`/`menu`/`menuitem` roles** (they failed axe `aria-required-children` sitewide; removed 2026-11). No roving tabindex: every link is in the Tab order. Focus is trapped in the mobile menu. Desktop buttons also carry `data-mobile-accordion`, so the accordion click handler must return early at desktop widths.
 
 ### State Management
 - Dual tracking with both `aria-expanded` and `data-expanded` attributes
