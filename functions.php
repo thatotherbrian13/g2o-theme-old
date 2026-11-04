@@ -308,7 +308,7 @@ require get_template_directory() . '/theme/inc/acf-changemakers-admin-styles.php
 
 require get_template_directory() . '/theme/inc/acf-functions.php';
 
-// GA4 conversion events (form_submit, file_download, job_application) for GTM.
+// g2o_conversion dataLayer events for GTM (forms, gated downloads, job applications).
 require get_template_directory() . '/theme/inc/analytics-events.php';
 
 if (function_exists('acf_add_options_page')) {
