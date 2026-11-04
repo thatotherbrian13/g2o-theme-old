@@ -95,6 +95,12 @@ This emits a harmless "Constant DB_HOST already defined" warning. Direct MySQL a
 - **Redirects** live in the Redirection plugin (`wp_redirection_items`, group 1, plain `url` match; create with `Red_Item::create()`). Renamed posts also get WordPress's own `_wp_old_slug` redirects, which can point retired URLs at the wrong page; delete the postmeta row to stop one.
 - **Database pushes**: a Local push with the database replaces production's DB, including any Gravity Forms entries or job applications submitted since the last pull. Check those in production WP Admin first. Content fixes (redirects, Yoast, ACF) need the DB pushed; theme code needs only files.
 
+**Open items (as of 2026-11-03)** — not done, left for the site owner or a later session:
+- `_wp_old_slug` redirects still send `consultant-data-scientist` to the Senior Director listing and `consultant-business-intelligence-specialist` to Sr. Project Manager (post 1800). Delete those postmeta rows and add Redirection entries if they should go elsewhere.
+- Job applications submitted before 2026-11-03 were all filed under job 1798 (Sr. Project Manager) because of copy-pasted `[job_apply]` IDs; they need re-sorting by hand in WP Admin.
+- The new GTM container's conversion tags haven't had a real end-to-end production test (Contact form and one HubSpot service form with GTM Preview).
+- Color contrast and image-only card links (accessibility audit) are deferred to the site redesign.
+
 ## Theme Architecture
 
 ```
